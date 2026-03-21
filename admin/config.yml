@@ -7,9 +7,9 @@ media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
 locale: "pt"
-
-site_url: /
-display_url: /
+# Site configuration
+site_url: https://cipritraveltours.pages.dev
+display_url: https://cipritraveltours.pages.dev
 logo_url: /assets/images/logo.png
 
 collections:
