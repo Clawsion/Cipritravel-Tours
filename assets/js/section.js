@@ -445,11 +445,12 @@ function renderCTA(s) {
 function renderFormulario(s) {
   const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
   
+  // Placeholders baseados no idioma atual
   const namePlaceholder = SITE.lang === 'en' ? 'Your name...' : 'O seu nome...';
-  const msgPlaceholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
   const emailPlaceholder = SITE.lang === 'en' ? 'Your email...' : 'O seu email...';
+  const msgPlaceholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
   
-  return  `
+  return `
     <section id="${s.id || 'contactos'}" style="padding:80px 20px;background:${bgClass}">
       <div style="max-width:1100px;margin:0 auto">
         <div style="text-align:center;margin-bottom:48px">
@@ -460,17 +461,18 @@ function renderFormulario(s) {
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
           <div class="card" style="padding:32px">
             <div style="margin-bottom:20px">
-              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Nome Completo" data-en="Full Name">${ts('Nome Completo')}</label>
+              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Nome Completo" data-en="Full Name">${SITE.lang === 'en' ? 'Full Name' : 'Nome Completo'}</label>
               <input type="text" id="contact-name" class="translatable-input" data-placeholder-pt="O seu nome..." data-placeholder-en="Your name..." placeholder="${namePlaceholder}" style="width:100%;padding:10px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;box-sizing:border-box">
             </div>
             <div style="margin-bottom:20px">
-              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px">Email</label>
+              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Email" data-en="Email">Email</label>
               <input type="email" id="contact-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="width:100%;padding:10px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;box-sizing:border-box">
+            </div>
             <div style="margin-bottom:20px">
-              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Mensagem" data-en="Message">${ts('Mensagem')}</label>
+              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Mensagem" data-en="Message">${SITE.lang === 'en' ? 'Message' : 'Mensagem'}</label>
               <textarea id="contact-msg" rows="4" class="translatable-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}" style="width:100%;padding:10px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;resize:vertical;box-sizing:border-box"></textarea>
             </div>
-            <button class="btn-primary" style="width:100%" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${ts('Enviar Mensagem')}</button>
+            <button class="btn-primary" style="width:100%" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${SITE.lang === 'en' ? 'Send Message' : 'Enviar Mensagem'}</button>
             <p id="contact-success" style="margin-top:16px;color:#2d7a3a;font-weight:600;display:none;text-align:center"></p>
           </div>
           <div>
@@ -479,21 +481,21 @@ function renderFormulario(s) {
                 <div style="display:flex;align-items:center;gap:12px">
                   <div style="width:44px;height:44px;background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0">📞</div>
                   <div>
-                    <p style="font-weight:600;font-size:0.88rem" data-pt="Telefone" data-en="Phone">${ts('Telefone')}</p>
+                    <p style="font-weight:600;font-size:0.88rem" data-pt="Telefone" data-en="Phone">${SITE.lang === 'en' ? 'Phone' : 'Telefone'}</p>
                     <a href="tel:${s.infoContacto?.telefone}" style="color:#2d7a3a;font-weight:600">${s.infoContacto?.telefone}</a>
                   </div>
                 </div>
                 <div style="display:flex;align-items:center;gap:12px">
                   <div style="width:44px;height:44px;background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0">✉️</div>
                   <div>
-                    <p style="font-weight:600;font-size:0.88rem">Email</p>
+                    <p style="font-weight:600;font-size:0.88rem" data-pt="Email" data-en="Email">Email</p>
                     <a href="mailto:${s.infoContacto?.email}" style="color:#2d7a3a;font-weight:600">${s.infoContacto?.email}</a>
                   </div>
                 </div>
                 <div style="display:flex;align-items:center;gap:12px">
                   <div style="width:44px;height:44px;background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0">📍</div>
                   <div>
-                    <p style="font-weight:600;font-size:0.88rem" data-pt="Morada" data-en="Address">${ts('Morada')}</p>
+                    <p style="font-weight:600;font-size:0.88rem" data-pt="Morada" data-en="Address">${SITE.lang === 'en' ? 'Address' : 'Morada'}</p>
                     <p style="color:var(--muted);font-size:0.88rem">${s.infoContacto?.morada}</p>
                   </div>
                 </div>
