@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: clawsion/Cipritravel-Tours
   branch: main
 
 media_folder: "assets/images/uploads"
