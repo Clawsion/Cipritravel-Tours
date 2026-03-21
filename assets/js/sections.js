@@ -245,24 +245,24 @@ function renderBanner(s) {
 function renderTours(s) {
   const tours = s.excursoes?.filter(e => e.ativo !== false) || [];
   
-  const toursHTML = tours.map(t => `
+  const toursHTML = tours.map(tour => `
     <div class="card exc-card">
-      <img src="${t.imagem}" alt="${t.nome}" class="tour-card-img">
+      <img src="${tour.imagem}" alt="${tour.nome}" class="tour-card-img">
       <div class="exc-card-body">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-          <div class="exc-badge" style="background:${t.corBadge === 'verde' ? 'linear-gradient(135deg,#2d7a3a,#1e5e28)' : 'linear-gradient(135deg,#f97316,#ea580c)'}">
-            <div style="font-size:1.1rem;font-weight:700;line-height:1">${t.data?.dia || ''}</div>
-            <div style="font-size:0.65rem;font-weight:600">${t.data?.mes || ''}</div>
+          <div class="exc-badge" style="background:${tour.corBadge === 'verde' ? 'linear-gradient(135deg,#2d7a3a,#1e5e28)' : 'linear-gradient(135deg,#f97316,#ea580c)'}">
+            <div style="font-size:1.1rem;font-weight:700;line-height:1">${tour.data?.dia || ''}</div>
+            <div style="font-size:0.65rem;font-weight:600">${tour.data?.mes || ''}</div>
           </div>
           <div style="text-align:left">
-            <h3 style="font-weight:700;font-size:1rem" data-pt="${t.nome}" data-en="${t.nomeEn || t.nome}">${t(t.nome, t.nomeEn)}</h3>
-            <p style="color:var(--muted);font-size:0.78rem">🕐 <span data-pt="${t.duracao}" data-en="${t.duracaoEn || t.duracao}">${t(t.duracao, t.duracaoEn)}</span></p>
+            <h3 style="font-weight:700;font-size:1rem" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${t(tour.nome, tour.nomeEn)}</h3>
+            <p style="color:var(--muted);font-size:0.78rem">🕐 <span data-pt="${tour.duracao}" data-en="${tour.duracaoEn || tour.duracao}">${t(tour.duracao, tour.duracaoEn)}</span></p>
           </div>
         </div>
-        <p style="color:var(--muted);font-size:0.82rem" data-pt="${t.descricao}" data-en="${t.descricaoEn || t.descricao}">${t(t.descricao, t.descricaoEn)}</p>
+        <p style="color:var(--muted);font-size:0.82rem" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${t(tour.descricao, tour.descricaoEn)}</p>
         <div class="exc-card-btn">
-          <span style="font-weight:700;color:#2d7a3a;font-size:1rem">${t.preco}€ <span data-pt="p/pessoa" data-en="per person">/${ts('pessoa')}</span></span>
-          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="openReservaModal('${t.nome}')" data-pt="Reservar" data-en="Book">${ts('Reservar')}</button>
+          <span style="font-weight:700;color:#2d7a3a;font-size:1rem">${tour.preco}€ <span data-pt="p/pessoa" data-en="per person">/${ts('pessoa')}</span></span>
+          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="openReservaModal('${tour.nome}')" data-pt="Reservar" data-en="Book">${ts('Reservar')}</button>
         </div>
       </div>
     </div>
