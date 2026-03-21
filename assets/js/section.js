@@ -791,17 +791,14 @@ function setLang(lang) {
     el.textContent = lang === 'en' ? en : pt;
   });
   
-  // Atualizar placeholders dos inputs traduzíveis
-  document.querySelectorAll('.translatable-input').forEach(el => {
-    const pt = el.dataset.placeholderPt;
-    const en = el.dataset.placeholderEn;
-    if (pt && en) {
-      el.placeholder = lang === 'en' ? en : pt;
-    }
-  });
+  // Atualizar placeholders do formulário de contato diretamente
+  const nameInput = document.getElementById('contact-name');
+  const emailInput = document.getElementById('contact-email');
+  const msgInput = document.getElementById('contact-msg');
   
-  // Atualizar placeholders do formulário de contato
-  updateFormPlaceholders();
+  if (nameInput) nameInput.placeholder = lang === 'en' ? 'Your name...' : 'O seu nome...';
+  if (emailInput) emailInput.placeholder = lang === 'en' ? 'Your email...' : 'O seu email...';
+  if (msgInput) msgInput.placeholder = lang === 'en' ? 'Your message...' : 'A sua mensagem...';
   
   // Atualizar elementos markdown traduzíveis
   document.querySelectorAll('.translatable-markdown').forEach(el => {
