@@ -647,7 +647,7 @@ function renderModalGenerico(m) {
             <h4 style="font-weight:700;margin:16px 0 12px" data-pt="Incluído no pacote:" data-en="Included in the package:">${ts('Incluído no pacote:')}</h4>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px">${incluidosHTML}</div>
           ` : ''}
-          ${m.textoBotao ? `<button class="btn-primary" style="margin-top:20px" onclick="closeModal('${m.id}');openReservaModal('${m.titulo}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>` : ''}
+           ${m.textoBotao ? `<button class="btn-primary" style="margin-top:20px" onclick="closeModal('${m.id}');openReservaModal('${m.reservaTour || m.titulo}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>` : ''}
         </div>
       </div>
     </div>
