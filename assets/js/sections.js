@@ -365,9 +365,9 @@ function renderTextoImagem(s) {
         ` : `<div>`}
           <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
           <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:20px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-          <div style="color:var(--muted);line-height:1.8;margin-bottom:16px">${renderMarkdown(t(s.texto1, s.texto1En))}</div>
+          <div class="translatable-markdown" data-pt="${s.texto1}" data-en="${s.texto1En || s.texto1}" style="color:var(--muted);line-height:1.8;margin-bottom:16px">${renderMarkdown(t(s.texto1, s.texto1En))}</div>
           <p class="font-playfair" style="color:#f97316;font-style:italic;font-size:1.1rem;border-left:4px solid #f97316;padding-left:16px;margin-bottom:16px" data-pt="${s.citacao}" data-en="${s.citacaoEn || s.citacao}">${t(s.citacao, s.citacaoEn)}</p>
-          <div style="color:var(--muted);line-height:1.8;margin-bottom:28px">${renderMarkdown(t(s.texto2, s.texto2En))}</div>
+          <div class="translatable-markdown" data-pt="${s.texto2}" data-en="${s.texto2En || s.texto2}" style="color:var(--muted);line-height:1.8;margin-bottom:28px">${renderMarkdown(t(s.texto2, s.texto2En))}</div>
           ${s.textoBotao ? `<button class="btn-primary" onclick="scrollToSection('${s.ancoraBotao?.replace('#','') || 'contactos'}')" data-pt="${s.textoBotao}" data-en="${s.textoBotaoEn || s.textoBotao}">${t(s.textoBotao, s.textoBotaoEn)}</button>` : ''}
         </div>
         ${imgFirst ? '' : `<img src="${s.imagem}" alt="${s.titulo}" style="width:100%;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.15)">`}
@@ -752,16 +752,19 @@ function setLang(lang) {
     el.textContent = lang === 'en' ? en : pt;
   });
   
+  // Atualizar elementos markdown traduzíveis
+  document.querySelectorAll('.translatable-markdown').forEach(el => {
+    const pt = el.dataset.pt;
+    const en = el.dataset.en || pt;
+    el.innerHTML = renderMarkdown(lang === 'en' ? en : pt);
+  });
+  
   // Re-renderizar modais para atualizar o conteúdo
   renderModals();
   
   // Atualizar botões de idioma
   document.getElementById('btn-pt')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en')?.classList.toggle('active', lang === 'en');
-}
-
-function applyLang(lang) {
-  setLang(lang);
 }
 
 function toggleTheme() {
