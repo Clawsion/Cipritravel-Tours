@@ -1,0 +1,26 @@
+{
+  "nomeSite": "Cipritravel Tours",
+  "urlSite": "https://cipritravel.pt",
+  "idiomaDefault": "pt",
+  "idiomas": ["pt", "en"],
+  "seo": {
+    "titulo": "Cipritravel Tours - Excursões e Passeios em Portugal",
+    "tituloEn": "Cipritravel Tours - Tours and Trips in Portugal",
+    "descricao": "Descubra Portugal com a Cipritravel Tours. Excursões, passeios e viagens organizadas com segurança, conforto e preços justos.",
+    "descricaoEn": "Discover Portugal with Cipritravel Tours. Organized tours, trips and travels with safety, comfort and fair prices.",
+    "keywords": "excursões portugal, tours, passeios, viagens organizadas, gerês, serra da estrela, cipritravel"
+  },
+  "analytics": {
+    "googleAnalytics": "",
+    "facebookPixel": ""
+  },
+  "formularios": {
+    "web3formsKey": "e1019a03-cf3e-42bd-bd53-9038f1f409b4"
+  },
+  "contacto": {
+    "telefone": "+351 218 271 105",
+    "email": "cipritravel@gmail.com",
+    "morada": "R. Francisco Miguel 64, 2835-123 Baixa da Banheira",
+    "whatsapp": "351929096672"
+  }
+}

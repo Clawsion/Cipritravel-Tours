@@ -1,0 +1,12 @@
+{
+  "logo": "https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png",
+  "itens": [
+    { "texto": "HOME", "textoEn": "HOME", "ancora": "#home", "ativo": true },
+    { "texto": "EXCURSÕES", "textoEn": "TOURS", "ancora": "#excursoes", "ativo": true },
+    { "texto": "BLOG", "textoEn": "BLOG", "ancora": "#blog", "ativo": true },
+    { "texto": "SUSTENTABILIDADE", "textoEn": "SUSTAINABILITY", "ancora": "#sustentabilidade", "ativo": true },
+    { "texto": "SOBRE NÓS", "textoEn": "ABOUT US", "ancora": "#sobre", "ativo": true },
+    { "texto": "PORQUÊ NÓS?", "textoEn": "WHY US?", "ancora": "#porque", "ativo": true },
+    { "texto": "CONTACTOS", "textoEn": "CONTACTS", "ancora": "#contactos", "ativo": true }
+  ]
+}

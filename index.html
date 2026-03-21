@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cipritravel Tours - Excursões e Passeios em Portugal</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0f9ff;--card:#ffffff;--text:#1e3a5f;--muted:#64748b;--border:#bae6fd;--accent:#2d7a3a;--nav-bg:rgba(240,249,255,0.97)}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s}
+body.dark{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--border:#334155;--accent:#4ade80;--nav-bg:rgba(15,23,42,0.97)}
+*{scroll-behavior:smooth}
+.font-playfair{font-family:'Playfair Display',serif}
+nav{background:var(--nav-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav-pill{display:inline-flex;align-items:center;padding:8px 18px;border-radius:999px;font-size:0.85rem;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--text);transition:all .2s;text-transform:uppercase;white-space:nowrap;text-decoration:none}
+.nav-pill:hover,.nav-pill.active{background:linear-gradient(135deg,#f97316,#ea580c);border-color:#f97316;color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(249,115,22,0.3)}
+.lang-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:999px;font-size:0.75rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--text);transition:all .2s}
+.lang-btn.active,.lang-btn:hover{background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-color:#2d7a3a;color:#fff}
+.theme-pill{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:1rem;transition:all .2s}
+.theme-pill:hover{background:linear-gradient(135deg,#f97316,#ea580c);border-color:#f97316;color:#fff}
+.btn-primary{background:linear-gradient(135deg,#2d7a3a,#1e5e28);color:#fff;padding:12px 28px;border-radius:999px;font-weight:600;cursor:pointer;border:none;transition:all .2s;display:inline-block}
+.btn-primary:hover{background:linear-gradient(135deg,#f97316,#ea580c);transform:translateY(-2px);box-shadow:0 8px 20px rgba(249,115,22,0.3)}
+.btn-outline{background:transparent;color:#fff;padding:12px 28px;border-radius:999px;font-weight:600;cursor:pointer;border:2px solid #fff;transition:all .2s;display:inline-block}
+.btn-outline:hover{background:linear-gradient(135deg,#f97316,#ea580c);border-color:#f97316;transform:translateY(-2px);box-shadow:0 8px 20px rgba(249,115,22,0.3)}
+.section-tag{display:inline-block;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:6px 18px;border-radius:999px;font-size:0.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.section-tag.green{background:linear-gradient(135deg,#2d7a3a,#1e5e28)}
+.section-tag.red{background:linear-gradient(135deg,#dc2626,#b91c1c)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.12)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal-box{background:var(--card);border-radius:20px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.modal-box.wide{max-width:750px}
+.hero-section{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,23,42,0.7),rgba(30,58,95,0.5));z-index:1}
+.hero-content{position:relative;z-index:2;text-align:center;color:#fff;padding:20px}
+.tour-card-img{width:100%;height:180px;object-fit:cover}
+.blog-img{width:100%;height:200px;object-fit:cover}
+.whatsapp-btn{position:fixed;bottom:90px;right:24px;z-index:999;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);cursor:pointer;transition:all .2s}
+.whatsapp-btn:hover{transform:scale(1.1);box-shadow:0 6px 25px rgba(37,211,102,0.6)}
+.back-top{position:fixed;bottom:24px;right:24px;z-index:999;width:44px;height:44px;background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 15px rgba(45,122,58,0.4);color:#fff;font-size:1.2rem;transition:all .2s}
+.back-top:hover{background:linear-gradient(135deg,#f97316,#ea580c);transform:scale(1.1)}
+.pq-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center;transition:all .3s}
+.pq-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.1);border-color:#2d7a3a}
+.sust-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s}
+.sust-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.12)}
+.exc-badge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:72px;max-width:72px;min-height:72px;padding:0.5rem 0.75rem;border-radius:50%;color:#fff;line-height:1.2}
+section{scroll-margin-top:200px}
+.exc-card{display:flex;flex-direction:column;height:100%}
+.exc-card .tour-card-img{height:200px;width:100%;object-fit:cover;flex-shrink:0}
+.exc-card-body{flex:1;display:flex;flex-direction:column;padding:20px}
+.exc-card-btn{margin-top:auto;padding-top:16px;display:flex;align-items:center;justify-content:space-between}
+.loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.3s}
+.loading-screen.hidden{opacity:0;pointer-events:none}
+.spinner{width:50px;height:50px;border:4px solid var(--border);border-top-color:#2d7a3a;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="loading-screen" id="loading-screen">
+  <div class="spinner"></div>
+  <h2 class="font-playfair" style="margin-top:20px;font-size:1.5rem">Cipritravel Tours</h2>
+  <p style="color:var(--muted);margin-top:8px">A carregar...</p>
+</div>
+<nav style="position:sticky;top:0;z-index:100">
+  <div style="max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;min-height:110px">
+    <div style="display:flex;align-items:center">
+      <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png" alt="Cipritravel Tours" style="height:170px;max-width:260px;object-fit:contain;cursor:pointer;margin-top:-25px;margin-bottom:-25px" onclick="scrollToSection('home')">
+    </div>
+    <div id="menu-container" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <a href="#home" class="nav-pill" id="pill-home"><span>HOME</span></a>
+      <a href="#excursoes" class="nav-pill" id="pill-excursoes"><span>EXCURSÕES</span></a>
+      <a href="#blog" class="nav-pill" id="pill-blog"><span>BLOG</span></a>
+      <a href="#sustentabilidade" class="nav-pill" id="pill-sust"><span>SUSTENTABILIDADE</span></a>
+      <a href="#sobre" class="nav-pill" id="pill-sobre"><span>SOBRE NÓS</span></a>
+      <a href="#porque" class="nav-pill" id="pill-porque"><span>PORQUÊ NÓS?</span></a>
+      <a href="#contactos" class="nav-pill" id="pill-contactos"><span>CONTACTOS</span></a>
+      <div style="display:flex;align-items:center;gap:4px;margin-left:8px;border-left:1px solid var(--border);padding-left:8px">
+        <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">🇵🇹 PT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
+        <button class="theme-pill" id="theme-toggle" onclick="toggleTheme()">🌙</button>
+      </div>
+    </div>
+  </div>
+</nav>
+<main id="main-content"></main>
+<footer></footer>
+<div id="modais-container"></div>
+<script src="assets/js/sections.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loading-screen').classList.add('hidden');
+    }, 500);
+  });
+</script>
+</body>
+</html>

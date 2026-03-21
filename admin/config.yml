@@ -1,0 +1,380 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+locale: "pt"
+
+site_url: /
+display_url: /
+logo_url: /assets/images/logo.png
+
+collections:
+  - name: "paginas"
+    label: "📄 Páginas do Site"
+    files:
+      - name: "homepage"
+        label: "🏠 Página Principal"
+        file: "data/homepage.json"
+        description: "Gerir todas as secções da página principal"
+        fields:
+          - name: "secoes"
+            label: "Secções da Página"
+            label_singular: "Secção"
+            widget: "list"
+            summary: "{{fields.ordem}}. {{fields.type}}"
+            types:
+              - name: "hero"
+                label: "🦸 Hero / Banner Principal"
+                widget: "object"
+                summary: "Hero - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "hero" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 1, min: 1, max: 100 }
+                  - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "home" }
+                  - { name: "imagem", label: "🖼️ Imagem de Fundo", widget: "image" }
+                  - { name: "bannerTexto", label: "🏷️ Texto do Banner", widget: "string" }
+                  - { name: "titulo", label: "📌 Título Principal (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título Principal (EN)", widget: "string", required: false }
+                  - { name: "tituloDestaque", label: "✨ Texto em Destaque (PT)", widget: "string" }
+                  - { name: "tituloDestaqueEn", label: "✨ Texto em Destaque (EN)", widget: "string", required: false }
+                  - { name: "subtitulo", label: "📝 Subtítulo (PT)", widget: "string" }
+                  - { name: "subtituloEn", label: "📝 Subtítulo (EN)", widget: "string", required: false }
+                  - name: "botoes"
+                    label: "🔘 Botões"
+                    widget: "object"
+                    fields:
+                      - { name: "primario", label: "Texto Botão 1 (PT)", widget: "string" }
+                      - { name: "primarioEn", label: "Texto Botão 1 (EN)", widget: "string", required: false }
+                      - { name: "secundario", label: "Texto Botão 2 (PT)", widget: "string" }
+                      - { name: "secundarioEn", label: "Texto Botão 2 (EN)", widget: "string", required: false }
+
+              - name: "banner"
+                label: "🎯 Banner Promocional"
+                widget: "object"
+                summary: "Banner - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "banner" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 2, min: 1, max: 100 }
+                  - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
+                  - { name: "tag", label: "🏷️ Etiqueta (PT)", widget: "string", default: "Destaque" }
+                  - { name: "tagEn", label: "🏷️ Etiqueta (EN)", widget: "string", required: false }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - { name: "subtitulo", label: "📝 Subtítulo (PT)", widget: "string" }
+                  - { name: "subtituloEn", label: "📝 Subtítulo (EN)", widget: "string", required: false }
+                  - { name: "textoBotao", label: "🔘 Texto do Botão (PT)", widget: "string", default: "Saber Mais" }
+                  - { name: "textoBotaoEn", label: "🔘 Texto do Botão (EN)", widget: "string", required: false }
+                  - { name: "modalId", label: "🆔 ID do Modal", widget: "string" }
+
+              - name: "tours"
+                label: "🚌 Secção de Excursões"
+                widget: "object"
+                summary: "Excursões - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "tours" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 3, min: 1, max: 100 }
+                  - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "excursoes" }
+                  - { name: "tag", label: "🏷️ Etiqueta (PT)", widget: "string", default: "Excursões" }
+                  - { name: "tagEn", label: "🏷️ Etiqueta (EN)", widget: "string", required: false }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
+                  - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
+                  - { name: "subtitulo", label: "📝 Subtítulo (PT)", widget: "string" }
+                  - { name: "subtituloEn", label: "📝 Subtítulo (EN)", widget: "string", required: false }
+                  - { name: "ano", label: "📅 Ano", widget: "string", default: "2026" }
+                  - name: "excursoes"
+                    label: "Lista de Excursões"
+                    widget: "list"
+                    label_singular: "Excursão"
+                    fields:
+                      - { name: "id", label: "🆔 ID", widget: "string" }
+                      - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                      - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
+                      - { name: "nome", label: "📌 Nome (PT)", widget: "string" }
+                      - { name: "nomeEn", label: "📌 Nome (EN)", widget: "string", required: false }
+                      - name: "data"
+                        label: "📅 Data"
+                        widget: "object"
+                        fields:
+                          - { name: "dia", label: "Dia", widget: "string" }
+                          - { name: "mes", label: "Mês", widget: "string" }
+                      - { name: "duracao", label: "⏱️ Duração (PT)", widget: "string" }
+                      - { name: "duracaoEn", label: "⏱️ Duração (EN)", widget: "string", required: false }
+                      - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
+                      - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
+                      - { name: "preco", label: "💰 Preço (EUR)", widget: "number" }
+                      - { name: "corBadge", label: "🎨 Cor do Badge", widget: "select", options: ["laranja", "verde"], default: "laranja" }
+
+              - name: "blog"
+                label: "📝 Secção de Blog"
+                widget: "object"
+                summary: "Blog - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "blog" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 4, min: 1, max: 100 }
+                  - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "blog" }
+                  - { name: "tag", label: "🏷️ Etiqueta (PT)", widget: "string", default: "Blog" }
+                  - { name: "tagEn", label: "🏷️ Etiqueta (EN)", widget: "string", required: false }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
+                  - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
+                  - name: "artigos"
+                    label: "Lista de Artigos"
+                    widget: "list"
+                    label_singular: "Artigo"
+                    fields:
+                      - { name: "id", label: "🆔 ID", widget: "string" }
+                      - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                      - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
+                      - { name: "categoria", label: "📁 Categoria", widget: "select", options: ["Natureza", "Montanha", "Aventura", "Gastronomia"] }
+                      - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                      - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                      - { name: "resumo", label: "📝 Resumo (PT)", widget: "text" }
+                      - { name: "resumoEn", label: "📝 Resumo (EN)", widget: "text", required: false }
+                      - { name: "data", label: "📅 Data", widget: "datetime" }
+                      - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown" }
+                      - { name: "conteudoEn", label: "📄 Conteúdo (EN)", widget: "markdown", required: false }
+              - name: "cards"
+                label: "🃏 Secção de Cards"
+                widget: "object"
+                summary: "Cards - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "cards" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 5, min: 1, max: 100 }
+                  - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "cards" }
+                  - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["branco", "cinza"], default: "branco" }
+                  - { name: "tag", label: "🏷️ Etiqueta (PT)", widget: "string" }
+                  - { name: "tagEn", label: "🏷️ Etiqueta (EN)", widget: "string", required: false }
+                  - { name: "tagCor", label: "🎨 Cor da Etiqueta", widget: "select", options: ["laranja", "verde", "vermelho"], default: "verde" }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
+                  - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
+                  - name: "itens"
+                    label: "Lista de Cards"
+                    widget: "list"
+                    label_singular: "Card"
+                    fields:
+                      - { name: "id", label: "🆔 ID", widget: "string" }
+                      - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                      - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
+                      - { name: "categoria", label: "📁 Categoria (PT)", widget: "string" }
+                      - { name: "categoriaEn", label: "📁 Categoria (EN)", widget: "string", required: false }
+                      - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                      - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                      - { name: "resumo", label: "📝 Resumo (PT)", widget: "text" }
+                      - { name: "resumoEn", label: "📝 Resumo (EN)", widget: "text", required: false }
+                      - { name: "data", label: "📅 Data", widget: "datetime" }
+                      - { name: "conteudo", label: "📄 Conteúdo Modal (PT)", widget: "markdown" }
+                      - { name: "conteudoEn", label: "📄 Conteúdo Modal (EN)", widget: "markdown", required: false }
+
+              - name: "texto-imagem"
+                label: "📖 Texto e Imagem"
+                widget: "object"
+                summary: "Texto+Img - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "texto-imagem" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 6, min: 1, max: 100 }
+                  - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "sobre" }
+                  - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["branco", "cinza"], default: "cinza" }
+                  - { name: "tag", label: "🏷️ Etiqueta (PT)", widget: "string" }
+                  - { name: "tagEn", label: "🏷️ Etiqueta (EN)", widget: "string", required: false }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - { name: "texto1", label: "📝 Texto Principal (PT)", widget: "markdown" }
+                  - { name: "texto1En", label: "📝 Texto Principal (EN)", widget: "markdown", required: false }
+                  - { name: "citacao", label: "💬 Citação (PT)", widget: "string" }
+                  - { name: "citacaoEn", label: "💬 Citação (EN)", widget: "string", required: false }
+                  - { name: "texto2", label: "📝 Texto Secundário (PT)", widget: "markdown" }
+                  - { name: "texto2En", label: "📝 Texto Secundário (EN)", widget: "markdown", required: false }
+                  - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
+                  - { name: "posicaoImagem", label: "📍 Posição da Imagem", widget: "select", options: ["esquerda", "direita"], default: "direita" }
+                  - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
+                  - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
+                  - { name: "ancoraBotao", label: "🔗 Link/Âncora do Botão", widget: "string", required: false }
+
+              - name: "features"
+                label: "⭐ Secção de Features"
+                widget: "object"
+                summary: "Features - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "features" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 7, min: 1, max: 100 }
+                  - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "features" }
+                  - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["branco", "cinza"], default: "branco" }
+                  - { name: "tag", label: "🏷️ Etiqueta (PT)", widget: "string" }
+                  - { name: "tagEn", label: "🏷️ Etiqueta (EN)", widget: "string", required: false }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - name: "itens"
+                    label: "Lista de Features"
+                    widget: "list"
+                    label_singular: "Feature"
+                    max: 10
+                    fields:
+                      - { name: "icone", label: "🎨 Ícone (emoji)", widget: "string" }
+                      - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                      - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                      - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
+                      - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
+
+              - name: "cta"
+                label: "📣 Call-to-Action"
+                widget: "object"
+                summary: "CTA - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "cta" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 8, min: 1, max: 100 }
+                  - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["verde", "laranja", "azul"], default: "verde" }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
+                  - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
+                  - { name: "tipo", label: "Tipo de CTA", widget: "select", options: ["newsletter", "botao", "ambos"], default: "newsletter" }
+                  - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
+                  - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
+                  - { name: "placeholder", label: "📝 Placeholder (PT)", widget: "string", required: false }
+                  - { name: "placeholderEn", label: "📝 Placeholder (EN)", widget: "string", required: false }
+
+              - name: "formulario"
+                label: "📬 Formulário de Contacto"
+                widget: "object"
+                summary: "Formulário - {{fields.titulo}}"
+                fields:
+                  - { name: "type", widget: "hidden", default: "formulario" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 9, min: 1, max: 100 }
+                  - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "contactos" }
+                  - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["branco", "cinza"], default: "cinza" }
+                  - { name: "tag", label: "🏷️ Etiqueta (PT)", widget: "string" }
+                  - { name: "tagEn", label: "🏷️ Etiqueta (EN)", widget: "string", required: false }
+                  - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+                  - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+                  - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
+                  - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
+                  - name: "infoContacto"
+                    label: "📞 Informações de Contacto"
+                    widget: "object"
+                    fields:
+                      - { name: "telefone", label: "📱 Telefone", widget: "string" }
+                      - { name: "email", label: "📧 Email", widget: "string" }
+                      - { name: "morada", label: "📍 Morada", widget: "text" }
+                  - { name: "mapaEmbed", label: "🗺️ URL do Mapa", widget: "text", required: false }
+                  - { name: "mostrarMapa", label: "🗺️ Mostrar Mapa", widget: "boolean", default: true }
+
+              - name: "spacer"
+                label: "📏 Espaçador"
+                widget: "object"
+                summary: "Espaçador - {{fields.altura}}px"
+                fields:
+                  - { name: "type", widget: "hidden", default: "spacer" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 10, min: 1, max: 100 }
+                  - { name: "altura", label: "📏 Altura (px)", widget: "number", default: 60, min: 0, max: 500 }
+                  - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["transparente", "cinza", "branco"], default: "transparente" }
+
+  - name: "navegacao"
+    label: "🧭 Navegação"
+    files:
+      - name: "menu"
+        label: "Menu Principal"
+        file: "data/menu.json"
+        fields:
+          - { name: "logo", label: "🖼️ Logo", widget: "image" }
+          - name: "itens"
+            label: "Itens do Menu"
+            widget: "list"
+            fields:
+              - { name: "texto", label: "📝 Texto (PT)", widget: "string" }
+              - { name: "textoEn", label: "📝 Texto (EN)", widget: "string", required: false }
+              - { name: "ancora", label: "🔗 Âncora/Link", widget: "string" }
+              - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+
+  - name: "footer"
+    label: "🔻 Rodapé"
+    file: "data/footer.json"
+    fields:
+      - { name: "logo", label: "🖼️ Logo", widget: "image" }
+      - { name: "descricao", label: "📝 Descrição (PT)", widget: "string" }
+      - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "string", required: false }
+      - { name: "copyright", label: "©️ Copyright", widget: "string" }
+      - name: "contactos"
+        label: "📞 Contactos"
+        widget: "object"
+        fields:
+          - { name: "telefone", label: "📱 Telefone", widget: "string" }
+          - { name: "email", label: "📧 Email", widget: "string" }
+          - { name: "morada", label: "📍 Morada", widget: "text" }
+      - name: "redesSociais"
+        label: "🌐 Redes Sociais"
+        widget: "list"
+        summary: "{{fields.nome}}"
+        fields:
+          - { name: "nome", label: "📱 Nome da Rede", widget: "string" }
+          - { name: "url", label: "🔗 URL do Perfil", widget: "string" }
+          - { name: "icone", label: "🎨 Código do Ícone", widget: "string" }
+          - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+      - { name: "whatsapp", label: "📱 Número WhatsApp", widget: "string" }
+      - { name: "whatsappMensagem", label: "💬 Mensagem WhatsApp (PT)", widget: "string" }
+
+  - name: "modais"
+    label: "🪟 Modais (Popups)"
+    file: "data/modais.json"
+    fields:
+      - name: "lista"
+        label: "Lista de Modais"
+        widget: "list"
+        label_singular: "Modal"
+        fields:
+          - { name: "id", label: "🆔 ID", widget: "string" }
+          - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+          - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+          - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+          - { name: "imagem", label: "🖼️ Imagem", widget: "image", required: false }
+          - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown" }
+          - { name: "conteudoEn", label: "📄 Conteúdo (EN)", widget: "markdown", required: false }
+          - name: "incluidos"
+            label: "✅ Itens Incluídos"
+            widget: "list"
+            required: false
+            field: { name: "item", label: "Item", widget: "string" }
+          - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
+          - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
+
+  - name: "configuracoes"
+    label: "⚙️ Configurações"
+    file: "data/config.json"
+    fields:
+      - { name: "nomeSite", label: "📌 Nome do Site", widget: "string" }
+      - { name: "urlSite", label: "🌐 URL do Site", widget: "string" }
+      - name: "seo"
+        label: "🔍 SEO"
+        widget: "object"
+        fields:
+          - { name: "titulo", label: "Título Padrão", widget: "string" }
+          - { name: "descricao", label: "Meta Descrição", widget: "text" }
+          - { name: "keywords", label: "Keywords", widget: "string" }
+      - name: "analytics"
+        label: "📊 Analytics"
+        widget: "object"
+        fields:
+          - { name: "googleAnalytics", label: "Google Analytics ID", widget: "string", required: false }
+          - { name: "facebookPixel", label: "Facebook Pixel ID", widget: "string", required: false }
+      - name: "formularios"
+        label: "📬 Configuração Formulários"
+        widget: "object"
+        fields:
+          - { name: "web3formsKey", label: "Web3Forms Access Key", widget: "string" }
