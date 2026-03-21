@@ -791,14 +791,16 @@ function setLang(lang) {
     el.textContent = lang === 'en' ? en : pt;
   });
   
-  // Atualizar placeholders do formulário de contato diretamente
+  // ATUALIZAR PLACEHOLDERS DO FORMULÁRIO - ISTO É A CORREÇÃO
   const nameInput = document.getElementById('contact-name');
   const emailInput = document.getElementById('contact-email');
   const msgInput = document.getElementById('contact-msg');
+  const newsletterInput = document.getElementById('newsletter-email');
   
   if (nameInput) nameInput.placeholder = lang === 'en' ? 'Your name...' : 'O seu nome...';
   if (emailInput) emailInput.placeholder = lang === 'en' ? 'Your email...' : 'O seu email...';
   if (msgInput) msgInput.placeholder = lang === 'en' ? 'Your message...' : 'A sua mensagem...';
+  if (newsletterInput) newsletterInput.placeholder = lang === 'en' ? 'Your email...' : 'O seu email...';
   
   // Atualizar elementos markdown traduzíveis
   document.querySelectorAll('.translatable-markdown').forEach(el => {
@@ -807,13 +809,12 @@ function setLang(lang) {
     el.innerHTML = renderMarkdown(lang === 'en' ? en : pt);
   });
   
-  // Re-renderizar modais para atualizar o conteúdo
+  // Re-renderizar modais
   renderModals();
   
   // Atualizar botões de idioma
   document.getElementById('btn-pt')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en')?.classList.toggle('active', lang === 'en');
-}
 }
 
 function applyLang(lang) {
