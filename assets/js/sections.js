@@ -552,7 +552,7 @@ function renderFooter() {
       <div style="max-width:1200px;margin:0 auto">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:40px">
           <div>
-            <img src="${f.logo}" alt="Cipritravel Tours" style="height:100px;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:12px">
+            <img src="${f.logo}" alt="Cipritravel Tours" style="height:150px;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:12px">
             <p style="font-size:0.85rem;line-height:1.7" data-pt="${f.descricao}" data-en="${f.descricaoEn || f.descricao}">${t(f.descricao, f.descricaoEn)}</p>
           </div>
           <div>
