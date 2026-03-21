@@ -617,10 +617,11 @@ function renderModals() {
 
 function renderModalGenerico(m) {
   const incluidos = m.incluidos || [];
-  const incluidosHTML = incluidos.map(i => `
+  const incluidosEn = m.incluidosEn || incluidos;
+  const incluidosHTML = incluidos.map((item, idx) => `
     <div style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:0.88rem">
       <span style="color:#2d7a3a;font-weight:700">✓</span>
-      <span data-pt="${i}" data-en="${i}">${i}</span>
+      <span data-pt="${item}" data-en="${incluidosEn[idx] || item}">${t(item, incluidosEn[idx] || item)}</span>
     </div>
   `).join('');
   
