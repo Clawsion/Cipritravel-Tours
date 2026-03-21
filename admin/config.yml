@@ -3,19 +3,26 @@ backend:
   repo: clawsion/Cipritravel-Tours
   branch: main
 
+# Media folder for uploaded images
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
+# Portuguese interface
 locale: "pt"
+
 # Site configuration
 site_url: https://cipritraveltours.pages.dev
 display_url: https://cipritraveltours.pages.dev
 logo_url: /assets/images/logo.png
 
 collections:
+  # ============================================
+  # PÁGINA PRINCIPAL - SEÇÕES MODULARES
+  # ============================================
   - name: "paginas"
     label: "📄 Páginas do Site"
     files:
+      # --- PÁGINA PRINCIPAL ---
       - name: "homepage"
         label: "🏠 Página Principal"
         file: "data/homepage.json"
@@ -27,6 +34,10 @@ collections:
             widget: "list"
             summary: "{{fields.ordem}}. {{fields.type}}"
             types:
+              
+              # =====================================
+              # TIPO: HERO SECTION
+              # =====================================
               - name: "hero"
                 label: "🦸 Hero / Banner Principal"
                 widget: "object"
@@ -37,10 +48,10 @@ collections:
                   - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 1, min: 1, max: 100 }
                   - { name: "id", label: "🆔 ID (âncora)", widget: "string", default: "home" }
                   - { name: "imagem", label: "🖼️ Imagem de Fundo", widget: "image" }
-                  - { name: "bannerTexto", label: "🏷️ Texto do Banner", widget: "string" }
+                  - { name: "bannerTexto", label: "🏷️ Texto do Banner", widget: "string", hint: "Texto que aparece acima do título" }
                   - { name: "titulo", label: "📌 Título Principal (PT)", widget: "string" }
                   - { name: "tituloEn", label: "📌 Título Principal (EN)", widget: "string", required: false }
-                  - { name: "tituloDestaque", label: "✨ Texto em Destaque (PT)", widget: "string" }
+                  - { name: "tituloDestaque", label: "✨ Texto em Destaque (PT)", widget: "string", hint: "Texto laranja destacado" }
                   - { name: "tituloDestaqueEn", label: "✨ Texto em Destaque (EN)", widget: "string", required: false }
                   - { name: "subtitulo", label: "📝 Subtítulo (PT)", widget: "string" }
                   - { name: "subtituloEn", label: "📝 Subtítulo (EN)", widget: "string", required: false }
@@ -52,7 +63,10 @@ collections:
                       - { name: "primarioEn", label: "Texto Botão 1 (EN)", widget: "string", required: false }
                       - { name: "secundario", label: "Texto Botão 2 (PT)", widget: "string" }
                       - { name: "secundarioEn", label: "Texto Botão 2 (EN)", widget: "string", required: false }
-
+              
+              # =====================================
+              # TIPO: BANNER PROMOCIONAL
+              # =====================================
               - name: "banner"
                 label: "🎯 Banner Promocional"
                 widget: "object"
@@ -70,8 +84,11 @@ collections:
                   - { name: "subtituloEn", label: "📝 Subtítulo (EN)", widget: "string", required: false }
                   - { name: "textoBotao", label: "🔘 Texto do Botão (PT)", widget: "string", default: "Saber Mais" }
                   - { name: "textoBotaoEn", label: "🔘 Texto do Botão (EN)", widget: "string", required: false }
-                  - { name: "modalId", label: "🆔 ID do Modal", widget: "string" }
-
+                  - { name: "modalId", label: "🆔 ID do Modal", widget: "string", hint: "ID do modal a abrir (ex: modal-barco)" }
+              
+              # =====================================
+              # TIPO: EXCURSÕES / TOURS
+              # =====================================
               - name: "tours"
                 label: "🚌 Secção de Excursões"
                 widget: "object"
@@ -106,13 +123,16 @@ collections:
                         fields:
                           - { name: "dia", label: "Dia", widget: "string" }
                           - { name: "mes", label: "Mês", widget: "string" }
-                      - { name: "duracao", label: "⏱️ Duração (PT)", widget: "string" }
+                      - { name: "duracao", label: "⏱️ Duração (PT)", widget: "string", hint: "ex: 1 Dia, 2 Dias" }
                       - { name: "duracaoEn", label: "⏱️ Duração (EN)", widget: "string", required: false }
                       - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
                       - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
                       - { name: "preco", label: "💰 Preço (EUR)", widget: "number" }
                       - { name: "corBadge", label: "🎨 Cor do Badge", widget: "select", options: ["laranja", "verde"], default: "laranja" }
-
+              
+              # =====================================
+              # TIPO: BLOG
+              # =====================================
               - name: "blog"
                 label: "📝 Secção de Blog"
                 widget: "object"
@@ -142,8 +162,12 @@ collections:
                       - { name: "resumo", label: "📝 Resumo (PT)", widget: "text" }
                       - { name: "resumoEn", label: "📝 Resumo (EN)", widget: "text", required: false }
                       - { name: "data", label: "📅 Data", widget: "datetime" }
-                      - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown" }
-                      - { name: "conteudoEn", label: "📄 Conteúdo (EN)", widget: "markdown", required: false }
+                      - { name: "conteudo", label: "📄 Conteúdo Completo (PT)", widget: "markdown" }
+                      - { name: "conteudoEn", label: "📄 Conteúdo Completo (EN)", widget: "markdown", required: false }
+              
+              # =====================================
+              # TIPO: CARDS GENÉRICOS (Sustentabilidade, etc.)
+              # =====================================
               - name: "cards"
                 label: "🃏 Secção de Cards"
                 widget: "object"
@@ -178,7 +202,10 @@ collections:
                       - { name: "data", label: "📅 Data", widget: "datetime" }
                       - { name: "conteudo", label: "📄 Conteúdo Modal (PT)", widget: "markdown" }
                       - { name: "conteudoEn", label: "📄 Conteúdo Modal (EN)", widget: "markdown", required: false }
-
+              
+              # =====================================
+              # TIPO: TEXTO + IMAGEM (Sobre Nós)
+              # =====================================
               - name: "texto-imagem"
                 label: "📖 Texto e Imagem"
                 widget: "object"
@@ -195,8 +222,8 @@ collections:
                   - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
                   - { name: "texto1", label: "📝 Texto Principal (PT)", widget: "markdown" }
                   - { name: "texto1En", label: "📝 Texto Principal (EN)", widget: "markdown", required: false }
-                  - { name: "citacao", label: "💬 Citação (PT)", widget: "string" }
-                  - { name: "citacaoEn", label: "💬 Citação (EN)", widget: "string", required: false }
+                  - { name: "citacao", label: "💬 Citação em Destaque (PT)", widget: "string" }
+                  - { name: "citacaoEn", label: "💬 Citação em Destaque (EN)", widget: "string", required: false }
                   - { name: "texto2", label: "📝 Texto Secundário (PT)", widget: "markdown" }
                   - { name: "texto2En", label: "📝 Texto Secundário (EN)", widget: "markdown", required: false }
                   - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
@@ -204,7 +231,10 @@ collections:
                   - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
                   - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
                   - { name: "ancoraBotao", label: "🔗 Link/Âncora do Botão", widget: "string", required: false }
-
+              
+              # =====================================
+              # TIPO: FEATURES / VANTAGENS
+              # =====================================
               - name: "features"
                 label: "⭐ Secção de Features"
                 widget: "object"
@@ -225,12 +255,15 @@ collections:
                     label_singular: "Feature"
                     max: 10
                     fields:
-                      - { name: "icone", label: "🎨 Ícone (emoji)", widget: "string" }
+                      - { name: "icone", label: "🎨 Ícone (emoji)", widget: "string", hint: "ex: 🛡️, 🚌, 💰, ✨, 🌿" }
                       - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
                       - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
                       - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
                       - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
-
+              
+              # =====================================
+              # TIPO: CALL-TO-ACTION / NEWSLETTER
+              # =====================================
               - name: "cta"
                 label: "📣 Call-to-Action"
                 widget: "object"
@@ -247,9 +280,12 @@ collections:
                   - { name: "tipo", label: "Tipo de CTA", widget: "select", options: ["newsletter", "botao", "ambos"], default: "newsletter" }
                   - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
                   - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
-                  - { name: "placeholder", label: "📝 Placeholder (PT)", widget: "string", required: false }
-                  - { name: "placeholderEn", label: "📝 Placeholder (EN)", widget: "string", required: false }
-
+                  - { name: "placeholder", label: "📝 Placeholder Input (PT)", widget: "string", required: false }
+                  - { name: "placeholderEn", label: "📝 Placeholder Input (EN)", widget: "string", required: false }
+              
+              # =====================================
+              # TIPO: FORMULÁRIO DE CONTACTO
+              # =====================================
               - name: "formulario"
                 label: "📬 Formulário de Contacto"
                 widget: "object"
@@ -273,9 +309,12 @@ collections:
                       - { name: "telefone", label: "📱 Telefone", widget: "string" }
                       - { name: "email", label: "📧 Email", widget: "string" }
                       - { name: "morada", label: "📍 Morada", widget: "text" }
-                  - { name: "mapaEmbed", label: "🗺️ URL do Mapa", widget: "text", required: false }
+                  - { name: "mapaEmbed", label: "🗺️ URL do Mapa (iframe)", widget: "text", required: false }
                   - { name: "mostrarMapa", label: "🗺️ Mostrar Mapa", widget: "boolean", default: true }
-
+              
+              # =====================================
+              # TIPO: ESPAÇADOR
+              # =====================================
               - name: "spacer"
                 label: "📏 Espaçador"
                 widget: "object"
@@ -286,7 +325,24 @@ collections:
                   - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 10, min: 1, max: 100 }
                   - { name: "altura", label: "📏 Altura (px)", widget: "number", default: 60, min: 0, max: 500 }
                   - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["transparente", "cinza", "branco"], default: "transparente" }
+              
+              # =====================================
+              # TIPO: HTML PERSONALIZADO
+              # =====================================
+              - name: "html"
+                label: "🔧 HTML Personalizado"
+                widget: "object"
+                summary: "HTML Custom"
+                fields:
+                  - { name: "type", widget: "hidden", default: "html" }
+                  - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+                  - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 11, min: 1, max: 100 }
+                  - { name: "html", label: "📄 Código HTML", widget: "code", default_language: "html" }
+                  - { name: "css", label: "🎨 CSS (opcional)", widget: "code", default_language: "css", required: false }
 
+  # ============================================
+  # NAVEGAÇÃO
+  # ============================================
   - name: "navegacao"
     label: "🧭 Navegação"
     files:
@@ -304,78 +360,97 @@ collections:
               - { name: "ancora", label: "🔗 Âncora/Link", widget: "string" }
               - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
 
+  # ============================================
+  # FOOTER
+  # ============================================
   - name: "footer"
     label: "🔻 Rodapé"
-    file: "data/footer.json"
-    fields:
-      - { name: "logo", label: "🖼️ Logo", widget: "image" }
-      - { name: "descricao", label: "📝 Descrição (PT)", widget: "string" }
-      - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "string", required: false }
-      - { name: "copyright", label: "©️ Copyright", widget: "string" }
-      - name: "contactos"
-        label: "📞 Contactos"
-        widget: "object"
+    files:
+      - name: "footer"
+        label: "Rodapé"
+        file: "data/footer.json"
         fields:
-          - { name: "telefone", label: "📱 Telefone", widget: "string" }
-          - { name: "email", label: "📧 Email", widget: "string" }
-          - { name: "morada", label: "📍 Morada", widget: "text" }
-      - name: "redesSociais"
-        label: "🌐 Redes Sociais"
-        widget: "list"
-        summary: "{{fields.nome}}"
-        fields:
-          - { name: "nome", label: "📱 Nome da Rede", widget: "string" }
-          - { name: "url", label: "🔗 URL do Perfil", widget: "string" }
-          - { name: "icone", label: "🎨 Código do Ícone", widget: "string" }
-          - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
-      - { name: "whatsapp", label: "📱 Número WhatsApp", widget: "string" }
-      - { name: "whatsappMensagem", label: "💬 Mensagem WhatsApp (PT)", widget: "string" }
+          - { name: "logo", label: "🖼️ Logo", widget: "image" }
+          - { name: "descricao", label: "📝 Descrição (PT)", widget: "string" }
+          - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "string", required: false }
+          - { name: "copyright", label: "©️ Copyright", widget: "string" }
+          - name: "contactos"
+            label: "📞 Contactos"
+            widget: "object"
+            fields:
+              - { name: "telefone", label: "📱 Telefone", widget: "string" }
+              - { name: "email", label: "📧 Email", widget: "string" }
+              - { name: "morada", label: "📍 Morada", widget: "text" }
+          - name: "redesSociais"
+            label: "🌐 Redes Sociais"
+            widget: "list"
+            summary: "{{fields.nome}}"
+            hint: "Adicione ou edite as suas redes sociais. O ícone é apenas um código de exibição."
+            fields:
+              - { name: "nome", label: "📱 Nome da Rede", widget: "string", hint: "Ex: Facebook, Instagram, LinkedIn, YouTube" }
+              - { name: "url", label: "🔗 URL do Perfil", widget: "string", hint: "Link completo para o seu perfil" }
+              - { name: "icone", label: "🎨 Código do Ícone", widget: "string", hint: "f=Facebook, in=LinkedIn, ▶=YouTube, 📷=Instagram" }
+              - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+          - { name: "whatsapp", label: "📱 Número WhatsApp", widget: "string" }
+          - { name: "whatsappMensagem", label: "💬 Mensagem WhatsApp (PT)", widget: "string" }
 
+  # ============================================
+  # MODAIS
+  # ============================================
   - name: "modais"
     label: "🪟 Modais (Popups)"
-    file: "data/modais.json"
-    fields:
-      - name: "lista"
-        label: "Lista de Modais"
-        widget: "list"
-        label_singular: "Modal"
+    files:
+      - name: "modais"
+        label: "Modais"
+        file: "data/modais.json"
         fields:
-          - { name: "id", label: "🆔 ID", widget: "string" }
-          - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
-          - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
-          - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
-          - { name: "imagem", label: "🖼️ Imagem", widget: "image", required: false }
-          - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown" }
-          - { name: "conteudoEn", label: "📄 Conteúdo (EN)", widget: "markdown", required: false }
-          - name: "incluidos"
-            label: "✅ Itens Incluídos"
+          - name: "lista"
+            label: "Lista de Modais"
             widget: "list"
-            required: false
-            field: { name: "item", label: "Item", widget: "string" }
-          - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
-          - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
+            label_singular: "Modal"
+            fields:
+              - { name: "id", label: "🆔 ID", widget: "string" }
+              - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+              - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+              - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+              - { name: "imagem", label: "🖼️ Imagem", widget: "image", required: false }
+              - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown" }
+              - { name: "conteudoEn", label: "📄 Conteúdo (EN)", widget: "markdown", required: false }
+              - name: "incluidos"
+                label: "✅ Itens Incluídos"
+                widget: "list"
+                required: false
+                field: { name: "item", label: "Item", widget: "string" }
+              - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
+              - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
 
+  # ============================================
+  # CONFIGURAÇÕES GERAIS
+  # ============================================
   - name: "configuracoes"
     label: "⚙️ Configurações"
-    file: "data/config.json"
-    fields:
-      - { name: "nomeSite", label: "📌 Nome do Site", widget: "string" }
-      - { name: "urlSite", label: "🌐 URL do Site", widget: "string" }
-      - name: "seo"
-        label: "🔍 SEO"
-        widget: "object"
+    files:
+      - name: "configuracoes"
+        label: "Configurações Gerais"
+        file: "data/config.json"
         fields:
-          - { name: "titulo", label: "Título Padrão", widget: "string" }
-          - { name: "descricao", label: "Meta Descrição", widget: "text" }
-          - { name: "keywords", label: "Keywords", widget: "string" }
-      - name: "analytics"
-        label: "📊 Analytics"
-        widget: "object"
-        fields:
-          - { name: "googleAnalytics", label: "Google Analytics ID", widget: "string", required: false }
-          - { name: "facebookPixel", label: "Facebook Pixel ID", widget: "string", required: false }
-      - name: "formularios"
-        label: "📬 Configuração Formulários"
-        widget: "object"
-        fields:
-          - { name: "web3formsKey", label: "Web3Forms Access Key", widget: "string" }
+          - { name: "nomeSite", label: "📌 Nome do Site", widget: "string" }
+          - { name: "urlSite", label: "🌐 URL do Site", widget: "string" }
+          - name: "seo"
+            label: "🔍 SEO"
+            widget: "object"
+            fields:
+              - { name: "titulo", label: "Título Padrão", widget: "string" }
+              - { name: "descricao", label: "Meta Descrição", widget: "text" }
+              - { name: "keywords", label: "Keywords", widget: "string" }
+          - name: "analytics"
+            label: "📊 Analytics"
+            widget: "object"
+            fields:
+              - { name: "googleAnalytics", label: "Google Analytics ID", widget: "string", required: false }
+              - { name: "facebookPixel", label: "Facebook Pixel ID", widget: "string", required: false }
+          - name: "formularios"
+            label: "📬 Configuração Formulários"
+            widget: "object"
+            fields:
+              - { name: "web3formsKey", label: "Web3Forms Access Key", widget: "string" }
