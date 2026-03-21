@@ -784,12 +784,14 @@ function setLang(lang) {
   SITE.lang = lang;
   localStorage.setItem('lang', lang);
   
+  // Atualizar todos os elementos com data-pt e data-en
   document.querySelectorAll('[data-pt]').forEach(el => {
     const pt = el.dataset.pt;
     const en = el.dataset.en || pt;
     el.textContent = lang === 'en' ? en : pt;
   });
   
+  // Atualizar placeholders dos inputs traduzíveis
   document.querySelectorAll('.translatable-input').forEach(el => {
     const pt = el.dataset.placeholderPt;
     const en = el.dataset.placeholderEn;
@@ -798,22 +800,43 @@ function setLang(lang) {
     }
   });
   
+  // Atualizar placeholders do formulário de contato
+  updateFormPlaceholders();
+  
+  // Atualizar elementos markdown traduzíveis
   document.querySelectorAll('.translatable-markdown').forEach(el => {
     const pt = decodeHtml(el.dataset.pt);
     const en = decodeHtml(el.dataset.en || el.dataset.pt);
     el.innerHTML = renderMarkdown(lang === 'en' ? en : pt);
   });
   
+  // Re-renderizar modais para atualizar o conteúdo
   renderModals();
   
+  // Atualizar botões de idioma
   document.getElementById('btn-pt')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en')?.classList.toggle('active', lang === 'en');
+}
 }
 
 function applyLang(lang) {
   setLang(lang);
 }
-
+function updateFormPlaceholders() {
+  const nameInput = document.getElementById('contact-name');
+  const emailInput = document.getElementById('contact-email');
+  const msgInput = document.getElementById('contact-msg');
+  
+  if (nameInput) {
+    nameInput.placeholder = SITE.lang === 'en' ? 'Your name...' : 'O seu nome...';
+  }
+  if (emailInput) {
+    emailInput.placeholder = SITE.lang === 'en' ? 'Your email...' : 'O seu email...';
+  }
+  if (msgInput) {
+    msgInput.placeholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
+  }
+}
 function toggleTheme() {
   SITE.theme = SITE.theme === 'dark' ? 'light' : 'dark';
   applyTheme(SITE.theme);
