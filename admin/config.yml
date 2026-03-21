@@ -2,33 +2,22 @@ backend:
   name: github
   repo: clawsion/Cipritravel-Tours
   branch: main
-  backend:
-  name: github
-  repo: clawsion/Cipritravel-Tours
-  branch: main
   base_url: https://api.decapcms.org
   auth_endpoint: auth/github
 
-# Media folder for uploaded images
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
-# Portuguese interface
 locale: "pt"
 
-# Site configuration
 site_url: https://cipritraveltours.pages.dev
 display_url: https://cipritraveltours.pages.dev
 logo_url: /assets/images/logo.png
 
 collections:
-  # ============================================
-  # PÁGINA PRINCIPAL - SEÇÕES MODULARES
-  # ============================================
   - name: "paginas"
     label: "📄 Páginas do Site"
     files:
-      # --- PÁGINA PRINCIPAL ---
       - name: "homepage"
         label: "🏠 Página Principal"
         file: "data/homepage.json"
@@ -40,10 +29,6 @@ collections:
             widget: "list"
             summary: "{{fields.ordem}}. {{fields.type}}"
             types:
-              
-              # =====================================
-              # TIPO: HERO SECTION
-              # =====================================
               - name: "hero"
                 label: "🦸 Hero / Banner Principal"
                 widget: "object"
@@ -69,10 +54,6 @@ collections:
                       - { name: "primarioEn", label: "Texto Botão 1 (EN)", widget: "string", required: false }
                       - { name: "secundario", label: "Texto Botão 2 (PT)", widget: "string" }
                       - { name: "secundarioEn", label: "Texto Botão 2 (EN)", widget: "string", required: false }
-              
-              # =====================================
-              # TIPO: BANNER PROMOCIONAL
-              # =====================================
               - name: "banner"
                 label: "🎯 Banner Promocional"
                 widget: "object"
@@ -91,10 +72,6 @@ collections:
                   - { name: "textoBotao", label: "🔘 Texto do Botão (PT)", widget: "string", default: "Saber Mais" }
                   - { name: "textoBotaoEn", label: "🔘 Texto do Botão (EN)", widget: "string", required: false }
                   - { name: "modalId", label: "🆔 ID do Modal", widget: "string", hint: "ID do modal a abrir (ex: modal-barco)" }
-              
-              # =====================================
-              # TIPO: EXCURSÕES / TOURS
-              # =====================================
               - name: "tours"
                 label: "🚌 Secção de Excursões"
                 widget: "object"
@@ -135,10 +112,6 @@ collections:
                       - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
                       - { name: "preco", label: "💰 Preço (EUR)", widget: "number" }
                       - { name: "corBadge", label: "🎨 Cor do Badge", widget: "select", options: ["laranja", "verde"], default: "laranja" }
-              
-              # =====================================
-              # TIPO: BLOG
-              # =====================================
               - name: "blog"
                 label: "📝 Secção de Blog"
                 widget: "object"
@@ -170,10 +143,6 @@ collections:
                       - { name: "data", label: "📅 Data", widget: "datetime" }
                       - { name: "conteudo", label: "📄 Conteúdo Completo (PT)", widget: "markdown" }
                       - { name: "conteudoEn", label: "📄 Conteúdo Completo (EN)", widget: "markdown", required: false }
-              
-              # =====================================
-              # TIPO: CARDS GENÉRICOS (Sustentabilidade, etc.)
-              # =====================================
               - name: "cards"
                 label: "🃏 Secção de Cards"
                 widget: "object"
@@ -208,10 +177,6 @@ collections:
                       - { name: "data", label: "📅 Data", widget: "datetime" }
                       - { name: "conteudo", label: "📄 Conteúdo Modal (PT)", widget: "markdown" }
                       - { name: "conteudoEn", label: "📄 Conteúdo Modal (EN)", widget: "markdown", required: false }
-              
-              # =====================================
-              # TIPO: TEXTO + IMAGEM (Sobre Nós)
-              # =====================================
               - name: "texto-imagem"
                 label: "📖 Texto e Imagem"
                 widget: "object"
@@ -237,10 +202,6 @@ collections:
                   - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
                   - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
                   - { name: "ancoraBotao", label: "🔗 Link/Âncora do Botão", widget: "string", required: false }
-              
-              # =====================================
-              # TIPO: FEATURES / VANTAGENS
-              # =====================================
               - name: "features"
                 label: "⭐ Secção de Features"
                 widget: "object"
@@ -266,10 +227,6 @@ collections:
                       - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
                       - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
                       - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
-              
-              # =====================================
-              # TIPO: CALL-TO-ACTION / NEWSLETTER
-              # =====================================
               - name: "cta"
                 label: "📣 Call-to-Action"
                 widget: "object"
@@ -288,10 +245,6 @@ collections:
                   - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
                   - { name: "placeholder", label: "📝 Placeholder Input (PT)", widget: "string", required: false }
                   - { name: "placeholderEn", label: "📝 Placeholder Input (EN)", widget: "string", required: false }
-              
-              # =====================================
-              # TIPO: FORMULÁRIO DE CONTACTO
-              # =====================================
               - name: "formulario"
                 label: "📬 Formulário de Contacto"
                 widget: "object"
@@ -317,10 +270,6 @@ collections:
                       - { name: "morada", label: "📍 Morada", widget: "text" }
                   - { name: "mapaEmbed", label: "🗺️ URL do Mapa (iframe)", widget: "text", required: false }
                   - { name: "mostrarMapa", label: "🗺️ Mostrar Mapa", widget: "boolean", default: true }
-              
-              # =====================================
-              # TIPO: ESPAÇADOR
-              # =====================================
               - name: "spacer"
                 label: "📏 Espaçador"
                 widget: "object"
@@ -331,10 +280,6 @@ collections:
                   - { name: "ordem", label: "🔢 Ordem", widget: "number", default: 10, min: 1, max: 100 }
                   - { name: "altura", label: "📏 Altura (px)", widget: "number", default: 60, min: 0, max: 500 }
                   - { name: "corFundo", label: "🎨 Cor de Fundo", widget: "select", options: ["transparente", "cinza", "branco"], default: "transparente" }
-              
-              # =====================================
-              # TIPO: HTML PERSONALIZADO
-              # =====================================
               - name: "html"
                 label: "🔧 HTML Personalizado"
                 widget: "object"
@@ -346,9 +291,6 @@ collections:
                   - { name: "html", label: "📄 Código HTML", widget: "code", default_language: "html" }
                   - { name: "css", label: "🎨 CSS (opcional)", widget: "code", default_language: "css", required: false }
 
-  # ============================================
-  # NAVEGAÇÃO
-  # ============================================
   - name: "navegacao"
     label: "🧭 Navegação"
     files:
@@ -366,9 +308,6 @@ collections:
               - { name: "ancora", label: "🔗 Âncora/Link", widget: "string" }
               - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
 
-  # ============================================
-  # FOOTER
-  # ============================================
   - name: "footer"
     label: "🔻 Rodapé"
     files:
@@ -400,9 +339,6 @@ collections:
           - { name: "whatsapp", label: "📱 Número WhatsApp", widget: "string" }
           - { name: "whatsappMensagem", label: "💬 Mensagem WhatsApp (PT)", widget: "string" }
 
-  # ============================================
-  # MODAIS
-  # ============================================
   - name: "modais"
     label: "🪟 Modais (Popups)"
     files:
@@ -430,9 +366,6 @@ collections:
               - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
               - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
 
-  # ============================================
-  # CONFIGURAÇÕES GERAIS
-  # ============================================
   - name: "configuracoes"
     label: "⚙️ Configurações"
     files:
