@@ -2,14 +2,14 @@ backend:
   name: github
   repo: clawsion/Cipritravel-Tours
   branch: main
+  base_url: https://api.decapped.org
+  auth_endpoint: auth
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
 
 locale: "pt"
 
-site_url: https://cipritraveltours.pages.dev
-display_url: https://cipritraveltours.pages.dev
 logo_url: /assets/images/logo.png
 
 collections:
