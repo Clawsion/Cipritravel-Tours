@@ -1,47 +1,95 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
-  <title>Cipritravel Tours - Painel de Administração</title>
-  <style>
-    body { margin: 0; background: #0f172a; }
-    .loading-screen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-    }
-    .loading-screen h1 { margin-bottom: 10px; }
-    .loading-screen p { opacity: 0.7; }
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid rgba(255,255,255,0.1);
-      border-top-color: #2d7a3a;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
-</head>
-<body>
-  <div class="loading-screen" id="loading">
-    <div class="spinner"></div>
-    <h1>Cipritravel CMS</h1>
-    <p>A carregar painel de administração...</p>
-  </div>
-  <script src="https://unpkg.com/decap-cms@^3.4.0/dist/decap-cms.js"></script>
-  <script>
-    if (window.CMS) {
-      document.getElementById('loading').style.display = 'none';
-    }
-    CMS.registerPreviewStyle('/assets/css/styles.css');
-  </script>
-</body>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>CMS - Cipritravel Tours</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      body { margin: 0; background: #0f172a; }
+      
+      .loading-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+      }
+      .loading-screen h1 { margin-bottom: 10px; }
+      .loading-screen p { opacity: 0.7; }
+      
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255,255,255,0.1);
+        border-top-color: #2d7a3a;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Esconde a loading screen quando o CMS carrega */
+      #nc-root ~ #loading-screen,
+      #nc-root:not(:empty) ~ #loading-screen {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Loading Screen (visível enquanto o CMS carrega) -->
+    <div class="loading-screen" id="loading-screen">
+      <div class="spinner"></div>
+      <h1>Cipritravel Tours</h1>
+      <p>A carregar o painel de administração...</p>
+    </div>
+
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+
+    <!-- Esconder loading screen quando CMS estiver pronto -->
+    <script>
+      window.addEventListener('load', function () {
+        // Aguarda o CMS inicializar e esconde o loading
+        const observer = new MutationObserver(function () {
+          const cmsRoot = document.getElementById('nc-root');
+          if (cmsRoot && cmsRoot.children.length > 0) {
+            const loading = document.getElementById('loading-screen');
+            if (loading) {
+              loading.style.opacity = '0';
+              loading.style.transition = 'opacity 0.5s ease';
+              setTimeout(() => loading.style.display = 'none', 500);
+            }
+            observer.disconnect();
+          }
+        });
+
+        observer.observe(document.body, { 
+          childList: true, 
+          subtree: true 
+        });
+
+        // Fallback: esconde após 5 segundos de qualquer forma
+        setTimeout(function () {
+          const loading = document.getElementById('loading-screen');
+          if (loading) {
+            loading.style.opacity = '0';
+            loading.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => loading.style.display = 'none', 500);
+          }
+        }, 5000);
+      });
+    </script>
+
+  </body>
 </html>
