@@ -6,6 +6,10 @@
 // ============================================
 // CONFIGURAÇÃO E ESTADO GLOBAL
 // ============================================
+// Detectar caminho base para GitHub Pages
+const BASE_URL = window.location.pathname.includes('/Cipritravel-Tours') 
+  ? '/Cipritravel-Tours' 
+  : '';
 const SITE = {
   data: null,
   menu: null,
@@ -121,12 +125,12 @@ async function loadAllData() {
   try {
     console.log('A carregar dados...');
     
-    const [homepage, menu, footer, modais, config] = await Promise.all([
-      fetch('data/homepage.json').then(r => { console.log('homepage.json:', r.status); return r.json(); }),
-      fetch('data/menu.json').then(r => { console.log('menu.json:', r.status); return r.json(); }),
-      fetch('data/footer.json').then(r => { console.log('footer.json:', r.status); return r.json(); }),
-      fetch('data/modais.json').then(r => { console.log('modais.json:', r.status); return r.json(); }),
-      fetch('data/config.json').then(r => { console.log('config.json:', r.status); return r.json(); })
+ const [homepage, menu, footer, modais, config] = await Promise.all([
+  fetch(`${BASE_URL}/data/homepage.json`).then(r => r.json()),
+  fetch(`${BASE_URL}/data/menu.json`).then(r => r.json()),
+  fetch(`${BASE_URL}/data/footer.json`).then(r => r.json()),
+  fetch(`${BASE_URL}/data/modais.json`).then(r => r.json()),
+  fetch(`${BASE_URL}/data/config.json`).then(r => r.json())
     ]);
     
     SITE.data = homepage;
