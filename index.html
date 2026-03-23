@@ -56,66 +56,6 @@ section{scroll-margin-top:200px}
 .loading-screen.hidden{opacity:0;pointer-events:none}
 .spinner{width:50px;height:50px;border:4px solid var(--border);border-top-color:#2d7a3a;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-  /* DESIGN DO MENU E VERSÃO MOBILE */
-#menu-container {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Esconde o botão hambúrguer no PC */
-.mobile-menu-btn { 
-  display: none; 
-}
-
-/* Configurações para Telemóvel e Tablet */
-@media (max-width: 1024px) {
-  .mobile-menu-btn { 
-    display: block !important; 
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: var(--text);
-    cursor: pointer;
-  }
-
-  #menu-container {
-    display: none; /* Escondido por padrão no mobile */
-    flex-direction: column;
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: var(--nav-bg);
-    padding: 20px;
-    border-bottom: 2px solid var(--border);
-    gap: 15px;
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-  }
-
-  /* Quando a classe 'active' é adicionada via JS, o menu aparece */
-  #menu-container.active {
-    display: flex !important;
-  }
-
-  /* Faz os links ocuparem a largura toda no mobile */
-  .nav-pill {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .lang-theme-container {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    border-left: none !important;
-    padding-top: 15px;
-    border-top: 1px solid var(--border);
-    width: 100%;
-    justify-content: center;
-    display: flex;
-    gap: 10px;
-  }
-}
 </style>
 </head>
 <body>
@@ -124,52 +64,37 @@ section{scroll-margin-top:200px}
   <h2 class="font-playfair" style="margin-top:20px;font-size:1.5rem">Cipritravel Tours</h2>
   <p style="color:var(--muted);margin-top:8px">A carregar...</p>
 </div>
-<!-- INÍCIO DA NAV COMPLETA -->
-<nav style="position:fixed; top:0; width:100%; z-index:1000; background:var(--nav-bg); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); min-height:80px; display:flex; align-items:center;">
-  <div class="nav-container" style="max-width:1400px; width:100%; margin:0 auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center;">
-    
-    <!-- Logótipo (o section.js vai preencher o src) -->
-    <div class="logo-wrapper">
-      <img src="" alt="Cipritravel Tours" style="height:60px; cursor:pointer;" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+<nav style="position:sticky;top:0;z-index:100">
+  <div style="max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;min-height:100px">
+    <div style="display:flex;align-items:center">
+      <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png" alt="Cipritravel Tours" style="height:250px;max-width:320px;object-fit:contain;cursor:pointer" onclick="scrollToSection('home')">
     </div>
-
-    <!-- Botão Hambúrguer -->
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-
-    <!-- Contentor onde o section.js vai montar o menu -->
-    <div id="menu-container"></div>
+    <div id="menu-container" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <a href="#home" class="nav-pill" id="pill-home"><span>HOME</span></a>
+      <a href="#excursoes" class="nav-pill" id="pill-excursoes"><span>EXCURSÕES</span></a>
+      <a href="#blog" class="nav-pill" id="pill-blog"><span>BLOG</span></a>
+      <a href="#sustentabilidade" class="nav-pill" id="pill-sust"><span>SUSTENTABILIDADE</span></a>
+      <a href="#sobre" class="nav-pill" id="pill-sobre"><span>SOBRE NÓS</span></a>
+      <a href="#porque" class="nav-pill" id="pill-porque"><span>PORQUÊ NÓS?</span></a>
+      <a href="#contactos" class="nav-pill" id="pill-contactos"><span>CONTACTOS</span></a>
+      <div style="display:flex;align-items:center;gap:4px;margin-left:8px;border-left:1px solid var(--border);padding-left:8px">
+        <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">🇵🇹 PT</button>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
+        <button class="theme-pill" id="theme-toggle" onclick="toggleTheme()">🌙</button>
+      </div>
+    </div>
   </div>
 </nav>
-
+<main id="main-content"></main>
+<footer></footer>
+<div id="modais-container"></div>
+<script src="/Cipritravel-Tours/assets/js/section.js"></script>
 <script>
-  function toggleMobileMenu() {
-    const menu = document.getElementById('menu-container');
-    menu.classList.toggle('active');
-  }
-
-  // Fecha o menu ao clicar em qualquer link (.nav-pill)
-  document.addEventListener('click', function (e) {
-    const menu = document.getElementById('menu-container');
-    if (e.target.closest('.nav-pill')) {
-      menu.classList.remove('active');
-    }
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loading-screen').classList.add('hidden');
+    }, 500);
   });
 </script>
-
-<!-- FIM DA NAV COMPLETA -->
-
-  <!-- Netlify Identity -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>
