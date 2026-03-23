@@ -64,12 +64,19 @@ section{scroll-margin-top:200px}
   <h2 class="font-playfair" style="margin-top:20px;font-size:1.5rem">Cipritravel Tours</h2>
   <p style="color:var(--muted);margin-top:8px">A carregar...</p>
 </div>
-<nav style="position:sticky;top:0;z-index:100">
-  <div style="max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;min-height:100px">
+<nav style="position:sticky;top:0;z-index:100;width:100%;">
+  <div class="nav-container" style="max-width:1400px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;min-height:100px;position:relative;">
+    
+    <!-- Logótipo -->
     <div style="display:flex;align-items:center">
-      <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png" alt="Cipritravel Tours" style="height:250px;max-width:320px;object-fit:contain;cursor:pointer" onclick="scrollToSection('home')">
+      <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png" alt="Cipritravel Tours" class="nav-logo" onclick="scrollToSection('home')">
     </div>
-    <div id="menu-container" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+
+    <!-- Botão Mobile (Hambúrguer) -->
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+    <!-- Links do Menu -->
+    <div id="menu-container" class="nav-content">
       <a href="#home" class="nav-pill" id="pill-home"><span>HOME</span></a>
       <a href="#excursoes" class="nav-pill" id="pill-excursoes"><span>EXCURSÕES</span></a>
       <a href="#blog" class="nav-pill" id="pill-blog"><span>BLOG</span></a>
@@ -77,7 +84,9 @@ section{scroll-margin-top:200px}
       <a href="#sobre" class="nav-pill" id="pill-sobre"><span>SOBRE NÓS</span></a>
       <a href="#porque" class="nav-pill" id="pill-porque"><span>PORQUÊ NÓS?</span></a>
       <a href="#contactos" class="nav-pill" id="pill-contactos"><span>CONTACTOS</span></a>
-      <div style="display:flex;align-items:center;gap:4px;margin-left:8px;border-left:1px solid var(--border);padding-left:8px">
+      
+      <!-- Idiomas e Tema -->
+      <div class="lang-theme-container" style="display:flex;align-items:center;gap:4px;margin-left:8px;border-left:1px solid var(--border);padding-left:8px">
         <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">🇵🇹 PT</button>
         <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
         <button class="theme-pill" id="theme-toggle" onclick="toggleTheme()">🌙</button>
@@ -85,17 +94,21 @@ section{scroll-margin-top:200px}
     </div>
   </div>
 </nav>
-<main id="main-content"></main>
-<footer></footer>
-<div id="modais-container"></div>
-  <script src="assets/js/section.js"></script>
-  <script>
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("loading-screen").classList.add("hidden");
-      }, 500);
+
+<!-- Pequeno script para fazer o menu abrir e fechar -->
+<script>
+  function toggleMobileMenu() {
+    document.getElementById('menu-container').classList.toggle('active');
+  }
+
+  // Faz o menu fechar sozinho quando clicas num dos links
+  document.querySelectorAll('.nav-pill').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('menu-container').classList.remove('active');
     });
-  </script>
+  });
+</script>
+
 
   <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
