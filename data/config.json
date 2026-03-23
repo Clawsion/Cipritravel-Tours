@@ -2,13 +2,16 @@
   "nomeSite": "Cipritravel Tours",
   "urlSite": "https://cipritravel.pt",
   "idiomaDefault": "pt",
-  "idiomas": ["pt", "en"],
+  "idiomas": [
+    "pt",
+    "en"
+  ],
   "seo": {
-    "titulo": "Cipritravel Tours - Excursões e Passeios em Portugal",
+    "titulo": "Cipritravel Tours - Voos, Excursões e Passeios",
     "tituloEn": "Cipritravel Tours - Tours and Trips in Portugal",
-    "descricao": "Descubra Portugal com a Cipritravel Tours. Excursões, passeios e viagens organizadas com segurança, conforto e preços justos.",
+    "descricao": "Descubra novos destinos com a Cipritravel Tours. Excursões, passeios e viagens organizadas com segurança, conforto e preços justos.",
     "descricaoEn": "Discover Portugal with Cipritravel Tours. Organized tours, trips and travels with safety, comfort and fair prices.",
-    "keywords": "excursões portugal, tours, passeios, viagens organizadas, gerês, serra da estrela, cipritravel"
+    "keywords": "excursões , tours, passeios, viagens organizadas, gerês, serra da estrela, cipritravel"
   },
   "analytics": {
     "googleAnalytics": "",
