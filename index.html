@@ -47,7 +47,7 @@ nav{background:var(--nav-bg);backdrop-filter:blur(10px);border-bottom:1px solid 
 .sust-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .3s}
 .sust-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.12)}
 .exc-badge{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:72px;max-width:72px;min-height:72px;padding:0.5rem 0.75rem;border-radius:50%;color:#fff;line-height:1.2}
-section{scroll-margin-top:200px}
+section{scroll-margin-top:80px}
 .exc-card{display:flex;flex-direction:column;height:100%}
 .exc-card .tour-card-img{height:200px;width:100%;object-fit:cover;flex-shrink:0}
 .exc-card-body{flex:1;display:flex;flex-direction:column;padding:20px}
@@ -56,6 +56,34 @@ section{scroll-margin-top:200px}
 .loading-screen.hidden{opacity:0;pointer-events:none}
 .spinner{width:50px;height:50px;border:4px solid var(--border);border-top-color:#2d7a3a;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Navbar responsiva ── */
+.nav-inner{
+  max-width:1400px;
+  margin:0 auto;
+  padding:0 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  height:70px;
+}
+.nav-logo{
+  height:55px;
+  width:auto;
+  object-fit:contain;
+  cursor:pointer;
+}
+@media(max-width:768px){
+  .nav-inner{height:60px;}
+  .nav-logo{height:40px;}
+  .nav-pill{padding:6px 12px;font-size:0.75rem;}
+}
+@media(max-width:480px){
+  .nav-inner{height:55px;}
+  .nav-logo{height:32px;}
+}
 </style>
 </head>
 <body>
@@ -65,9 +93,9 @@ section{scroll-margin-top:200px}
   <p style="color:var(--muted);margin-top:8px">A carregar...</p>
 </div>
 <nav style="position:sticky;top:0;z-index:100">
-  <div style="max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;min-height:100px">
+  <div class="nav-inner">
     <div style="display:flex;align-items:center">
-      <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png" alt="Cipritravel Tours" style="height:250px;max-width:320px;object-fit:contain;cursor:pointer" onclick="scrollToSection('home')">
+      <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png" alt="Cipritravel Tours" class="nav-logo" onclick="scrollToSection('home')">
     </div>
     <div id="menu-container" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
       <a href="#home" class="nav-pill" id="pill-home"><span>HOME</span></a>
