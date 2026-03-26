@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cipritravel Tours - Excursões e Passeios em Portugal</title>
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"><\/script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f0f9ff;--card:#ffffff;--text:#1e3a5f;--muted:#64748b;--border:#bae6fd;--accent:#2d7a3a;--nav-bg:rgba(240,249,255,0.97)}
@@ -57,86 +57,169 @@ section{scroll-margin-top:80px}
 .spinner{width:50px;height:50px;border:4px solid var(--border);border-top-color:#2d7a3a;border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── Navbar responsiva ── */
+/* ── Navbar ── */
 .nav-inner{
   max-width:1400px;
   margin:0 auto;
-  padding:0 20px;
+  padding:0 24px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  flex-wrap:wrap;
-  gap:10px;
-  height:70px;
+  height:170px;
 }
 .nav-logo{
-  height:55px;
+  height:150px;
   width:auto;
   object-fit:contain;
   cursor:pointer;
 }
-@media(max-width:768px){
-  .nav-inner{height:60px;}
-  .nav-logo{height:40px;}
-  .nav-pill{padding:6px 12px;font-size:0.75rem;}
+
+/* ── Hamburger button ── */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:6px;
+  z-index:200;
+}
+.hamburger span{
+  display:block;
+  width:26px;
+  height:3px;
+  background:var(--text);
+  border-radius:3px;
+  transition:all .3s;
+}
+.hamburger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+/* ── Menu mobile dropdown ── */
+#mobile-menu{
+  display:none;
+  flex-direction:column;
+  gap:8px;
+  padding:16px 20px;
+  border-top:1px solid var(--border);
+  background:var(--nav-bg);
+}
+#mobile-menu.open{display:flex}
+#mobile-menu .nav-pill{justify-content:center}
+.mobile-lang-row{display:flex;align-items:center;gap:8px;justify-content:center;padding-top:8px;border-top:1px solid var(--border);margin-top:4px}
+
+/* ── Desktop: esconde hamburger e menu mobile ── */
+@media(min-width:901px){
+  .hamburger{display:none!important}
+  #mobile-menu{display:none!important}
+  #menu-container{display:flex!important}
+}
+
+/* ── Mobile: esconde menu desktop, mostra hamburger ── */
+@media(max-width:900px){
+  .nav-inner{height:100px;}
+  .nav-logo{height:80px;}
+  #menu-container{display:none!important}
+  .hamburger{display:flex!important}
 }
 @media(max-width:480px){
-  .nav-inner{height:55px;}
-  .nav-logo{height:32px;}
+  .nav-inner{height:80px;}
+  .nav-logo{height:60px;}
 }
 </style>
 </head>
 <body>
+
 <div class="loading-screen" id="loading-screen">
   <div class="spinner"></div>
   <h2 class="font-playfair" style="margin-top:20px;font-size:1.5rem">Cipritravel Tours</h2>
   <p style="color:var(--muted);margin-top:8px">A carregar...</p>
 </div>
+
 <nav style="position:sticky;top:0;z-index:100">
   <div class="nav-inner">
-    <div style="display:flex;align-items:center">
-      <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png" alt="Cipritravel Tours" class="nav-logo" onclick="scrollToSection('home')">
-    </div>
+
+    <!-- Logo -->
+    <img src="https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png"
+         alt="Cipritravel Tours" class="nav-logo" onclick="scrollToSection('home')">
+
+    <!-- Menu desktop -->
     <div id="menu-container" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-      <a href="#home" class="nav-pill" id="pill-home"><span>HOME</span></a>
-      <a href="#excursoes" class="nav-pill" id="pill-excursoes"><span>EXCURSÕES</span></a>
-      <a href="#blog" class="nav-pill" id="pill-blog"><span>BLOG</span></a>
-      <a href="#sustentabilidade" class="nav-pill" id="pill-sust"><span>SUSTENTABILIDADE</span></a>
-      <a href="#sobre" class="nav-pill" id="pill-sobre"><span>SOBRE NÓS</span></a>
-      <a href="#porque" class="nav-pill" id="pill-porque"><span>PORQUÊ NÓS?</span></a>
-      <a href="#contactos" class="nav-pill" id="pill-contactos"><span>CONTACTOS</span></a>
+      <a href="#home" class="nav-pill" id="pill-home">HOME</a>
+      <a href="#excursoes" class="nav-pill" id="pill-excursoes">EXCURSÕES</a>
+      <a href="#blog" class="nav-pill" id="pill-blog">BLOG</a>
+      <a href="#sustentabilidade" class="nav-pill" id="pill-sust">SUSTENTABILIDADE</a>
+      <a href="#sobre" class="nav-pill" id="pill-sobre">SOBRE NÓS</a>
+      <a href="#porque" class="nav-pill" id="pill-porque">PORQUÊ NÓS?</a>
+      <a href="#contactos" class="nav-pill" id="pill-contactos">CONTACTOS</a>
       <div style="display:flex;align-items:center;gap:4px;margin-left:8px;border-left:1px solid var(--border);padding-left:8px">
         <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">🇵🇹 PT</button>
         <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
         <button class="theme-pill" id="theme-toggle" onclick="toggleTheme()">🌙</button>
       </div>
     </div>
+
+    <!-- Botão hamburger (mobile) -->
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+
+  <!-- Menu mobile dropdown -->
+  <div id="mobile-menu">
+    <a href="#home" class="nav-pill" onclick="closeMenu()">HOME</a>
+    <a href="#excursoes" class="nav-pill" onclick="closeMenu()">EXCURSÕES</a>
+    <a href="#blog" class="nav-pill" onclick="closeMenu()">BLOG</a>
+    <a href="#sustentabilidade" class="nav-pill" onclick="closeMenu()">SUSTENTABILIDADE</a>
+    <a href="#sobre" class="nav-pill" onclick="closeMenu()">SOBRE NÓS</a>
+    <a href="#porque" class="nav-pill" onclick="closeMenu()">PORQUÊ NÓS?</a>
+    <a href="#contactos" class="nav-pill" onclick="closeMenu()">CONTACTOS</a>
+    <div class="mobile-lang-row">
+      <button class="lang-btn active" id="btn-pt-m" onclick="setLang('pt')">🇵🇹 PT</button>
+      <button class="lang-btn" id="btn-en-m" onclick="setLang('en')">🇬🇧 EN</button>
+      <button class="theme-pill" onclick="toggleTheme()">🌙</button>
+    </div>
   </div>
 </nav>
+
 <main id="main-content"></main>
 <footer></footer>
 <div id="modais-container"></div>
-  <script src="assets/js/section.js"></script>
-  <script>
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("loading-screen").classList.add("hidden");
-      }, 500);
-    });
-  </script>
 
-  <!-- Netlify Identity -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
+<script src="assets/js/section.js"><\/script>
+<script>
+  function toggleMenu(){
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeMenu(){
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loading-screen").classList.add("hidden");
+    }, 500);
+  });
+<\/script>
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"><\/script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+<\/script>
 </body>
 </html>
