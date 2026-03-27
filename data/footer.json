@@ -1,23 +1,43 @@
 {
-  "logo": "https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png",
-  "descricao": "Experiências únicas e memoráveis em cada viagem.",
-  "descricaoEn": "Unique and memorable experiences on every trip.",
-  "copyright": "© 2026 Cipritravel Tours. Todos os direitos reservados.",
-  "copyrightEn": "© 2026 Cipritravel Tours. All rights reserved.",
   "contactos": {
     "telefone": "+351 218 271 105",
     "email": "cipritravel@gmail.com",
     "morada": "R. Francisco Miguel 64, 2835-123 Baixa da Banheira"
   },
+  "whatsappMensagemEn": "Hello! I would like to get more information about your tours.",
   "linksRapidos": [
-    { "texto": "Home", "textoEn": "Home", "ancora": "#home" },
-    { "texto": "Excursões", "textoEn": "Tours", "ancora": "#excursoes" },
-    { "texto": "Blog", "textoEn": "Blog", "ancora": "#blog" },
-    { "texto": "Sobre Nós", "textoEn": "About Us", "ancora": "#sobre" },
-    { "texto": "Contactos", "textoEn": "Contacts", "ancora": "#contactos" }
+    {
+      "texto": "Home",
+      "textoEn": "Home",
+      "ancora": "#home"
+    },
+    {
+      "texto": "Excursões",
+      "textoEn": "Tours",
+      "ancora": "#excursoes"
+    },
+    {
+      "texto": "Blog",
+      "textoEn": "Blog",
+      "ancora": "#blog"
+    },
+    {
+      "texto": "Sobre Nós",
+      "textoEn": "About Us",
+      "ancora": "#sobre"
+    },
+    {
+      "texto": "Contactos",
+      "textoEn": "Contacts",
+      "ancora": "#contactos"
+    }
   ],
+  "copyright": "© 2026 Cipritravel Tours. Todos os direitos reservados.",
+  "descricao": "Experiências únicas e memoráveis em cada viagem.",
   "redesSociais": [],
-  "whatsapp": "351929096672",
-  "whatsappMensagem": "Olá! Gostaria de obter mais informações sobre as vossas excursões.",
-  "whatsappMensagemEn": "Hello! I would like to get more information about your tours."
+  "logo": "https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png",
+  "copyrightEn": "© 2026 Cipritravel Tours. All rights reserved.",
+  "descricaoEn": "Unique and memorable experiences on every trip.",
+  "whatsapp": "351929096672 (24/7 dias por semana)",
+  "whatsappMensagem": "Olá! Gostaria de obter mais informações sobre as vossas excursões."
 }
