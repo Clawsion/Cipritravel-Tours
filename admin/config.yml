@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Clawsion/Cipritravel-Tours
   branch: main
-  auth_type: implicit
+  auth_type: pkce
   app_id: Ov23liLbpWna69ItJPep
 
 media_folder: "assets/images/uploads"
