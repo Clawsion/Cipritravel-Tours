@@ -47,23 +47,6 @@
       "descricaoEn": "Choose your next adventure from our most popular tours, carefully planned for you.",
       "excursoes": [
         {
-          "nomeEn": "Serra da Estrela",
-          "descricao": "A montanha mais alta de Portugal Continental, com paisagens únicas e neve.",
-          "data": {
-            "dia": "28",
-            "mes": "Mar"
-          },
-          "preco": 49,
-          "ativo": true,
-          "duracao": "1 Dia",
-          "descricaoEn": "The highest mountain in mainland Portugal, with unique landscapes and snow.",
-          "imagem": "https://image2url.com/r2/default/images/1774040145314-3556a336-3e5e-46cd-875a-307f5e257db2.png",
-          "nome": "Serra da Estrela",
-          "duracaoEn": "1 Day",
-          "id": "serra-estrela",
-          "corBadge": "laranja"
-        },
-        {
           "nomeEn": "Gerês",
           "descricao": "Cascatas, trilhos e natureza no Parque Nacional da Peneda-Gerês.",
           "data": {
