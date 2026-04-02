@@ -1,6 +1,6 @@
 {
   "nomeSite": "Cipritravel Tours",
-  "urlSite": "https://cipritravel.pt",
+  "urlSite": "https://www.cipritraveltours.com",
   "idiomaDefault": "pt",
   "idiomas": [
     "pt",
@@ -18,7 +18,7 @@
     "facebookPixel": ""
   },
   "formularios": {
-    "web3formsKey": "e1019a03-cf3e-42bd-bd53-9038f1f409b4"
+    "web3formsKey": "0d37283a-1946-41f6-a756-3cfc1bfec5e1"
   },
   "contacto": {
     "telefone": "+351 218 271 105",
