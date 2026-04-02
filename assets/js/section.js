@@ -882,51 +882,70 @@ function openReservaModal(tour) {
 }
 
 async function submitForm(modalId) {
+  // 1. Ir buscar os dados que o cliente escreveu no formulário
   const nome = document.getElementById('reserva-nome')?.value || '';
   const email = document.getElementById('reserva-email')?.value || '';
   const tel = document.getElementById('reserva-tel')?.value || '';
-  const tour = document.getElementById('reserva-tour')?.value || '';
-  const tourText = document.getElementById('reserva-tour')?.options[document.getElementById('reserva-tour')?.selectedIndex]?.text || '';
+  const tourSelect = document.getElementById('reserva-tour');
+  const tourText = tourSelect?.options[tourSelect.selectedIndex]?.text || '';
   const pessoas = document.getElementById('reserva-pessoas')?.value || '1';
   const obs = document.getElementById('reserva-obs')?.value || '';
-  
+
+  // 2. Verificar se os campos obrigatórios estão preenchidos
   if (!nome || !email) {
     alert(ts('Por favor preencha o nome e email.'));
     return;
   }
-  
+
+  // 3. Preparar o botão e a mensagem de sucesso
   const btn = document.getElementById(`btn-submit-${modalId}`);
   const successMsg = document.getElementById(`form-success-${modalId}`);
-  
+
   if (btn) {
     btn.disabled = true;
     btn.textContent = SITE.lang === 'en' ? 'Sending...' : 'A enviar...';
   }
-  
+
   try {
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log('Dados do formulário:', { nome, email, tel, tour, tourText, pessoas, obs });
-    
-    if (successMsg) {
-      successMsg.textContent = ts('Thank you! We\'ll contact you soon.');
-      successMsg.style.display = 'block';
+    // 4. ENVIO REAL: Ligar o site ao Web3Forms e ao teu e-mail Infomaniak
+    const response = await fetch('https://web3forms.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: SITE.config.web3formsKey,
+        subject: "Nova Reserva: " + tourText,
+        from_name: "Cipritravel Reservas",
+        nome_cliente: nome,
+        email_cliente: email,
+        telefone: tel,
+        tour_escolhido: tourText,
+        numero_pessoas: pessoas,
+        observacoes: obs
+      })
+    });
+
+    if (response.ok) {
+      // 5. Se o envio correu bem, mostrar mensagem de sucesso e limpar campos
+      if (successMsg) {
+        successMsg.textContent = ts('Thank you! We\'ll contact you soon.');
+        successMsg.style.display = 'block';
+      }
+
+      // Limpar os campos do formulário
+      document.getElementById('reserva-nome').value = '';
+      document.getElementById('reserva-email').value = '';
+      document.getElementById('reserva-tel').value = '';
+      document.getElementById('reserva-pessoas').value = '1';
+      document.getElementById('reserva-obs').value = '';
+
+      // Fechar o modal após 3 segundos
+      setTimeout(() => {
+        closeModal(modalId);
+        if (successMsg) successMsg.style.display = 'none';
+      }, 3000);
     }
-    
-    document.getElementById('reserva-nome').value = '';
-    document.getElementById('reserva-email').value = '';
-    document.getElementById('reserva-tel').value = '';
-    document.getElementById('reserva-tour').selectedIndex = 0;
-    document.getElementById('reserva-pessoas').value = '1';
-    document.getElementById('reserva-obs').value = '';
-    
-    setTimeout(() => {
-      closeModal(modalId);
-      if (successMsg) successMsg.style.display = 'none';
-    }, 3000);
-    
   } catch (error) {
-    console.error('Erro ao enviar:', error);
+    console.error('Erro ao enviar reserva:', error);
     alert(SITE.lang === 'en' ? 'Error sending request. Please try again.' : 'Erro ao enviar pedido. Por favor tente novamente.');
   } finally {
     if (btn) {
@@ -937,49 +956,45 @@ async function submitForm(modalId) {
 }
 
 async function sendMessage() {
-  const nome = document.getElementById('contact-name')?.value || '';
-  const email = document.getElementById('contact-email')?.value || '';
-  const msg = document.getElementById('contact-msg')?.value || '';
-  
+  const nome = document.getElementById('contact-name')?.value;
+  const email = document.getElementById('contact-email')?.value;
+  const msg = document.getElementById('contact-msg')?.value;
+  const btn = document.getElementById('btn-send-msg');
+  const successMsg = document.getElementById('contact-success');
+
   if (!nome || !email || !msg) {
     alert(SITE.lang === 'en' ? 'Please fill in all fields.' : 'Por favor preencha todos os campos.');
     return;
   }
-  
-  const btn = document.getElementById('btn-send-msg');
-  const successMsg = document.getElementById('contact-success');
-  
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = SITE.lang === 'en' ? 'Sending...' : 'A enviar...';
-  }
-  
+
+  btn.disabled = true;
+  btn.textContent = SITE.lang === 'en' ? 'Sending...' : 'A enviar...';
+
   try {
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log('Mensagem de contacto:', { nome, email, msg });
-    
-    if (successMsg) {
+    const response = await fetch('https://web3forms.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: SITE.config.web3formsKey, // 0d37283a-1946-41f6-a756-3cfc1bfec5e1 
+        name: nome,
+        email: email,
+        message: msg,
+        from_name: "Cipritravel Contacto"
+      })
+    });
+
+    if (response.ok) {
       successMsg.textContent = ts('Thank you! Message sent successfully.');
       successMsg.style.display = 'block';
+      document.getElementById('contact-name').value = '';
+      document.getElementById('contact-email').value = '';
+      document.getElementById('contact-msg').value = '';
     }
-    
-    document.getElementById('contact-name').value = '';
-    document.getElementById('contact-email').value = '';
-    document.getElementById('contact-msg').value = '';
-    
-    setTimeout(() => {
-      if (successMsg) successMsg.style.display = 'none';
-    }, 5000);
-    
   } catch (error) {
-    console.error('Erro ao enviar:', error);
-    alert(SITE.lang === 'en' ? 'Error sending message. Please try again.' : 'Erro ao enviar mensagem. Por favor tente novamente.');
+    alert('Erro ao enviar. Tente novamente.');
   } finally {
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = ts('Enviar Mensagem');
-    }
+    btn.disabled = false;
+    btn.textContent = ts('Enviar Mensagem');
   }
 }
 
