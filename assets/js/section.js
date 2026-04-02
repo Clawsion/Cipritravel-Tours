@@ -901,7 +901,7 @@ async function submitForm(modalId) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: SITE.config.web3formsKey,
+        access_key: "0d37283a-1946-41f6-a756-3cfc1bfec5e1",
         subject: "Nova Reserva: " + tourText,
         from_name: "Cipritravel Reservas",
         reply_to: email, 
