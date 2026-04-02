@@ -449,7 +449,6 @@ function renderCTA(s) {
 function renderFormulario(s) {
   const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
   
-  // Placeholders baseados no idioma atual
   const namePlaceholder = SITE.lang === 'en' ? 'Your name...' : 'O seu nome...';
   const emailPlaceholder = SITE.lang === 'en' ? 'Your email...' : 'O seu email...';
   const msgPlaceholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
@@ -788,14 +787,12 @@ function setLang(lang) {
   SITE.lang = lang;
   localStorage.setItem('lang', lang);
   
-  // Atualizar todos os elementos com data-pt e data-en
   document.querySelectorAll('[data-pt]').forEach(el => {
     const pt = el.dataset.pt;
     const en = el.dataset.en || pt;
     el.textContent = lang === 'en' ? en : pt;
   });
   
-  // ATUALIZAR PLACEHOLDERS DO FORMULÁRIO - ISTO É A CORREÇÃO
   const nameInput = document.getElementById('contact-name');
   const emailInput = document.getElementById('contact-email');
   const msgInput = document.getElementById('contact-msg');
@@ -806,17 +803,14 @@ function setLang(lang) {
   if (msgInput) msgInput.placeholder = lang === 'en' ? 'Your message...' : 'A sua mensagem...';
   if (newsletterInput) newsletterInput.placeholder = lang === 'en' ? 'Your email...' : 'O seu email...';
   
-  // Atualizar elementos markdown traduzíveis
   document.querySelectorAll('.translatable-markdown').forEach(el => {
     const pt = decodeHtml(el.dataset.pt);
     const en = decodeHtml(el.dataset.en || el.dataset.pt);
     el.innerHTML = renderMarkdown(lang === 'en' ? en : pt);
   });
   
-  // Re-renderizar modais
   renderModals();
   
-  // Atualizar botões de idioma
   document.getElementById('btn-pt')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en')?.classList.toggle('active', lang === 'en');
 }
@@ -824,21 +818,17 @@ function setLang(lang) {
 function applyLang(lang) {
   setLang(lang);
 }
+
 function updateFormPlaceholders() {
   const nameInput = document.getElementById('contact-name');
   const emailInput = document.getElementById('contact-email');
   const msgInput = document.getElementById('contact-msg');
   
-  if (nameInput) {
-    nameInput.placeholder = SITE.lang === 'en' ? 'Your name...' : 'O seu nome...';
-  }
-  if (emailInput) {
-    emailInput.placeholder = SITE.lang === 'en' ? 'Your email...' : 'O seu email...';
-  }
-  if (msgInput) {
-    msgInput.placeholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
-  }
+  if (nameInput) nameInput.placeholder = SITE.lang === 'en' ? 'Your name...' : 'O seu nome...';
+  if (emailInput) emailInput.placeholder = SITE.lang === 'en' ? 'Your email...' : 'O seu email...';
+  if (msgInput) msgInput.placeholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
 }
+
 function toggleTheme() {
   SITE.theme = SITE.theme === 'dark' ? 'light' : 'dark';
   applyTheme(SITE.theme);
@@ -852,7 +842,7 @@ function applyTheme(theme) {
 }
 
 // ============================================
-// MODAIS
+// AÇÕES DOS MODAIS
 // ============================================
 function openModal(id) {
   document.getElementById(id)?.classList.add('active');
@@ -881,8 +871,10 @@ function openReservaModal(tour) {
   }
 }
 
+// ============================================
+// ENVIOS PARA WEB3FORMS (CORRIGIDO)
+// ============================================
 async function submitForm(modalId) {
-  // 1. Ir buscar os dados que o cliente escreveu no formulário
   const nome = document.getElementById('reserva-nome')?.value || '';
   const email = document.getElementById('reserva-email')?.value || '';
   const tel = document.getElementById('reserva-tel')?.value || '';
@@ -891,13 +883,11 @@ async function submitForm(modalId) {
   const pessoas = document.getElementById('reserva-pessoas')?.value || '1';
   const obs = document.getElementById('reserva-obs')?.value || '';
 
-  // 2. Verificar se os campos obrigatórios estão preenchidos
   if (!nome || !email) {
     alert(ts('Por favor preencha o nome e email.'));
     return;
   }
 
-  // 3. Preparar o botão e a mensagem de sucesso
   const btn = document.getElementById(`btn-submit-${modalId}`);
   const successMsg = document.getElementById(`form-success-${modalId}`);
 
@@ -907,14 +897,15 @@ async function submitForm(modalId) {
   }
 
   try {
-    // 4. ENVIO REAL: Ligar o site ao Web3Forms e ao teu e-mail Infomaniak
-    const response = await fetch('https://web3forms.com', {
+    const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         access_key: SITE.config.web3formsKey,
         subject: "Nova Reserva: " + tourText,
         from_name: "Cipritravel Reservas",
+        reply_to: email, 
+        redirect: false,
         nome_cliente: nome,
         email_cliente: email,
         telefone: tel,
@@ -924,21 +915,20 @@ async function submitForm(modalId) {
       })
     });
 
-    if (response.ok) {
-      // 5. Se o envio correu bem, mostrar mensagem de sucesso e limpar campos
+    const result = await response.json();
+
+    if (result.success) {
       if (successMsg) {
         successMsg.textContent = ts('Thank you! We\'ll contact you soon.');
         successMsg.style.display = 'block';
       }
 
-      // Limpar os campos do formulário
       document.getElementById('reserva-nome').value = '';
       document.getElementById('reserva-email').value = '';
       document.getElementById('reserva-tel').value = '';
       document.getElementById('reserva-pessoas').value = '1';
       document.getElementById('reserva-obs').value = '';
 
-      // Fechar o modal após 3 segundos
       setTimeout(() => {
         closeModal(modalId);
         if (successMsg) successMsg.style.display = 'none';
@@ -971,19 +961,23 @@ async function sendMessage() {
   btn.textContent = SITE.lang === 'en' ? 'Sending...' : 'A enviar...';
 
   try {
-    const response = await fetch('https://web3forms.com', {
+    const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: SITE.config.web3formsKey, // 0d37283a-1946-41f6-a756-3cfc1bfec5e1 
+        access_key: SITE.config.web3formsKey,
         name: nome,
         email: email,
         message: msg,
-        from_name: "Cipritravel Contacto"
+        from_name: "Cipritravel Tours",
+        reply_to: email, 
+        redirect: false
       })
     });
 
-    if (response.ok) {
+    const result = await response.json();
+
+    if (result.success) {
       successMsg.textContent = ts('Thank you! Message sent successfully.');
       successMsg.style.display = 'block';
       document.getElementById('contact-name').value = '';
@@ -991,7 +985,7 @@ async function sendMessage() {
       document.getElementById('contact-msg').value = '';
     }
   } catch (error) {
-    alert('Erro ao enviar. Tente novamente.');
+    alert(SITE.lang === 'en' ? 'Error sending. Try again.' : 'Erro ao enviar. Tente novamente.');
   } finally {
     btn.disabled = false;
     btn.textContent = ts('Enviar Mensagem');
