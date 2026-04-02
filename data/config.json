@@ -1,26 +1,17 @@
 {
-  "nomeSite": "Cipritravel Tours",
-  "urlSite": "https://www.cipritraveltours.com",
-  "idiomaDefault": "pt",
-  "idiomas": [
-    "pt",
-    "en"
-  ],
+  "web3formsKey": "0d37283a-1946-41f6-a756-3cfc1bfec5e1",
+  "siteNome": "Cipritravel Tours",
+  "siteUrl": "https://www.cipritraveltours.com",
+  "langDefault": "pt",
+  "langSuportadas": ["pt", "en"],
   "seo": {
-    "titulo": "Cipritravel Tours - Voos, Excursões e Passeios",
-    "tituloEn": "Cipritravel Tours - Tours and Trips in Portugal",
-    "descricao": "Descubra novos destinos com a Cipritravel Tours. Excursões, passeios e viagens organizadas com segurança, conforto e preços justos.",
-    "descricaoEn": "Discover Portugal with Cipritravel Tours. Organized tours, trips and travels with safety, comfort and fair prices.",
-    "keywords": "excursões , tours, passeios, viagens organizadas, gerês, serra da estrela, cipritravel"
+    "tituloPt": "Cipritravel Tours - Experiências Inesquecíveis",
+    "tituloEn": "Cipritravel Tours - Unforgettable Experiences",
+    "descricaoPt": "Descubra os melhores tours e excursões em Portugal com a Cipritravel Tours.",
+    "descricaoEn": "Discover the best tours and excursions in Portugal with Cipritravel Tours.",
+    "keywords": "tours, portugal, excursões, viagens, cipritravel"
   },
-  "analytics": {
-    "googleAnalytics": "",
-    "facebookPixel": ""
-  },
-  "formularios": {
-    "web3formsKey": "0d37283a-1946-41f6-a756-3cfc1bfec5e1"
-  },
-  "contacto": {
+  "contactos": {
     "telefone": "+351 218 271 105",
     "email": "cipritravel@gmail.com",
     "morada": "R. Francisco Miguel 64, 2835-123 Baixa da Banheira",
