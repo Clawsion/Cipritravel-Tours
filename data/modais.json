@@ -52,67 +52,13 @@
       "textoBotaoEn": "Book Now"
     },
     {
-      "id": "modal-reserva",
       "ativo": true,
+      "id": "modal-reserva",
       "titulo": "Pedido de Reserva",
       "tituloEn": "Booking Request",
-      "tipo": "formulario",
-      "campos": [
-        {
-          "id": "reserva-nome",
-          "label": "Nome Completo",
-          "labelEn": "Full Name",
-          "tipo": "text",
-          "obrigatorio": true,
-          "placeholder": "O seu nome completo",
-          "placeholderEn": "Your full name"
-        },
-        {
-          "id": "reserva-email",
-          "label": "Email",
-          "labelEn": "Email",
-          "tipo": "email",
-          "obrigatorio": true,
-          "placeholder": "email@exemplo.com",
-          "placeholderEn": "email@example.com"
-        },
-        {
-          "id": "reserva-tel",
-          "label": "Telefone",
-          "labelEn": "Phone",
-          "tipo": "tel",
-          "obrigatorio": false,
-          "placeholder": "+351 XXX XXX XXX",
-          "placeholderEn": "+351 XXX XXX XXX"
-        },
-        {
-          "id": "reserva-tour",
-          "label": "Excursão",
-          "labelEn": "Tour",
-          "tipo": "select",
-          "obrigatorio": true
-        },
-        {
-          "id": "reserva-pessoas",
-          "label": "Nº de Pessoas",
-          "labelEn": "No. of People",
-          "tipo": "number",
-          "obrigatorio": false,
-          "placeholder": "1",
-          "placeholderEn": "1"
-        },
-        {
-          "id": "reserva-obs",
-          "label": "Observações",
-          "labelEn": "Notes",
-          "tipo": "textarea",
-          "obrigatorio": false,
-          "placeholder": "Pedidos especiais, restrições alimentares, etc.",
-          "placeholderEn": "Special requests, dietary restrictions, etc."
-        }
-      ],
       "textoBotao": "Enviar Pedido de Reserva",
-      "textoBotaoEn": "Send Booking Request"
+      "textoBotaoEn": "Send Booking Request",
+      "conteudo": "> ## **Reserva**"
     },
     {
       "tituloEn": "10 Reasons to Visit Gerês",
@@ -185,6 +131,15 @@
       "conteudoEn": "### 1. Who We Are\n\nCipritravel Tours, headquartered at R. Francisco Miguel 64, 2835-123 Baixa da Banheira, is responsible for processing your personal data.\n\n### 2. Data Collected\n\nWe collect name, email, phone and information about tours of interest, voluntarily provided through our forms.\n\n### 3. Purpose\n\nData is used to respond to booking requests, send information about tours and newsletter, always with your consent.\n\n### 4. Your Rights (GDPR)\n\nYou have the right to access, rectify, delete or object to the processing of your data. Contact us at cipritravel@gmail.com.",
       "textoBotao": "Fechar",
       "textoBotaoEn": "Close"
+    },
+    {
+      "ativo": true,
+      "id": "modal-sust-3",
+      "titulo": "FIAFROTURS: O Futuro do Afroturismo Sustentável",
+      "conteudo": "## **A nossa missão é criar pontes entre o passado e o futuro:**\n\n### \n\n**Reconexão Histórica e Ancestral**\n\n* Promovemos o diálogo entre turistas e os países africanos, unindo todos os que estão ligados à Rota da Escravatura através dos seus antepassados.\n\n\n\n### **Valorização das Civilizações Africanas**\n\n* Criamos um espaço de estudo e coordenação sobre a evolução histórica das culturas de África, destacando o seu contributo para a civilização global.\n\n\n\n### **Turismo de Proximidade e Impacto Social**\n\n* Fomentamos a interação real entre os visitantes e as comunidades locais, garantindo um ambiente de reconhecimento e aproximação humana.\n\n\n\n### **Reconstituição da Memória em São Tomé e Príncipe**\n\n* Damos destaque ao papel estratégico da ilha como entreposto histórico, permitindo que as atuais gerações (de todas as raças) conheçam as suas verdadeiras origens genéticas.\n\n\n\n### **Novos Vetores de Sustentabilidade**\n\n* Transformamos a história e a cultura em pilares centrais para o crescimento económico e o desenvolvimento sustentável do continente africano.",
+      "tituloEn": "FIAFROTURS: The Future of Sustainable Afrotourism",
+      "conteudoEn": "> ## **Booking**",
+      "imagem": "https://image2url.com/r2/default/images/1775239714558-c1ca7ef6-3c6a-4a13-a9a6-00e6daf6f079.jpg"
     }
   ]
 }
