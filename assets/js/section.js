@@ -957,8 +957,10 @@ async function sendMessage() {
     return;
   }
 
-  btn.disabled = true;
-  btn.textContent = SITE.lang === 'en' ? 'Sending...' : 'A enviar...';
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = SITE.lang === 'en' ? 'Sending...' : 'A enviar...';
+  }
 
   try {
     const response = await fetch('https://api.web3forms.com/submit', {
@@ -966,29 +968,44 @@ async function sendMessage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         access_key: SITE.config.web3formsKey,
-        name: nome,
+        subject: 'Nova Mensagem de Contacto - Cipritravel Tours',
+        from_name: nome,
         email: email,
         message: msg,
-        from_name: "Cipritravel Tours",
-        reply_to: email, 
+        reply_to: email,
         redirect: false
       })
     });
 
     const result = await response.json();
+    console.log('Resultado Web3Forms:', result);
 
     if (result.success) {
-      successMsg.textContent = ts('Thank you! Message sent successfully.');
-      successMsg.style.display = 'block';
+      if (successMsg) {
+        successMsg.textContent = SITE.lang === 'en' 
+          ? 'Thank you! Message sent successfully.' 
+          : 'Obrigado! Mensagem enviada com sucesso.';
+        successMsg.style.display = 'block';
+      }
       document.getElementById('contact-name').value = '';
       document.getElementById('contact-email').value = '';
       document.getElementById('contact-msg').value = '';
+      
+      setTimeout(() => {
+        if (successMsg) successMsg.style.display = 'none';
+      }, 5000);
+    } else {
+      alert(SITE.lang === 'en' ? 'Error sending. Try again.' : 'Erro ao enviar. Tente novamente.');
     }
+
   } catch (error) {
+    console.error('Erro:', error);
     alert(SITE.lang === 'en' ? 'Error sending. Try again.' : 'Erro ao enviar. Tente novamente.');
   } finally {
-    btn.disabled = false;
-    btn.textContent = ts('Enviar Mensagem');
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = SITE.lang === 'en' ? 'Send Message' : 'Enviar Mensagem';
+    }
   }
 }
 
