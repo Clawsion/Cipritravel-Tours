@@ -8,20 +8,23 @@
       "conteudo": "Somos especializados em criar excursões únicas e memoráveis por Portugal e não só. Cada viagem é cuidadosamente planeada para que não se preocupe com nada — apenas desfrute.\n\nCom autocarros modernos, guias acompanhantes e seguro de viagem incluído, a sua aventura começa aqui.",
       "conteudoEn": "We specialize in creating unique and memorable tours across Portugal and beyond. Each trip is carefully planned so you don't have to worry about anything — just enjoy.\n\nWith modern coaches, accompanying guides and travel insurance included, your adventure starts here.",
       "botoes": [
-        { "texto": "Ver Excursões", "textoEn": "See Tours", "acao": "scroll", "ancora": "#excursoes" },
-        { "texto": "Contacte-nos", "textoEn": "Contact Us", "acao": "scroll", "ancora": "#contactos" }
+        {
+          "texto": "Ver Excursões",
+          "textoEn": "See Tours",
+          "acao": "scroll",
+          "ancora": "#excursoes"
+        },
+        {
+          "texto": "Contacte-nos",
+          "textoEn": "Contact Us",
+          "acao": "scroll",
+          "ancora": "#contactos"
+        }
       ]
     },
     {
-      "id": "modal-barco",
-      "ativo": true,
-      "titulo": "Passeio de Barco no Gerês",
-      "tituloEn": "Boat Trip in Gerês",
-      "imagem": "https://image2url.com/r2/default/images/1773277673974-2a4c113b-5aab-4fd6-bf0e-bd9ba032cf94.jpg",
-      "subtitulo": "Rio Caldo · Barragem da Caniçada",
       "subtituloEn": "Rio Caldo · Caniçada Dam",
-      "conteudo": "Uma experiência única nas águas cristalinas do Rio Caldo, no coração do Parque Nacional da Peneda-Gerês. Navegue pelas águas esmeraldas e contemple paisagens deslumbrantes.",
-      "conteudoEn": "A unique experience on the crystal clear waters of Rio Caldo, in the heart of Peneda-Gerês National Park. Sail through emerald waters and contemplate stunning landscapes.",
+      "tituloEn": "Boat Trip in Gerês",
       "incluidos": [
         "Transporte em autocarro",
         "Guia Acompanhante",
@@ -30,6 +33,7 @@
         "Oferta de Pão D'ul a todos os participantes",
         "Passeio de barco"
       ],
+      "conteudo": "Uma experiência única nas águas cristalinas do Rio Caldo, no coração do Parque Nacional da Peneda-Gerês. Navegue pelas águas esmeraldas e contemple paisagens deslumbrantes.",
       "incluidosEn": [
         "Coach transport",
         "Accompanying Guide",
@@ -38,7 +42,13 @@
         "Free Pão D'ul for all participants",
         "Boat trip"
       ],
+      "ativo": true,
+      "imagem": "https://image2url.com/r2/default/images/1773277673974-2a4c113b-5aab-4fd6-bf0e-bd9ba032cf94.jpg",
       "textoBotao": "Reservar Agora",
+      "conteudoEn": "A unique experience on the crystal clear waters of Rio Caldo, in the heart of Peneda-Gerês National Park. Sail through emerald waters and contemplate stunning landscapes.",
+      "subtitulo": "Rio Caldo · Barragem da Caniçada",
+      "titulo": "Passeio de Barco no Gerês",
+      "id": "modal-barco",
       "textoBotaoEn": "Book Now"
     },
     {
@@ -48,39 +58,86 @@
       "tituloEn": "Booking Request",
       "tipo": "formulario",
       "campos": [
-        { "id": "reserva-nome", "label": "Nome Completo", "labelEn": "Full Name", "tipo": "text", "obrigatorio": true, "placeholder": "O seu nome completo", "placeholderEn": "Your full name" },
-        { "id": "reserva-email", "label": "Email", "labelEn": "Email", "tipo": "email", "obrigatorio": true, "placeholder": "email@exemplo.com", "placeholderEn": "email@example.com" },
-        { "id": "reserva-tel", "label": "Telefone", "labelEn": "Phone", "tipo": "tel", "obrigatorio": false, "placeholder": "+351 XXX XXX XXX", "placeholderEn": "+351 XXX XXX XXX" },
-        { "id": "reserva-tour", "label": "Excursão", "labelEn": "Tour", "tipo": "select", "obrigatorio": true },
-        { "id": "reserva-pessoas", "label": "Nº de Pessoas", "labelEn": "No. of People", "tipo": "number", "obrigatorio": false, "placeholder": "1", "placeholderEn": "1" },
-        { "id": "reserva-obs", "label": "Observações", "labelEn": "Notes", "tipo": "textarea", "obrigatorio": false, "placeholder": "Pedidos especiais, restrições alimentares, etc.", "placeholderEn": "Special requests, dietary restrictions, etc." }
+        {
+          "id": "reserva-nome",
+          "label": "Nome Completo",
+          "labelEn": "Full Name",
+          "tipo": "text",
+          "obrigatorio": true,
+          "placeholder": "O seu nome completo",
+          "placeholderEn": "Your full name"
+        },
+        {
+          "id": "reserva-email",
+          "label": "Email",
+          "labelEn": "Email",
+          "tipo": "email",
+          "obrigatorio": true,
+          "placeholder": "email@exemplo.com",
+          "placeholderEn": "email@example.com"
+        },
+        {
+          "id": "reserva-tel",
+          "label": "Telefone",
+          "labelEn": "Phone",
+          "tipo": "tel",
+          "obrigatorio": false,
+          "placeholder": "+351 XXX XXX XXX",
+          "placeholderEn": "+351 XXX XXX XXX"
+        },
+        {
+          "id": "reserva-tour",
+          "label": "Excursão",
+          "labelEn": "Tour",
+          "tipo": "select",
+          "obrigatorio": true
+        },
+        {
+          "id": "reserva-pessoas",
+          "label": "Nº de Pessoas",
+          "labelEn": "No. of People",
+          "tipo": "number",
+          "obrigatorio": false,
+          "placeholder": "1",
+          "placeholderEn": "1"
+        },
+        {
+          "id": "reserva-obs",
+          "label": "Observações",
+          "labelEn": "Notes",
+          "tipo": "textarea",
+          "obrigatorio": false,
+          "placeholder": "Pedidos especiais, restrições alimentares, etc.",
+          "placeholderEn": "Special requests, dietary restrictions, etc."
+        }
       ],
       "textoBotao": "Enviar Pedido de Reserva",
       "textoBotaoEn": "Send Booking Request"
     },
     {
-      "id": "modal-blog-1",
-      "ativo": true,
-      "titulo": "10 Razões para Visitar o Gerês",
       "tituloEn": "10 Reasons to Visit Gerês",
-      "imagem": "https://cdn.visitportugal.com/sites/default/files/styles/destinos_galeria/public/mediateca/Rio-Mouro-3_660x371.jpg?itok=72N1zC3a",
       "conteudo": "## O Parque Nacional da Peneda-Gerês\n\nO Parque Nacional da Peneda-Gerês é o único parque nacional de Portugal e um dos destinos mais deslumbrantes da Península Ibérica.\n\n### 10 Razões:\n\n1. **Cascatas deslumbrantes** — Arado, Fecha de Barjas, Tahiti\n2. **Águas cristalinas** para mergulhar e nadar\n3. **Trilhos de montanha** com vistas espetaculares\n4. **Fauna selvagem** — lobos, águias e veados\n5. **Passeios de barco** no Rio Caldo e Barragem da Caniçada\n6. **Aldeias históricas** como Soajo e Lindoso\n7. **Termas e spas naturais**\n8. **Gastronomia regional única** — cozido à portuguesa, pão de centeio\n9. **Ar puro e natureza preservada**\n10. **Acessível e próximo** de Lisboa e Porto",
-      "conteudoEn": "## Peneda-Gerês National Park\n\nPeneda-Gerês National Park is Portugal's only national park and one of the most stunning destinations on the Iberian Peninsula.\n\n### 10 Reasons:\n\n1. **Stunning waterfalls** — Arado, Fecha de Barjas, Tahiti\n2. **Crystal clear waters** for diving and swimming\n3. **Mountain trails** with spectacular views\n4. **Wildlife** — wolves, eagles and deer\n5. **Boat trips** on Rio Caldo and Caniçada Dam\n6. **Historic villages** like Soajo and Lindoso\n7. **Natural thermal baths and spas**\n8. **Unique regional gastronomy**\n9. **Pure air and preserved nature**\n10. **Accessible and close** to Lisbon and Porto",
+      "ativo": true,
+      "imagem": "https://cdn.visitportugal.com/sites/default/files/styles/destinos_galeria/public/mediateca/Rio-Mouro-3_660x371.jpg?itok=72N1zC3a",
       "textoBotao": "Reservar Excursão ao Gerês",
-      "textoBotaoEn": "Book Gerês Tour",
-      "tourId": "geres"
+      "tourId": "geres",
+      "conteudoEn": "## Peneda-Gerês National Park\n\nPeneda-Gerês National Park is Portugal's only national park and one of the most stunning destinations on the Iberian Peninsula.\n\n### 10 Reasons:\n\n1. **Stunning waterfalls** — Arado, Fecha de Barjas, Tahiti\n2. **Crystal clear waters** for diving and swimming\n3. **Mountain trails** with spectacular views\n4. **Wildlife** — wolves, eagles and deer\n5. **Boat trips** on Rio Caldo and Caniçada Dam\n6. **Historic villages** like Soajo and Lindoso\n7. **Natural thermal baths and spas**\n8. **Unique regional gastronomy**\n9. **Pure air and preserved nature**\n10. **Accessible and close** to Lisbon and Porto",
+      "titulo": "10 Razões para Visitar o Gerês",
+      "id": "modal-blog-1",
+      "textoBotaoEn": "Book Gerês Tour"
     },
     {
-      "id": "modal-blog-2",
-      "ativo": true,
-      "titulo": "Serra da Estrela: Guia Completo",
       "tituloEn": "Serra da Estrela: Complete Guide",
-      "imagem": "https://image2url.com/r2/default/images/1773445232847-1e4acc68-8cd0-4b30-9d33-9737532bcf30.png",
+      "incluidos": [],
       "conteudo": "## Serra da Estrela\n\nA Serra da Estrela é o ponto mais alto de Portugal Continental com 1993m de altitude, oferecendo paisagens únicas em todas as estações do ano.\n\n### O que visitar:\n\n- **Torre** — o ponto mais alto de Portugal\n- **Lagoa Comprida** — espelho de água deslumbrante\n- **Vale do Zêzere** — glaciar mais a sul da Europa\n- **Queijaria tradicional** — Queijo Serra da Estrela DOP\n\n### Dicas práticas:\n\n- Vista sempre agasalhado — temperaturas baixas mesmo no verão\n- Use calçado adequado para trilhos\n- Leve protetor solar — altitude amplifica a radiação",
+      "ativo": true,
+      "imagem": "https://image2url.com/r2/default/images/1773445232847-1e4acc68-8cd0-4b30-9d33-9737532bcf30.png",
+      "textoBotao": "",
+      "tourId": "serra-estrela",
       "conteudoEn": "## Serra da Estrela\n\nSerra da Estrela is the highest point in mainland Portugal at 1993m altitude, offering unique landscapes in all seasons.\n\n### What to visit:\n\n- **Torre** — the highest point in Portugal\n- **Lagoa Comprida** — stunning mirror lake\n- **Vale do Zêzere** — southernmost glacier in Europe\n- **Traditional cheese dairy** — Serra da Estrela DOP Cheese\n\n### Practical tips:\n\n- Always dress warmly — low temperatures even in summer\n- Use appropriate footwear for trails\n- Bring sunscreen — altitude amplifies radiation",
-      "textoBotao": "Reservar Excursão à Serra da Estrela",
-      "textoBotaoEn": "Book Serra da Estrela Tour",
-      "tourId": "serra-estrela"
+      "titulo": "Serra da Estrela: Guia Completo",
+      "id": "modal-blog-2",
+      "textoBotaoEn": ""
     },
     {
       "id": "modal-blog-3",
