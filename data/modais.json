@@ -176,6 +176,16 @@
       "conteudo": "## Como apoiamos as comunidades:\n\n- **Contratamos guias locais certificados e residentes**\n- **Paramos em restaurantes e tascos locais**\n- **Promovemos artesanato e produtos regionais**\n- **Visitamos mercados e feiras tradicionais**\n- **Contribuímos para a economia local de forma direta**\n\n> \"Quando viajamos com consciência, enriquecemos não só nós, mas todos os que nos rodeiam.\"",
       "conteudoEn": "## How we support communities:\n\n- **We hire certified and resident local guides**\n- **We stop at local restaurants and taverns**\n- **We promote crafts and regional products**\n- **We visit traditional markets and fairs**\n- **We contribute directly to the local economy**\n\n> \"When we travel consciously, we enrich not only ourselves, but all those around us.\""
     },
+,
+    {
+      "id": "modal-fiafrots",
+      "ativo": true,
+      "titulo": "Fórum Internacional de Afroturismo Sustentável (FIAFROTURS)",
+      "tituloEn": "International Forum for Sustainable Afrotourism (FIAFROTURS)",
+      "imagem": "https://www.image2url.com/r2/default/images/1776093672708-266d2436-2662-4577-8a8d-30311dc993ed.webp",
+      "conteudo": "O FIAFROTURS é uma iniciativa da Cipritravel Viagens e Turismo em parceria com a COOPCIPRE - CCDS de São Tomé e Príncipe. O seu objetivo central é criar um espaço de diálogo e cooperação, conectando turistas, stakeholders de países africanos e participantes mundiais com ligação às rotas do tráfico de escravos.",
+      "conteudoEn": "FIAFROTURS is an initiative by Cipritravel Tours in partnership with COOPCIPRE - CCDS from São Tomé and Príncipe. Its core objective is to create a space for dialogue and cooperation, connecting tourists, African country stakeholders, and global participants with ties to slave trade routes."
+    }
     {
       "id": "modal-privacidade",
       "ativo": true,
