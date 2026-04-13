@@ -159,6 +159,24 @@
       "conteudoEn": "## Portuguese Gastronomy\n\n### Porto & North:\n\n- **Francesinha** — Porto's most iconic dish\n- **Rojões à Minhota and Cozido à Portuguesa**\n- **Vinho Verde and Port Wine**\n\n### Lisbon & Centre:\n\n- **Pastéis de Belém** — the originals since 1837\n- **Bacalhau à Brás and Bacalhau com Natas**\n- **Ginjinha de Óbidos and Serra Cheese**\n\n### Alentejo & Algarve:\n\n- **Açorda and Migas Alentejanas**\n- **Algarve Seafood Cataplana**\n- **Almonds and orange blossom honey**"
     },
     {
+      "id": "modal-sust-1",
+      "ativo": true,
+      "titulo": "Viagens que Respeitam o Planeta",
+      "tituloEn": "Travels that Respect the Planet",
+      "imagem": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600",
+      "conteudo": "## O que fazemos diferente:\n\n- **Autocarros modernos** com menor emissão de CO₂\n- **Parceria com guias e fornecedores locais**\n- **Sensibilização dos participantes** para não deixar lixo\n- **Escolha de percursos** que respeitam os ecossistemas\n- **Por cada excursão, plantamos uma árvore em Portugal**\n\n> \"Viajar bem é viajar com responsabilidade.\" — Cipritravel Tours",
+      "conteudoEn": "## What we do differently:\n\n- **Modern coaches** with lower CO₂ emissions\n- **Partnership with local guides and suppliers**\n- **Raising participants' awareness** not to litter\n- **Choice of routes** that respect ecosystems\n- **For each tour, we plant a tree in Portugal**\n\n> \"To travel well is to travel with responsibility.\" — Cipritravel Tours"
+    },
+    {
+      "id": "modal-sust-2",
+      "ativo": true,
+      "titulo": "Impacto Positivo nas Comunidades Locais",
+      "tituloEn": "Positive Impact on Local Communities",
+      "imagem": "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600",
+      "conteudo": "## Como apoiamos as comunidades:\n\n- **Contratamos guias locais certificados e residentes**\n- **Paramos em restaurantes e tascos locais**\n- **Promovemos artesanato e produtos regionais**\n- **Visitamos mercados e feiras tradicionais**\n- **Contribuímos para a economia local de forma direta**\n\n> \"Quando viajamos com consciência, enriquecemos não só nós, mas todos os que nos rodeiam.\"",
+      "conteudoEn": "## How we support communities:\n\n- **We hire certified and resident local guides**\n- **We stop at local restaurants and taverns**\n- **We promote crafts and regional products**\n- **We visit traditional markets and fairs**\n- **We contribute directly to the local economy**\n\n> \"When we travel consciously, we enrich not only ourselves, but all those around us.\""
+    },
+    {
       "id": "modal-privacidade",
       "ativo": true,
       "titulo": "Política de Privacidade",
