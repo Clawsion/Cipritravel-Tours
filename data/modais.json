@@ -160,7 +160,12 @@
     },
     {
       "ativo": true,
-      "id": "modal-sust-1"
+      "id": "modal-sust-1",
+      "titulo": "FÓRUM INTERNACIONAL AFROTURISMO SUSTENTÁVEL ",
+      "tituloEn": "INTERNATIONAL FORUM SUSTAINABLE AFROTOURISM",
+      "conteudo": "**(FIAFROTURS)** é um projeto da **Agência Cipritravel Viagens e Turismo** em parceria com a **Cooperativa de Desenvolvimento Sustentável de São Tomé e Príncipe(COOPCIPRE-CCDS)** com objetivo de criar um espaço de diálogo e  de relação entre os turistas, os interessados dos Países Africanos e os de restantes países do mundo que estiveram direta ou indiretamente ligados a **ROTA da ESCRAVATURA** através de seus ancestrais.",
+      "conteudoEn": "**(FIAFROTURS)** is a project by the **Cipritravel Travel and Tourism Agency** in partnership with the **Sustainable Development Cooperative of São Tomé and Príncipe (COOPCIPRE-CCDS)**.\n Its objective is to create a space for dialogue and relationships \nbetween tourists, stakeholders from African countries, and those from \nother countries worldwide who are directly or indirectly linked to the **SLAVE ROUTE** through their ancestors.",
+      "imagem": "https://www.image2url.com/r2/default/images/1776093666837-a076903f-cd82-4f23-87a7-3b46f873f692.webp"
     },
     {
       "id": "modal-sust-2",
