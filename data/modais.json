@@ -159,24 +159,6 @@
       "conteudoEn": "## Portuguese Gastronomy\n\n### Porto & North:\n\n- **Francesinha** — Porto's most iconic dish\n- **Rojões à Minhota and Cozido à Portuguesa**\n- **Vinho Verde and Port Wine**\n\n### Lisbon & Centre:\n\n- **Pastéis de Belém** — the originals since 1837\n- **Bacalhau à Brás and Bacalhau com Natas**\n- **Ginjinha de Óbidos and Serra Cheese**\n\n### Alentejo & Algarve:\n\n- **Açorda and Migas Alentejanas**\n- **Algarve Seafood Cataplana**\n- **Almonds and orange blossom honey**"
     },
     {
-      "id": "modal-sust-1",
-      "ativo": true,
-      "titulo": "Viagens que Respeitam o Planeta",
-      "tituloEn": "Travels that Respect the Planet",
-      "imagem": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600",
-      "conteudo": "",
-      "conteudoEn": ""
-    },
-    {
-      "id": "modal-sust-2",
-      "ativo": true,
-      "titulo": "FÓRUM INTERNACIONAL AFROTURISMO SUSTENTÁVEL ",
-      "tituloEn": "INTERNATIONAL FORUM SUSTAINABLE AFROTOURISM",
-      "imagem": "https://www.image2url.com/r2/default/images/1776093672708-266d2436-2662-4577-8a8d-30311dc993ed.webp",
-      "conteudo": "**(FIAFROTURS)** é um projeto da **Agência Cipritravel Viagens e Turismo** em parceria com a **Cooperativa de Desenvolvimento Sustentável de São Tomé e Príncipe(COOPCIPRE-CCDS)** com objetivo de criar um espaço de diálogo e  de relação entre os turistas, os interessados dos Países Africanos e os de restantes países do mundo que estiveram direta ou indiretamente ligados a **ROTA da ESCRAVATURA** através de seus ancestrais.",
-      "conteudoEn": "**(FIAFROTURS)** is a project by the **Cipritravel Travel and Tourism Agency** in partnership with the **Sustainable Development Cooperative of São Tomé and Príncipe (COOPCIPRE-CCDS)**.\n Its objective is to create a space for dialogue and relationships \nbetween tourists, stakeholders from African countries, and those from \nother countries worldwide who are directly or indirectly linked to the **SLAVE ROUTE** through their ancestors."
-    },
-    {
       "id": "modal-privacidade",
       "ativo": true,
       "titulo": "Política de Privacidade",
@@ -185,6 +167,10 @@
       "conteudoEn": "### 1. Who We Are\n\nCipritravel Tours, headquartered at R. Francisco Miguel 64, 2835-123 Baixa da Banheira, is responsible for processing your personal data.\n\n### 2. Data Collected\n\nWe collect name, email, phone and information about tours of interest, voluntarily provided through our forms.\n\n### 3. Purpose\n\nData is used to respond to booking requests, send information about tours and newsletter, always with your consent.\n\n### 4. Your Rights (GDPR)\n\nYou have the right to access, rectify, delete or object to the processing of your data. Contact us at cipritravel@gmail.com.",
       "textoBotao": "Fechar",
       "textoBotaoEn": "Close"
+    },
+    {
+      "ativo": true,
+      "id": "modal-sust-2"
     }
   ]
 }
