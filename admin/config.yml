@@ -348,12 +348,12 @@ collections:
             widget: "list"
             label_singular: "Modal"
             fields:
-              - { name: "id", label: "🆔 ID", widget: "string" }
+              - { name: "id", label: "🆔 ID", widget: "string", required: false }
               - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
-              - { name: "titulo", label: "📌 Título (PT)", widget: "string" }
+              - { name: "titulo", label: "📌 Título (PT)", widget: "string", required: false }
               - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
               - { name: "imagem", label: "🖼️ Imagem", widget: "image", required: false }
-              - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown" }
+              - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown", required: false }
               - { name: "conteudoEn", label: "📄 Conteúdo (EN)", widget: "markdown", required: false }
               - name: "incluidos"
                 label: "✅ Itens Incluídos"
