@@ -1019,11 +1019,30 @@ async function subscribeNewsletter() {
   msgEl.textContent = SITE.lang === 'en' ? 'Subscribing...' : 'A subscrever...';
   
   try {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Newsletter subscription:', emailEl.value);
-    msgEl.textContent = SITE.lang === 'en' ? 'Thank you for subscribing!' : 'Obrigado por subscrever!';
-    emailEl.value = '';
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: SITE.config.web3formsKey,
+        subject: 'Nova subscrição newsletter - Cipritravel',
+        from_name: 'Newsletter',
+        email: emailEl.value,
+        message: 'Nova subscrição de newsletter: ' + emailEl.value,
+        redirect: false
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      msgEl.textContent = SITE.lang === 'en' ? 'Thank you for subscribing!' : 'Obrigado por subscrever!';
+      emailEl.value = '';
+      setTimeout(() => { msgEl.style.opacity = '0'; }, 5000);
+    } else {
+      msgEl.textContent = SITE.lang === 'en' ? 'Error. Please try again.' : 'Erro. Por favor tente novamente.';
+    }
   } catch (error) {
+    console.error('Erro newsletter:', error);
     msgEl.textContent = SITE.lang === 'en' ? 'Error. Please try again.' : 'Erro. Por favor tente novamente.';
   }
 }
