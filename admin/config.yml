@@ -338,27 +338,30 @@ collections:
 
   - name: "modais"
     label: "🪟 Modais (Popups)"
-    folder: "data/modais" # Pasta onde os popups serão guardados individualmente
-    create: true          # ATIVA O BOTÃO "ADICIONAR NOVO"
-    extension: "json"
-    format: "json"
-    slug: "{{id}}"        # O nome do ficheiro será o ID que deres ao modal
-    fields:
-      - { name: "id", label: "🆔 ID único", widget: "string", hint: "Ex: promo-verao (Não uses espaços)", pattern: ['^[a-z0-9-]+$', "Apenas letras minúsculas e traços"] }
-      - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
-      - { name: "titulo", label: "Título (PT)", widget: "string" }
-      - { name: "tituloEn", label: "Título (EN)", widget: "string", required: false }
-      - { name: "imagem", label: "🖼️ Imagem", widget: "image", required: false }
-      - { name: "conteudo", label: "Conteúdo (PT)", widget: "markdown" }
-      - { name: "conteudoEn", label: "Conteúdo (EN)", widget: "markdown", required: false }
-      - name: "incluidos"
-        label: "✅ Itens Incluídos"
-        widget: "list"
-        required: false
-        field: { name: "item", label: "Item", widget: "string" }
-      - { name: "textoBotao", label: "Texto Botão (PT)", widget: "string", required: false }
-      - { name: "textoBotaoEn", label: "Texto Botão (EN)", widget: "string", required: false }
-
+    files:
+      - name: "modais"
+        label: "Modais"
+        file: "data/modais.json"
+        fields:
+          - name: "lista"
+            label: "Lista de Modais"
+            widget: "list"
+            label_singular: "Modal"
+            fields:
+              - { name: "id", label: "🆔 ID", widget: "string", required: false }
+              - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
+              - { name: "titulo", label: "📌 Título (PT)", widget: "string", required: false }
+              - { name: "tituloEn", label: "📌 Título (EN)", widget: "string", required: false }
+              - { name: "imagem", label: "🖼️ Imagem", widget: "image", required: false }
+              - { name: "conteudo", label: "📄 Conteúdo (PT)", widget: "markdown", required: false }
+              - { name: "conteudoEn", label: "📄 Conteúdo (EN)", widget: "markdown", required: false }
+              - name: "incluidos"
+                label: "✅ Itens Incluídos"
+                widget: "list"
+                required: false
+                field: { name: "item", label: "Item", widget: "string" }
+              - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", required: false }
+              - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", required: false }
 
   - name: "configuracoes"
     label: "⚙️ Configurações"
