@@ -125,19 +125,29 @@ async function loadAllData() {
   try {
     console.log('A carregar dados...');
     
- const [homepage, menu, footer, modais, config] = await Promise.all([
-  fetch(`${BASE_URL}/data/homepage.json`).then(r => r.json()),
-  fetch(`${BASE_URL}/data/menu.json`).then(r => r.json()),
-  fetch(`${BASE_URL}/data/footer.json`).then(r => r.json()),
-  fetch(`${BASE_URL}/data/modais.json`).then(r => r.json()),
-  fetch(`${BASE_URL}/data/config.json`).then(r => r.json())
-    ]);
+    const files = [
+      { key: 'data', url: `${BASE_URL}/data/homepage.json` },
+      { key: 'menu', url: `${BASE_URL}/data/menu.json` },
+      { key: 'footer', url: `${BASE_URL}/data/footer.json` },
+      { key: 'modais', url: `${BASE_URL}/data/modais.json` },
+      { key: 'config', url: `${BASE_URL}/data/config.json` }
+    ];
     
-    SITE.data = homepage;
-    SITE.menu = menu;
-    SITE.footer = footer;
-    SITE.modais = modais;
-    SITE.config = config;
+    const results = await Promise.allSettled(
+      files.map(f => fetch(f.url).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }))
+    );
+    
+    results.forEach((result, idx) => {
+      if (result.status === 'fulfilled') {
+        SITE[files[idx].key] = result.value;
+      } else {
+        console.error(`Erro ao carregar ${files[idx].key}:`, result.reason);
+      }
+    });
+    
+    if (!SITE.data) {
+      throw new Error('Ficheiro principal (homepage.json) não carregou');
+    }
     
     console.log('Dados carregados com sucesso!');
     return true;
@@ -176,6 +186,20 @@ function renderPage() {
   renderModals();
   applyLang(SITE.lang);
   applyTheme(SITE.theme);
+
+  // SEO meta tags
+  if (SITE.config?.seo) {
+    const seo = SITE.config.seo;
+    const title = SITE.lang === 'en' ? (seo.tituloEn || seo.tituloPt) : seo.tituloPt;
+    const desc = SITE.lang === 'en' ? (seo.descricaoEn || seo.descricaoPt) : seo.descricaoPt;
+    document.title = title || 'Cipritravel Tours';
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) { metaDesc = document.createElement('meta'); metaDesc.name = 'description'; document.head.appendChild(metaDesc); }
+    metaDesc.content = desc || '';
+    let metaKw = document.querySelector('meta[name="keywords"]');
+    if (!metaKw) { metaKw = document.createElement('meta'); metaKw.name = 'keywords'; document.head.appendChild(metaKw); }
+    metaKw.content = SITE.config.seo?.keywords || '';
+  }
 }
 
 // ============================================
@@ -283,7 +307,7 @@ function renderTours(s) {
         <p style="color:var(--muted);font-size:0.82rem" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${t(tour.descricao, tour.descricaoEn)}</p>
         <div class="exc-card-btn">
           <span style="font-weight:700;color:#2d7a3a;font-size:1rem">${tour.preco}€ <span data-pt="p/pessoa" data-en="per person">/${ts('pessoa')}</span></span>
-          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="openReservaModal('${tour.nome}')" data-pt="Reservar" data-en="Book">${ts('Reservar')}</button>
+          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="openReservaModal('${tour.id}')" data-pt="Reservar" data-en="Book">${ts('Reservar')}</button>
         </div>
       </div>
     </div>
@@ -521,8 +545,22 @@ function renderSpacer(s) {
   return `<div style="height:${s.altura || 60}px;background:${bgColors[s.corFundo] || 'transparent'}"></div>`;
 }
 
+function sanitizeHTML(html) {
+  if (!html) return '';
+  const temp = document.createElement('div');
+  temp.innerHTML = html;
+  const dangerous = temp.querySelectorAll('script,iframe,object,embed,form,link[rel="import"]');
+  dangerous.forEach(el => { el.setAttribute('type', 'text/plain'); el.removeAttribute('src'); el.removeAttribute('href'); el.innerHTML = ''; });
+  return temp.innerHTML;
+}
+
+function sanitizeCSS(css) {
+  if (!css) return '';
+  return css.replace(/expression\s*\(/gi, '/* blocked */(').replace(/javascript\s*:/gi, '/* blocked */:').replace(/url\s*\([^)]*javascript[^)]*\)/gi, 'url(/* blocked */)');
+}
+
 function renderHTML(s) {
-  return `<section>${s.css ? `<style>${s.css}</style>` : ''}${s.html || ''}</section>`;
+  return `<section>${s.css ? `<style>${sanitizeCSS(s.css)}</style>` : ''}${sanitizeHTML(s.html || '')}</section>`;
 }
 
 // ============================================
@@ -600,7 +638,7 @@ function renderFooter() {
           ` : ''}
         </div>
         <div style="border-top:1px solid #1e293b;padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-          <p style="font-size:0.82rem" data-pt="${f.copyright}" data-en="${f.copyrightEn || f.copyright}">${t(f.copyright, f.copyrightEn)}</p>
+          <p style="font-size:0.82rem" data-pt="${f.copyright}" data-en="${f.copyrightEn || f.copyright}">${t(f.copyright, f.copyrightEn).replace('{ano}', new Date().getFullYear())}</p>
           <button onclick="openModal('modal-privacidade')" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:0.82rem;text-decoration:underline" data-pt="Política de Privacidade" data-en="Privacy Policy">${ts('Política de Privacidade')}</button>
         </div>
       </div>
@@ -639,9 +677,12 @@ function renderModals() {
 }
 
 function renderModalGenerico(m) {
-  const incluidos = m.incluidos || [];
-  const incluidosEn = m.incluidosEn || incluidos;
-  const incluidosHTML = incluidos.map((item, idx) => `
+  const incluidosRaw = m.incluidos || [];
+  const incluidosEnRaw = m.incluidosEn || [];
+  const normalizeItem = (item) => typeof item === 'object' && item !== null ? (item.item || '') : item;
+  const incluidos = incluidosRaw.map(normalizeItem);
+  const incluidosEn = incluidosEnRaw.length > 0 ? incluidosEnRaw.map(normalizeItem) : incluidos;
+  const incluidosHTML = incluidos.filter(Boolean).map((item, idx) => `
     <div style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:0.88rem">
       <span style="color:#2d7a3a;font-weight:700">✓</span>
       <span data-pt="${item}" data-en="${incluidosEn[idx] || item}">${t(item, incluidosEn[idx] || item)}</span>
@@ -670,7 +711,14 @@ function renderModalGenerico(m) {
             <h4 style="font-weight:700;margin:16px 0 12px" data-pt="Incluído no pacote:" data-en="Included in the package:">${ts('Incluído no pacote:')}</h4>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px">${incluidosHTML}</div>
           ` : ''}
-          ${m.textoBotao ? `<button class="btn-primary" style="margin-top:20px" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || m.titulo}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>` : ''}
+          ${m.textoBotao ? `<button class="btn-primary" style="margin-top:20px" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>` : ''}
+          ${m.botoes && m.botoes.length > 0 ? `<div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">${m.botoes.map(b => {
+            const bText = t(b.texto, b.textoEn);
+            if (b.acao === 'scroll' && b.ancora) {
+              return `<button class="btn-primary" style="margin-top:0" onclick="closeModal('${m.id}');scrollToSection('${b.ancora.replace('#','')}')" data-pt="${b.texto}" data-en="${b.textoEn || b.texto}">${bText}</button>`;
+            }
+            return `<button class="btn-primary" style="margin-top:0" data-pt="${b.texto}" data-en="${b.textoEn || b.texto}">${bText}</button>`;
+          }).join('')}</div>` : ''}
         </div>
       </div>
     </div>
@@ -757,10 +805,10 @@ function escapeHtml(text) {
 function decodeHtml(text) {
   if (!text) return '';
   return text
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
     .replace(/&amp;/g, '&');
 }
 
@@ -771,6 +819,8 @@ function renderMarkdown(text) {
     .replace(/## (.*)/g, '<h3 style="color:var(--text);font-weight:700;margin:16px 0 8px;font-size:1.1rem">$1</h3>')
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/^> (.*)/gm, '<blockquote style="border-left:4px solid #f97316;padding-left:16px;color:var(--muted);font-style:italic;margin:12px 0">$1</blockquote>')
+    .replace(/^[-*] (.*)/gm, '<div style="display:flex;align-items:flex-start;gap:8px;margin:4px 0"><span style="color:#2d7a3a;font-weight:700;flex-shrink:0">•</span><span>$1</span></div>')
     .replace(/\n\n/g, '</p><p style="margin-bottom:12px">')
     .replace(/\n/g, '<br>');
 }
@@ -813,6 +863,8 @@ function setLang(lang) {
   
   document.getElementById('btn-pt')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en')?.classList.toggle('active', lang === 'en');
+  document.getElementById('btn-pt-m')?.classList.toggle('active', lang === 'pt');
+  document.getElementById('btn-en-m')?.classList.toggle('active', lang === 'en');
 }
 
 function applyLang(lang) {
@@ -858,12 +910,12 @@ function closeModalOutside(e, id) {
   if (e.target.id === id) closeModal(id);
 }
 
-function openReservaModal(tour) {
+function openReservaModal(tourId) {
   openModal('modal-reserva');
   const sel = document.getElementById('reserva-tour');
-  if (sel && tour) {
+  if (sel && tourId) {
     for (let i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].text.includes(tour) || sel.options[i].value === tour) {
+      if (sel.options[i].value === tourId) {
         sel.selectedIndex = i;
         break;
       }
@@ -883,8 +935,13 @@ async function submitForm(modalId) {
   const pessoas = document.getElementById('reserva-pessoas')?.value || '1';
   const obs = document.getElementById('reserva-obs')?.value || '';
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!nome || !email) {
     alert(ts('Por favor preencha o nome e email.'));
+    return;
+  }
+  if (!emailRegex.test(email)) {
+    alert(SITE.lang === 'en' ? 'Please enter a valid email address.' : 'Por favor insira um email válido.');
     return;
   }
 
@@ -956,6 +1013,11 @@ async function sendMessage() {
     alert(SITE.lang === 'en' ? 'Please fill in all fields.' : 'Por favor preencha todos os campos.');
     return;
   }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    alert(SITE.lang === 'en' ? 'Please enter a valid email address.' : 'Por favor insira um email válido.');
+    return;
+  }
 
   if (btn) {
     btn.disabled = true;
@@ -1014,6 +1076,13 @@ async function subscribeNewsletter() {
   const msgEl = document.getElementById('newsletter-msg');
   
   if (!emailEl || !emailEl.value) return;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailEl.value)) {
+    msgEl.style.opacity = '1';
+    msgEl.textContent = SITE.lang === 'en' ? 'Please enter a valid email.' : 'Por favor insira um email válido.';
+    setTimeout(() => { msgEl.style.opacity = '0'; }, 3000);
+    return;
+  }
   
   msgEl.style.opacity = '1';
   msgEl.textContent = SITE.lang === 'en' ? 'Subscribing...' : 'A subscrever...';
