@@ -9,7 +9,7 @@ public_folder: "/assets/images/uploads"
 
 locale: "pt"
 
-logo_url: https://image2url.com/r2/default/images/1773317744725-af5c152b-4996-448a-8b17-75a4941fb017.png
+logo_url: assets/images/logo.png
 
 collections:
   # ============================================

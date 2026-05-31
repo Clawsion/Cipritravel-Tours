@@ -549,8 +549,18 @@ function sanitizeHTML(html) {
   if (!html) return '';
   const temp = document.createElement('div');
   temp.innerHTML = html;
-  const dangerous = temp.querySelectorAll('script,iframe,object,embed,form,link[rel="import"]');
-  dangerous.forEach(el => { el.setAttribute('type', 'text/plain'); el.removeAttribute('src'); el.removeAttribute('href'); el.innerHTML = ''; });
+  // Remover completamente elementos perigosos
+  const dangerous = temp.querySelectorAll('script,iframe,object,embed,form,link,style,meta,base,svg,math');
+  dangerous.forEach(el => el.remove());
+  // Remover event handlers inline de todos os elementos
+  temp.querySelectorAll('*').forEach(el => {
+    const attrs = Array.from(el.attributes);
+    attrs.forEach(attr => {
+      if (attr.name.startsWith('on') || attr.value.toLowerCase().includes('javascript:') || attr.value.toLowerCase().includes('data:text/html')) {
+        el.removeAttribute(attr.name);
+      }
+    });
+  });
   return temp.innerHTML;
 }
 
@@ -954,11 +964,13 @@ async function submitForm(modalId) {
   }
 
   try {
-    const response = await fetch('https://api.web3forms.com/submit', {
+    // Envia via proxy Cloudflare Function (oculta a API key)
+    const formEndpoint = `${BASE_URL}/api/submit`;
+    const response = await fetch(formEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: SITE.config.web3formsKey,
+        _access_key: SITE.config.web3formsKey,
         subject: "Nova Reserva: " + tourText,
         from_name: "Cipritravel Reservas",
         reply_to: email, 
@@ -1025,11 +1037,13 @@ async function sendMessage() {
   }
 
   try {
-    const response = await fetch('https://api.web3forms.com/submit', {
+    // Envia via proxy Cloudflare Function (oculta a API key)
+    const formEndpoint = `${BASE_URL}/api/submit`;
+    const response = await fetch(formEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: SITE.config.web3formsKey,
+        _access_key: SITE.config.web3formsKey,
         subject: 'Nova Mensagem de Contacto - Cipritravel Tours',
         from_name: nome,
         email: email,
@@ -1088,11 +1102,13 @@ async function subscribeNewsletter() {
   msgEl.textContent = SITE.lang === 'en' ? 'Subscribing...' : 'A subscrever...';
   
   try {
-    const response = await fetch('https://api.web3forms.com/submit', {
+    // Envia via proxy Cloudflare Function (oculta a API key)
+    const formEndpoint = `${BASE_URL}/api/submit`;
+    const response = await fetch(formEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        access_key: SITE.config.web3formsKey,
+        _access_key: SITE.config.web3formsKey,
         subject: 'Nova subscrição newsletter - Cipritravel',
         from_name: 'Newsletter',
         email: emailEl.value,
