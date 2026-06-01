@@ -124,9 +124,10 @@ section{scroll-margin-top:80px}
 /* ── Responsivo ── */
 @media(max-width:900px){
   #menu-container{display:none!important}
+  #mobile-right{display:flex!important}
   .hamburger{display:flex!important}
-  .nav-inner{height:120px;}
-  .nav-logo{height:100px;}
+  .nav-inner{height:80px;justify-content:space-between}
+  .nav-logo{height:55px}
   .modal-box{border-radius:16px;max-height:85vh;max-height:85dvh;width:100%}
   .modal-box img{border-radius:16px 16px 0 0!important;max-height:200px;object-fit:cover;width:100%}
   .hero-content{padding:16px}
@@ -136,8 +137,9 @@ section{scroll-margin-top:80px}
   .btn-primary,.btn-outline{padding:10px 20px;font-size:0.85rem}
 }
 @media(max-width:480px){
-  .nav-inner{height:100px;}
-  .nav-logo{height:85px;}
+  .nav-inner{height:70px}
+  .nav-logo{height:45px}
+  #mobile-right .lang-btn{font-size:0.7rem;padding:3px 8px}
   .modal-overlay{padding:8px}
   .modal-box{border-radius:14px;max-height:92vh;max-height:92dvh}
   .hero-content h1{font-size:clamp(1.3rem,7vw,1.8rem)!important}
@@ -179,12 +181,17 @@ section{scroll-margin-top:80px}
       </div>
     </div>
 
-    <!-- Botão hamburger -->
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <!-- Direita: idioma + hamburger (mobile/tablet) -->
+    <div style="display:none;align-items:center;gap:8px" id="mobile-right">
+      <button class="lang-btn active" id="btn-pt-m" onclick="setLang('pt')" style="font-size:0.75rem;padding:4px 10px">🇵🇹</button>
+      <button class="lang-btn" id="btn-en-m" onclick="setLang('en')" style="font-size:0.75rem;padding:4px 10px">🇬🇧</button>
+      <button class="theme-pill" id="theme-toggle-m" onclick="toggleTheme()" style="font-size:0.9rem;padding:4px 8px">🌙</button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
 
   </div>
 
@@ -197,11 +204,6 @@ section{scroll-margin-top:80px}
     <a href="#sobre" class="nav-pill" onclick="closeMenu()">SOBRE NÓS</a>
     <a href="#porque" class="nav-pill" onclick="closeMenu()">PORQUÊ NÓS?</a>
     <a href="#contactos" class="nav-pill" onclick="closeMenu()">CONTACTOS</a>
-    <div class="mobile-lang-row">
-      <button class="lang-btn active" id="btn-pt-m" onclick="setLang('pt')">🇵🇹 PT</button>
-      <button class="lang-btn" id="btn-en-m" onclick="setLang('en')">🇬🇧 EN</button>
-      <button class="theme-pill" onclick="toggleTheme()">🌙</button>
-    </div>
   </div>
 </nav>
 
