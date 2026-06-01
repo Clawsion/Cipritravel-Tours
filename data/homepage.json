@@ -115,23 +115,6 @@
           "corBadge": "verde"
         },
         {
-          "nomeEn": "Aquashow",
-          "descricao": "O maior parque aquático de Portugal! Atrações para todas as idades, piscinas e adrenalina garantida. Locais de Recolha: Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira e Setúbal.",
-          "data": {
-            "dia": "1",
-            "mes": "Ago"
-          },
-          "preco": 58,
-          "ativo": true,
-          "duracao": "1 Dia",
-          "descricaoEn": "The largest water park in Portugal! Attractions for all ages, pools and guaranteed adrenaline. Pick-up points: Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira and Setúbal.",
-          "imagem": "/assets/images/uploads/aquashow.jpg",
-          "nome": "Aquashow",
-          "duracaoEn": "1 Day",
-          "id": "aquashow",
-          "corBadge": "laranja"
-        },
-        {
           "nomeEn": "Badajoz",
           "descricao": "Descubra os encantos de Badajoz! Passeie pela Plaza Alta, explore a Alcáçaba e a Puerta de Palmas e desfrute de um dia único na vizinha Espanha. Locais de Recolha: Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira e Setúbal.",
           "data": {

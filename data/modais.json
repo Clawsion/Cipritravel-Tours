@@ -127,31 +127,6 @@
       "textoBotaoEn": "Book Now"
     },
     {
-      "id": "modal-aquashow",
-      "tipo": "conteudo",
-      "ativo": true,
-      "titulo": "Aquashow",
-      "tituloEn": "Aquashow",
-      "subtitulo": "1 de Agosto de 2026 · 58€",
-      "subtituloEn": "August 1, 2026 · 58€",
-      "imagem": "/assets/images/uploads/aquashow.jpg",
-      "conteudo": "O maior parque aquático de Portugal! Diversão garantida para todas as idades com atracciones emocionantes, piscinas refrescantes e muita adrenalina.\n\n**Locais de Recolha:** Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira e Setúbal.",
-      "conteudoEn": "The largest water park in Portugal! Guaranteed fun for all ages with exciting attractions, refreshing pools and plenty of adrenaline.\n\n**Pick-up Points:** Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira and Setúbal.",
-      "incluidos": [
-        "Autocarro de Turismo com AC",
-        "Guia Acompanhante",
-        "Seguro de Viagem"
-      ],
-      "incluidosEn": [
-        "Tourist Coach with AC",
-        "Accompanying Guide",
-        "Travel Insurance"
-      ],
-      "tourId": "aquashow",
-      "textoBotao": "Reservar Agora",
-      "textoBotaoEn": "Book Now"
-    },
-    {
       "id": "modal-badajoz",
       "tipo": "conteudo",
       "ativo": true,
