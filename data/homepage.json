@@ -115,20 +115,20 @@
           "corBadge": "verde"
         },
         {
-          "nomeEn": "Badajoz",
-          "descricao": "Descubra os encantos de Badajoz! Passeie pela Plaza Alta, explore a Alcáçaba e a Puerta de Palmas e desfrute de um dia único na vizinha Espanha. Locais de Recolha: Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira e Setúbal.",
+          "nomeEn": "Serra da Estrela: Waterfalls & Loriga",
+          "descricao": "O coração da Serra da Estrela num Roteiro Único! Praia Fluvial de Loriga, Poço da Broca da Barrosa, Lapa dos Dinheiros e Cascatas da Caniça. Locais de Recolha: Setúbal, Baixa da Banheira, Sete Rios, Amadora e Gare do Oriente.",
           "data": {
             "dia": "15",
             "mes": "Ago"
           },
-          "preco": 58,
+          "preco": 49,
           "ativo": true,
           "duracao": "1 Dia",
-          "descricaoEn": "Discover the charms of Badajoz! Stroll through Plaza Alta, explore the Alcáçaba and Puerta de Palmas and enjoy a unique day in neighboring Spain. Pick-up points: Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira and Setúbal.",
-          "imagem": "/assets/images/uploads/badajoz.jpg",
-          "nome": "Badajoz",
+          "descricaoEn": "The heart of Serra da Estrela in a Unique Route! Loriga River Beach, Poço da Broca, Lapa dos Dinheiros and Caniça Waterfalls. Pick-up: Setúbal, Baixa da Banheira, Sete Rios, Amadora and Gare do Oriente.",
+          "imagem": "/assets/images/uploads/serra-estrela-cascatas.jpg",
+          "nome": "Serra da Estrela: Cascatas e Loriga",
           "duracaoEn": "1 Day",
-          "id": "badajoz",
+          "id": "serra-estrela-cascatas",
           "corBadge": "verde"
         }
       ],

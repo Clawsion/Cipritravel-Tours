@@ -127,27 +127,27 @@
       "textoBotaoEn": "Book Now"
     },
     {
-      "id": "modal-badajoz",
+      "id": "modal-serra-estrela-cascatas",
       "tipo": "conteudo",
       "ativo": true,
-      "titulo": "Badajoz",
-      "tituloEn": "Badajoz",
-      "subtitulo": "15 de Agosto de 2026 · 58€",
-      "subtituloEn": "August 15, 2026 · 58€",
-      "imagem": "/assets/images/uploads/badajoz.jpg",
-      "conteudo": "Descubra os encantos de Badajoz, cidade histórica da vizinha Espanha! Passeie pela emblemática Plaza Alta, explore a imponente Alcáçaba (fortaleza moura) e a Puerta de Palmas. Desfrute de um dia único com gastronomia e cultura espanhola.\n\n**Locais de Recolha:** Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira e Setúbal.",
-      "conteudoEn": "Discover the charms of Badajoz, a historic city in neighboring Spain! Stroll through the iconic Plaza Alta, explore the imposing Alcáçaba (Moorish fortress) and the Puerta de Palmas. Enjoy a unique day with Spanish gastronomy and culture.\n\n**Pick-up Points:** Amadora, Sete Rios, Gare do Oriente, Baixa da Banheira and Setúbal.",
+      "titulo": "Serra da Estrela: Cascatas e Loriga",
+      "tituloEn": "Serra da Estrela: Waterfalls & Loriga",
+      "subtitulo": "15 de Agosto de 2026 · 49€",
+      "subtituloEn": "August 15, 2026 · 49€",
+      "imagem": "/assets/images/uploads/serra-estrela-cascatas.jpg",
+      "conteudo": "**O coração da Serra da Estrela num Roteiro Único!**\n\n**Locais de Recolha:** Setúbal (06:00) · Baixa da Banheira (06:20) · Sete Rios (06:50) · Amadora (07:05) · Gare do Oriente (07:25)\n\n### O Nosso Itinerário\n\n- **11:30** | Praia Fluvial de Loriga — Chegada ao deslumbrante vale glaciar. Tempo livre para relaxar e tirar fotografias nas piscinas naturais mais famosas do país.\n- **13:30** | Pausa para Almoço (Barrosa) — Paragem na pitoresca aldeia para recuperar energias e saborear a gastronomia local.\n- **15:00** | Poço da Broca da Barrosa — Visita guiada à imponente cascata natural. O spot perfeito para fotos inesquecíveis.\n- **16:30** | Lapa dos Dinheiros e Cascatas da Caniça — Praia fluvial no bosque e caminhada até às secretas quedas de água.\n- **18:00** | Viagem de Regresso (previsão de chegada a Lisboa a partir das 22:00).\n\n### Recomendações\n\n- Calçado de caminhada com boa aderência\n- Fato de banho, toalha e agasalho leveiro\n- Protetor solar, água e câmara fotográfica",
+      "conteudoEn": "**The heart of Serra da Estrela in a Unique Route!**\n\n**Pick-up Points:** Setúbal (06:00) · Baixa da Banheira (06:20) · Sete Rios (06:50) · Amadora (07:05) · Gare do Oriente (07:25)\n\n### Our Itinerary\n\n- **11:30** | Loriga River Beach — Arrival at the stunning glacial valley. Free time to relax and take photos at the country's most famous natural pools.\n- **13:30** | Lunch Break (Barrosa) — Stop at the picturesque village to recharge and enjoy local gastronomy.\n- **15:00** | Poço da Broca da Barrosa — Guided visit to the impressive natural waterfall. The perfect spot for unforgettable photos.\n- **16:30** | Lapa dos Dinheiros and Caniça Waterfalls — River beach in the forest and a short walk to the secret waterfalls.\n- **18:00** | Return Journey (estimated arrival in Lisbon from 22:00).\n\n### Recommendations\n\n- Hiking shoes with good grip\n- Swimsuit, towel and light jacket\n- Sunscreen, water and camera",
       "incluidos": [
-        "Autocarro de Turismo com AC",
-        "Guia Acompanhante",
-        "Seguro de Viagem"
+        "Seguro de Viagem",
+        "Autocarro com conforto e AC",
+        "Guia Acompanhante"
       ],
       "incluidosEn": [
-        "Tourist Coach with AC",
-        "Accompanying Guide",
-        "Travel Insurance"
+        "Travel Insurance",
+        "Coach with comfort and AC",
+        "Accompanying Guide"
       ],
-      "tourId": "badajoz",
+      "tourId": "serra-estrela-cascatas",
       "textoBotao": "Reservar Agora",
       "textoBotaoEn": "Book Now"
     },
