@@ -17,10 +17,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f0f9ff;--card:#ffffff;--text:#1e3a5f;--muted:#64748b;--border:#bae6fd;--accent:#2d7a3a;--nav-bg:rgba(240,249,255,0.97)}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;overflow-x:hidden;width:100%;max-width:100vw}
 body.dark{--bg:#0f172a;--card:#1e293b;--text:#e2e8f0;--muted:#94a3b8;--border:#334155;--accent:#4ade80;--nav-bg:rgba(15,23,42,0.97)}
-html{scroll-behavior:smooth}
 a[href^="#"]{scroll-behavior:smooth}
+img{max-width:100%}
 .font-playfair{font-family:'Playfair Display',serif}
 nav{background:var(--nav-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
 .nav-pill{display:inline-flex;align-items:center;padding:8px 18px;border-radius:999px;font-size:0.85rem;font-weight:500;cursor:pointer;border:1.5px solid var(--border);background:var(--card);color:var(--text);transition:all .2s;text-transform:uppercase;white-space:nowrap;text-decoration:none}
@@ -126,8 +128,9 @@ section{scroll-margin-top:80px}
   #menu-container{display:none!important}
   #mobile-right{display:flex!important}
   .hamburger{display:flex!important}
-  .nav-inner{height:80px;justify-content:space-between}
-  .nav-logo{height:55px}
+  .nav-inner{height:auto;min-height:80px;padding-top:10px;padding-bottom:10px;align-items:center;justify-content:space-between}
+  .nav-logo{height:90px}
+  .grid-2col{grid-template-columns:1fr!important;gap:30px!important}
   .modal-box{border-radius:16px;max-height:85vh;max-height:85dvh;width:100%}
   .modal-box img{border-radius:16px 16px 0 0!important;max-height:200px;object-fit:cover;width:100%}
   .hero-content{padding:16px}
@@ -135,10 +138,12 @@ section{scroll-margin-top:80px}
   .hero-content p{font-size:clamp(0.85rem,3.5vw,1rem)!important}
   .exc-badge{min-width:58px;max-width:58px;min-height:58px;font-size:0.7rem;padding:0.4rem 0.5rem}
   .btn-primary,.btn-outline{padding:10px 20px;font-size:0.85rem}
+  section{padding-left:12px!important;padding-right:12px!important}
+  main,footer,#modais-container{width:100%;max-width:100%;overflow-x:hidden}
 }
 @media(max-width:480px){
-  .nav-inner{height:70px}
-  .nav-logo{height:45px}
+  .nav-inner{height:auto;min-height:70px}
+  .nav-logo{height:110px}
   #mobile-right .lang-btn{font-size:0.7rem;padding:3px 8px}
   .modal-overlay{padding:8px}
   .modal-box{border-radius:14px;max-height:92vh;max-height:92dvh}
@@ -147,6 +152,7 @@ section{scroll-margin-top:80px}
   .tour-card-img{height:160px}
   .blog-img{height:160px}
   .exc-card-body{padding:14px}
+  section{padding-left:8px!important;padding-right:8px!important}
 }
 </style>
 </head>
@@ -181,16 +187,18 @@ section{scroll-margin-top:80px}
       </div>
     </div>
 
-    <!-- Direita: idioma + hamburger (mobile/tablet) -->
-    <div style="display:none;align-items:center;gap:8px" id="mobile-right">
-      <button class="lang-btn active" id="btn-pt-m" onclick="setLang('pt')" style="font-size:0.75rem;padding:4px 10px">🇵🇹</button>
-      <button class="lang-btn" id="btn-en-m" onclick="setLang('en')" style="font-size:0.75rem;padding:4px 10px">🇬🇧</button>
-      <button class="theme-pill" id="theme-toggle-m" onclick="toggleTheme()" style="font-size:0.9rem;padding:4px 8px">🌙</button>
+    <!-- Direita: hamburger + idioma (mobile/tablet) -->
+    <div style="display:none;align-items:center;gap:6px;flex-shrink:0" id="mobile-right">
       <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
+      <div style="display:flex;align-items:center;gap:3px">
+        <button class="lang-btn active" id="btn-pt-m" onclick="setLang('pt')" style="font-size:0.72rem;padding:4px 8px">🇵🇹</button>
+        <button class="lang-btn" id="btn-en-m" onclick="setLang('en')" style="font-size:0.72rem;padding:4px 8px">🇬🇧</button>
+      </div>
+      <button class="theme-pill" id="theme-toggle-m" onclick="toggleTheme()" style="width:32px;height:32px;font-size:0.85rem">🌙</button>
     </div>
 
   </div>

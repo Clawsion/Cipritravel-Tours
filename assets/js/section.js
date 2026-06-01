@@ -403,7 +403,7 @@ function renderTextoImagem(s) {
   
   return `
     <section id="${s.id || 'sobre'}" style="padding:80px 20px;background:${bgClass}">
-      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+      <div class="grid-2col" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
         ${imgFirst ? `
           <img src="${s.imagem}" alt="${s.titulo}" style="width:100%;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.15)">
           <div>
@@ -485,7 +485,7 @@ function renderFormulario(s) {
           <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:12px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
           <p style="color:var(--muted)" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
+        <div class="grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
           <div class="card" style="padding:32px">
             <div style="margin-bottom:20px">
               <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Nome Completo" data-en="Full Name">${SITE.lang === 'en' ? 'Full Name' : 'Nome Completo'}</label>
@@ -730,7 +730,7 @@ function renderModalGenerico(m) {
           <div style="color:var(--muted);font-size:0.88rem;line-height:1.8" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
           ${incluidosHTML ? `
             <h4 style="font-weight:700;margin:16px 0 12px" data-pt="Incluído no pacote:" data-en="Included in the package:">${ts('Incluído no pacote:')}</h4>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px">${incluidosHTML}</div>
+            <div class="grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px">${incluidosHTML}</div>
           ` : ''}
           ${m.textoBotao ? `<button class="btn-primary" style="margin-top:20px" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>` : ''}
           ${m.botoes && m.botoes.length > 0 ? `<div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">${m.botoes.map(b => {
