@@ -145,7 +145,77 @@ nav {
   color: #fff;
 }
 
-/* Switch PT/EN (editorial — texto com traço subtil) */
+/* Switch PT/EN (2 botões minimalistas) */
+.lang-link {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  padding: 4px 2px;
+  position: relative;
+  transition: color .25s;
+}
+.lang-link:hover { color: var(--accent-2); }
+.lang-link.active { color: var(--text); }
+.lang-link.active::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 0;
+  height: 1px;
+  background: var(--accent-2);
+}
+.lang-sep {
+  color: var(--border);
+  font-weight: 400;
+  font-size: 0.7rem;
+  margin: 0 1px;
+  user-select: none;
+}
+
+/* Ícone de tema (sol/lua) minimalista sem círculo */
+.theme-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-left: 4px;
+  padding: 0;
+  color: var(--text-soft);
+  transition: color .25s, transform .3s;
+}
+.theme-icon:hover {
+  color: var(--accent-2);
+  transform: rotate(-20deg);
+}
+.theme-icon__sun,
+.theme-icon__moon {
+  position: absolute;
+  font-size: 1rem;
+  line-height: 1;
+  transition: opacity .3s, transform .3s;
+}
+/* Light mode: mostra lua (para mudar para dark) */
+body:not(.dark) .theme-icon__sun { opacity: 0; transform: scale(0.6) rotate(90deg); }
+body:not(.dark) .theme-icon__moon { opacity: 1; transform: scale(1) rotate(0); }
+/* Dark mode: mostra sol (para mudar para light) */
+body.dark .theme-icon__sun { opacity: 1; transform: scale(1) rotate(0); }
+body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); }
+.theme-icon--sm { width: 20px; height: 20px; }
+.theme-icon--sm .theme-icon__sun,
+.theme-icon--sm .theme-icon__moon { font-size: 0.88rem; }
+
+/* Mantém .lang-toggle e .theme-pill antigos para compatibilidade */
 .lang-toggle {
   position: relative;
   display: inline-flex;
@@ -174,7 +244,6 @@ nav {
 .lang-toggle__opt[data-lang="en"] { color: var(--muted); }
 .lang-toggle.is-en .lang-toggle__opt[data-lang="pt"] { color: var(--muted); }
 .lang-toggle.is-en .lang-toggle__opt[data-lang="en"] { color: var(--text); }
-/* Traço sob a opção ativa */
 .lang-toggle__opt::after {
   content: '';
   position: absolute;
@@ -190,18 +259,14 @@ nav {
 .lang-toggle__opt[data-lang="pt"]::after { transform: scaleX(1); }
 .lang-toggle.is-en .lang-toggle__opt[data-lang="pt"]::after { transform: scaleX(0); }
 .lang-toggle.is-en .lang-toggle__opt[data-lang="en"]::after { transform: scaleX(1); }
-/* Separador "/" entre PT e EN */
 .lang-toggle::before {
   content: '/';
   color: var(--border);
   font-weight: 400;
   font-size: 0.8em;
 }
-.lang-toggle--sm {
-  font-size: 0.62rem;
-  height: 24px;
-  gap: 6px;
-}
+.lang-toggle--sm { font-size: 0.62rem; height: 24px; gap: 6px; }
+
 .theme-pill {
   display: inline-flex;
   align-items: center;
@@ -621,6 +686,9 @@ section > div:first-child {
   isolation: isolate;
   /* Truque para escapar do container pai e tocar nos cantos */
   margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  /* Fundo creme como fallback (caso a imagem demore a carregar) */
+  background: var(--bg);
 }
 .parallax-showcase__bg-wrap {
   position: absolute;

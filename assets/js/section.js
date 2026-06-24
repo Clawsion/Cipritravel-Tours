@@ -1159,13 +1159,19 @@ function setLang(lang) {
 
   renderModals();
 
-  // Atualiza o toggle PT/EN (desktop + mobile)
+  // Atualiza botões PT/EN minimalistas (desktop + mobile)
+  ['lang-pt', 'lang-pt-m'].forEach(id => {
+    document.getElementById(id)?.classList.toggle('active', lang === 'pt');
+  });
+  ['lang-en', 'lang-en-m'].forEach(id => {
+    document.getElementById(id)?.classList.toggle('active', lang === 'en');
+  });
+
+  // Compatibilidade com botões antigos (caso ainda existam)
   document.querySelectorAll('.lang-toggle').forEach(toggle => {
     toggle.classList.toggle('is-en', lang === 'en');
     toggle.setAttribute('aria-label', lang === 'en' ? 'Switch to Portuguese' : 'Switch to English');
   });
-
-  // Compatibilidade com botões antigos (caso ainda existam)
   document.getElementById('btn-pt')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en')?.classList.toggle('active', lang === 'en');
   document.getElementById('btn-pt-m')?.classList.toggle('active', lang === 'pt');
