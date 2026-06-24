@@ -1,0 +1,4 @@
+# Redirects para Cloudflare Pages
+
+# Garantir que a raiz vai para o index
+/                /index.html        200
