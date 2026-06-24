@@ -363,14 +363,12 @@ function renderTours(s) {
     const nome = t(tour.nome, tour.nomeEn);
     const duracao = t(tour.duracao, tour.duracaoEn);
     const descricao = t(tour.descricao, tour.descricaoEn);
-    const chapterNum = String(idx + 1).padStart(2, '0');
     const dataLabel = `${tour.data?.dia || ''} ${tour.data?.mes || ''}`.trim();
 
     return `
     <article class="journal-card reveal-stagger" onclick="openModal('modal-${tour.id}')">
       <div class="journal-card__visual">
         <img src="${tour.imagem}" alt="${nome}" class="journal-card__img" loading="lazy">
-        <div class="journal-card__chapter">${chapterNum}</div>
         <span class="journal-card__category ${tour.corBadge === 'verde' ? 'green' : ''}">${dataLabel || 'Tour'}</span>
       </div>
       <div class="journal-card__body">
@@ -410,20 +408,18 @@ function renderBlog(s) {
   const artigos = s.artigos?.filter(a => a.ativo !== false) || [];
 
   const artigosHTML = artigos.map((a, idx) => {
-    const chapterNum = String(idx + 1).padStart(2, '0');
     return `
     <article class="journal-card reveal-stagger" onclick="openModal('modal-${a.id}')">
       <div class="journal-card__visual">
         <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="journal-card__img" loading="lazy">
-        <div class="journal-card__chapter">${chapterNum}</div>
         <span class="journal-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
       </div>
       <div class="journal-card__body">
         <span class="journal-card__date">${formatDate(a.data)}</span>
         <h3 class="journal-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
         <p class="journal-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
-        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${a.id}')" data-pt="Ler capítulo" data-en="Read chapter">
-          ${SITE.lang === 'en' ? 'Read chapter' : 'Ler capítulo'} <span class="arrow">→</span>
+        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${a.id}')" data-pt="Ler mais" data-en="Read more">
+          ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
         </button>
       </div>
     </article>
@@ -450,20 +446,18 @@ function renderCards(s) {
   const tagColorClass = s.tagCor === 'verde' ? 'green' : (s.tagCor === 'vermelho' ? 'red' : '');
 
   const itensHTML = itens.map((i, idx) => {
-    const chapterNum = String(idx + 1).padStart(2, '0');
     return `
     <article class="journal-card reveal-stagger" onclick="openModal('modal-${i.id}')">
       <div class="journal-card__visual">
         <img src="${i.imagem}" alt="${t(i.titulo, i.tituloEn)}" class="journal-card__img" loading="lazy">
-        <div class="journal-card__chapter">${chapterNum}</div>
         <span class="journal-card__category ${tagColorClass}" data-pt="${i.categoria}" data-en="${i.categoriaEn || i.categoria}">${t(i.categoria, i.categoriaEn)}</span>
       </div>
       <div class="journal-card__body">
         <span class="journal-card__date">${formatDate(i.data)}</span>
         <h3 class="journal-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
         <p class="journal-card__excerpt" data-pt="${i.resumo}" data-en="${i.resumoEn || i.resumo}">${t(i.resumo, i.resumoEn)}</p>
-        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${i.id}')" data-pt="Ler capítulo" data-en="Read chapter">
-          ${SITE.lang === 'en' ? 'Read chapter' : 'Ler capítulo'} <span class="arrow">→</span>
+        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${i.id}')" data-pt="Ler mais" data-en="Read more">
+          ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
         </button>
       </div>
     </article>
@@ -938,10 +932,6 @@ function renderModalEditorial(m) {
           <div class="modal-book__close-hint">${SITE.lang === 'en' ? '× click outside to close' : '× clique fora para fechar'}</div>
           <div class="modal-book__visual">
             <img src="${m.imagem}" alt="${titulo}">
-            <div class="modal-book__chapter-stamp">
-              <span class="label">${SITE.lang === 'en' ? 'Chapter' : 'Capítulo'}</span>
-              <span class="number">${chapterNum}</span>
-            </div>
             ${dia ? `
               <div class="modal-book__date-stamp">
                 <span class="day">${dia}</span>
