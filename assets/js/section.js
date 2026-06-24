@@ -1448,16 +1448,18 @@ window.addEventListener('scroll', () => {
 // ============================================
 // SCROLL REVEAL (IntersectionObserver)
 // ============================================
+// IMPORTANTE: só aplica reveal a elementos com .reveal-stagger (cards dentro de secções).
+// NÃO aplica reveal a <section> — senão secções inteiras ficam invisíveis se o observer falhar.
 function setupScrollReveal() {
-  const targets = document.querySelectorAll('main > section, .reveal, .reveal-stagger');
-  targets.forEach(el => {
-    if (!el.classList.contains('reveal') && !el.classList.contains('reveal-stagger')) {
-      el.classList.add('reveal');
-    }
+  // Garante que todas as secções estão sempre visíveis
+  document.querySelectorAll('main > section').forEach(el => {
+    el.classList.add('visible');
+    el.style.opacity = '1';
+    el.style.transform = 'none';
   });
 
   if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('visible'));
+    document.querySelectorAll('.reveal-stagger').forEach(el => el.classList.add('visible'));
     return;
   }
 
@@ -1469,11 +1471,12 @@ function setupScrollReveal() {
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
   });
 
-  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+  // Só observa cards com reveal-stagger (não secções)
+  document.querySelectorAll('.reveal-stagger').forEach(el => observer.observe(el));
 }
 
 // ============================================
