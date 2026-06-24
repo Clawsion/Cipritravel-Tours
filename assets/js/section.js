@@ -168,7 +168,7 @@ async function loadAllData() {
           <h2 style="color:#dc2626;margin-bottom:16px">Erro ao carregar o site</h2>
           <p style="color:var(--muted)">Por favor atualize a página. Se o problema persistir, contacte o administrador.</p>
           <p style="color:var(--muted);font-size:0.85rem;margin-top:12px">Erro: ${error.message}</p>
-          <button class="btn-primary" style="margin-top:20px" onclick="location.reload()">Atualizar Página</button>
+          <button class="btn-submit" style="margin-top:20px" onclick="location.reload()">Atualizar Página</button>
         </div>
       `;
     }
@@ -687,7 +687,7 @@ function renderFormulario(s) {
               <input type="email" id="contact-email" class="translatable-input contacts-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}">
             </div>
             <textarea id="contact-msg" rows="4" class="translatable-input contacts-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}"></textarea>
-            <button class="btn-primary contacts-submit" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${L.send}</button>
+            <button class="btn-submit contacts-submit" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${L.send}</button>
             <p id="contact-success" style="margin-top:14px;color:var(--accent);font-weight:600;display:none;text-align:center;font-family:var(--serif)"></p>
           </div>
         </div>
@@ -1400,7 +1400,7 @@ function renderModalFormulario(m) {
           <button onclick="closeModal('${m.id}')" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted)">✕</button>
         </div>
         ${camposHTML}
-        <button class="btn-primary" style="width:100%" id="btn-submit-${m.id}" onclick="submitForm('${m.id}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>
+        <button class="btn-submit" style="width:100%" id="btn-submit-${m.id}" onclick="submitForm('${m.id}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>
         <p id="form-success-${m.id}" style="margin-top:16px;color:#2d7a3a;font-weight:600;display:none;text-align:center"></p>
       </div>
     </div>

@@ -289,47 +289,109 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: rotate(15deg);
 }
 
-/* ===== Buttons ===== */
+/* ===== Buttons — Text-link style com arrow + sublinhado ===== */
 .btn-primary {
+  background: none;
+  color: var(--accent);
+  padding: 0 0 6px 0;
+  border: none;
+  border-bottom: 1px solid var(--accent);
+  border-radius: 0;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.22,.61,.36,1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: none;
+}
+.btn-primary::after {
+  content: '→';
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform .3s;
+}
+.btn-primary:hover {
+  color: var(--accent-2);
+  border-bottom-color: var(--accent-2);
+  transform: none;
+  box-shadow: none;
+  gap: 14px;
+}
+.btn-primary:hover::after { transform: translateX(4px); }
+
+.btn-outline {
+  background: none;
+  color: #fff;
+  padding: 0 0 6px 0;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+  border-radius: 0;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  backdrop-filter: none;
+}
+.btn-outline::after {
+  content: '→';
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform .3s;
+}
+.btn-outline:hover {
+  background: none;
+  border-color: #fff;
+  border-bottom-color: #fff;
+  transform: none;
+  gap: 14px;
+}
+.btn-outline:hover::after { transform: translateX(4px); }
+
+/* Botão de submit de formulários — mantém retangular slido */
+.btn-submit {
   background: var(--accent);
   color: #fff;
   padding: 14px 30px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   cursor: pointer;
   border: none;
   transition: all .3s cubic-bezier(.22,.61,.36,1);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0,128,48,0.25);
+  box-shadow: 0 4px 14px rgba(0,128,48,0.2);
 }
-.btn-primary:hover {
+.btn-submit::after {
+  content: '→';
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  transition: transform .3s;
+}
+.btn-submit:hover {
   background: var(--accent-2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(224,112,0,0.35);
+  box-shadow: 0 8px 24px rgba(224,112,0,0.3);
 }
-.btn-outline {
-  background: transparent;
-  color: #fff;
-  padding: 14px 30px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  border: 1.5px solid rgba(255,255,255,0.5);
-  transition: all .3s;
-  display: inline-block;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-}
-.btn-outline:hover {
-  background: rgba(255,255,255,0.15);
-  border-color: #fff;
-  transform: translateY(-2px);
-}
+.btn-submit:hover::after { transform: translateX(4px); }
 
 /* ===== Section tag ===== */
 .section-tag {
@@ -576,10 +638,10 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   bottom: 90px;
   right: 24px;
   z-index: 999;
-  width: 54px;
-  height: 54px;
+  width: 50px;
+  height: 50px;
   background: #25d366;
-  border-radius: 50%;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -588,7 +650,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transition: all .25s;
 }
 .whatsapp-btn:hover {
-  transform: scale(1.08);
+  transform: translateY(-3px);
   box-shadow: 0 6px 28px rgba(37,211,102,0.6);
 }
 .back-top {
@@ -599,7 +661,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   width: 44px;
   height: 44px;
   background: var(--accent);
-  border-radius: 50%;
+  border-radius: 4px;
   display: none;
   align-items: center;
   justify-content: center;
@@ -611,7 +673,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 }
 .back-top:hover {
   background: var(--accent-2);
-  transform: scale(1.08);
+  transform: translateY(-3px);
 }
 
 /* ===== Cards variantes ===== */
