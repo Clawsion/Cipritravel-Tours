@@ -687,7 +687,9 @@ section > div:first-child {
   /* Truque para escapar do container pai e tocar nos cantos */
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
-  /* Fundo creme como fallback (caso a imagem demore a carregar) */
+  /* Fundo dinâmico — acompanha o tema do site (creme no light, carvão no dark)
+     para que mesmo durante o movimento da imagem, a sensação é de continuidade
+     com o fundo do site acima e abaixo */
   background: var(--bg);
 }
 .parallax-showcase__bg-wrap {
@@ -700,11 +702,11 @@ section > div:first-child {
 }
 .parallax-showcase__bg {
   position: absolute;
-  /* Imagem MAIOR que o container (130% altura) para poder deslizar
-     sem mostrar cortes nas bordas durante o movimento */
+  /* Imagem MAIOR que o container (130% altura + 100% largura) para poder deslizar
+     sem mostrar brechas nas bordas durante o movimento */
   top: -15%;
-  left: 0;
-  width: 100%;
+  left: -1%;
+  width: 102%;
   height: 130%;
   object-fit: cover;
   object-position: center center;
