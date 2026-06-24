@@ -1475,8 +1475,7 @@ function setupScrollReveal() {
 // ============================================
 // PARALLAX EFFECT
 // ============================================
-// Reverse parallax: imagem começa em baixo e sobe com o scroll
-// Agora a imagem é full-bleed (100% do container) então usamos translate em %
+// Reverse parallax para secção full-bleed (100vh como o hero)
 function setupParallax() {
   const parallaxEls = document.querySelectorAll('[data-parallax-reverse]');
   if (!parallaxEls.length) return;
@@ -1496,14 +1495,14 @@ function setupParallax() {
           (windowHeight - rect.top) / (windowHeight + rect.height)
         ));
 
-        // Imagem começa translateY(20%) e sobe até translateY(-5%)
-        const startOffset = 20;
+        // Imagem começa translateY(15%) e sobe até translateY(-5%)
+        const startOffset = 15;
         const endOffset = -5;
         const currentOffset = startOffset - (startOffset - endOffset) * visibleProgress;
 
         const img = el.querySelector('.parallax-showcase__bg');
         if (img) {
-          img.style.transform = `translateY(${currentOffset}%) scale(1.15)`;
+          img.style.transform = `translateY(${currentOffset}%) scale(1.1)`;
         }
       }
     });

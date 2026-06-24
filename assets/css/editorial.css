@@ -600,21 +600,23 @@ section > div:first-child {
 }
 
 /* ============================================================
-   PARALLAX SHOWCASE — full-bleed, sem margens, imagem 3:1
+   PARALLAX SHOWCASE — full-bleed como o hero (100vw x 100vh)
    ============================================================ */
 .parallax-showcase {
   position: relative;
-  /* Altura proporcional à imagem 3:1, sem margens/padding */
-  height: 42vw;
-  max-height: 600px;
-  min-height: 320px;
+  /* Ecrã completo como o hero — sem margens laterais */
+  width: 100vw;
+  width: 100dvw;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 600px;
   display: flex;
   align-items: center;
   overflow: hidden;
   padding: 0;
   margin: 0;
   isolation: isolate;
-  width: 100%;
+  margin-left: calc(-50vw + 50%);
 }
 .parallax-showcase__bg-wrap {
   position: absolute;
@@ -630,9 +632,10 @@ section > div:first-child {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   will-change: transform;
   /* Estado inicial: imagem deslocada para baixo */
-  transform: translateY(20%) scale(1.15);
+  transform: translateY(15%) scale(1.1);
   transition: transform .15s linear;
 }
 .parallax-showcase__overlay {
@@ -640,7 +643,8 @@ section > div:first-child {
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(15,10,5,0.65) 0%, rgba(15,10,5,0.35) 50%, rgba(15,10,5,0.55) 100%);
+    linear-gradient(180deg, rgba(15,10,5,0.45) 0%, rgba(15,10,5,0.25) 40%, rgba(15,10,5,0.65) 100%),
+    linear-gradient(135deg, rgba(0,40,15,0.2) 0%, rgba(224,112,0,0.15) 100%);
 }
 .parallax-showcase__inner {
   position: relative;
@@ -661,10 +665,10 @@ section > div:first-child {
 .parallax-showcase__title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
   line-height: 1.05;
   letter-spacing: -0.025em;
-  margin: 12px 0 14px;
+  margin: 18px 0 22px;
   color: #fff;
 }
 .parallax-showcase__title em {
@@ -673,20 +677,20 @@ section > div:first-child {
   color: #fb923c;
   font-size: 0.5em;
   letter-spacing: 0;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 .parallax-showcase__desc {
-  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
   font-weight: 300;
   color: rgba(255,255,255,0.92);
-  line-height: 1.6;
-  margin-bottom: 22px;
+  line-height: 1.7;
+  margin-bottom: 32px;
   max-width: 540px;
 }
 .parallax-showcase__meta {
   display: flex;
-  gap: 28px;
-  margin-bottom: 22px;
+  gap: 36px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
 }
 .parallax-showcase__meta-item {
@@ -694,42 +698,41 @@ section > div:first-child {
 }
 .parallax-showcase__meta-item .label {
   display: block;
-  font-size: 0.58rem;
+  font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 .parallax-showcase__meta-item .value {
   font-family: var(--serif);
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   font-weight: 500;
 }
 .parallax-showcase__meta-item.price .value { color: #fb923c; }
 .parallax-showcase__actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
-}
-.parallax-showcase__actions .btn-primary,
-.parallax-showcase__actions .btn-outline {
-  padding: 11px 22px;
-  font-size: 0.78rem;
 }
 
 @media (max-width: 900px) {
   .parallax-showcase {
-    height: 60vw;
-    max-height: 480px;
-    min-height: 360px;
+    height: 90vh;
+    height: 90dvh;
+    min-height: 480px;
   }
   .parallax-showcase__inner { padding: 0 20px; }
-  .parallax-showcase__title { font-size: clamp(1.5rem, 6vw, 2.2rem); }
-  .parallax-showcase__meta { gap: 18px; }
-  .parallax-showcase__meta-item .value { font-size: 1rem; }
+  .parallax-showcase__title { font-size: clamp(1.7rem, 7vw, 2.6rem); }
+  .parallax-showcase__meta { gap: 20px; }
+  .parallax-showcase__meta-item .value { font-size: 1.1rem; }
 }
 @media (max-width: 480px) {
-  .parallax-showcase { height: 90vw; max-height: 380px; min-height: 300px; }
+  .parallax-showcase {
+    height: 85vh;
+    height: 85dvh;
+    min-height: 420px;
+  }
 }
 
 /* ============================================================
