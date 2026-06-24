@@ -359,33 +359,32 @@ function renderTours(s) {
     .filter(e => e.ativo !== false)
     .sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
 
-  const toursHTML = tours.map(tour => {
+  const toursHTML = tours.map((tour, idx) => {
     const nome = t(tour.nome, tour.nomeEn);
     const duracao = t(tour.duracao, tour.duracaoEn);
     const descricao = t(tour.descricao, tour.descricaoEn);
-    const badgeBg = tour.corBadge === 'verde'
-      ? 'linear-gradient(135deg,#008030,#006028)'
-      : 'linear-gradient(135deg,#e07000,#c2410c)';
+    const chapterNum = String(idx + 1).padStart(2, '0');
+    const dataLabel = `${tour.data?.dia || ''} ${tour.data?.mes || ''}`.trim();
 
     return `
-    <div class="card exc-card reveal-stagger">
-      <div style="position:relative;overflow:hidden">
-        <img src="${tour.imagem}" alt="${nome}" class="tour-card-img">
-        <div class="exc-badge" style="position:absolute;top:16px;left:16px;background:${badgeBg};box-shadow:0 4px 12px rgba(0,0,0,0.25)">
-          <div style="font-size:1rem;font-weight:700;line-height:1">${tour.data?.dia || ''}</div>
-          <div style="font-size:0.6rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">${tour.data?.mes || ''}</div>
+    <article class="journal-card reveal-stagger" onclick="openModal('modal-${tour.id}')">
+      <div class="journal-card__visual">
+        <img src="${tour.imagem}" alt="${nome}" class="journal-card__img" loading="lazy">
+        <div class="journal-card__chapter">${chapterNum}</div>
+        <span class="journal-card__category ${tour.corBadge === 'verde' ? 'green' : ''}">${dataLabel || 'Tour'}</span>
+      </div>
+      <div class="journal-card__body">
+        <span class="journal-card__date">🕐 ${duracao}</span>
+        <h3 class="journal-card__title" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</h3>
+        <p class="journal-card__excerpt" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
+        <div class="journal-card__price-row">
+          <span class="journal-card__price">${tour.preco}€<small>/${ts('pessoa')}</small></span>
+          <button class="journal-card__cta" onclick="event.stopPropagation();openReservaModal('${tour.id}')" data-pt="Reservar" data-en="Book">
+            ${ts('Reservar')} <span class="arrow">→</span>
+          </button>
         </div>
       </div>
-      <div class="exc-card-body">
-        <p style="font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin:0 0 4px">🕐 ${duracao}</p>
-        <h3 class="exc-card-title" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</h3>
-        <p class="exc-card-desc" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
-        <div class="exc-card-btn">
-          <span class="exc-card-price">${tour.preco}€<small>/${ts('pessoa')}</small></span>
-          <button class="btn-primary" style="padding:10px 22px;font-size:0.78rem" onclick="openReservaModal('${tour.id}')" data-pt="Reservar" data-en="Book">${ts('Reservar')}</button>
-        </div>
-      </div>
-    </div>
+    </article>
     `;
   }).join('');
 
@@ -399,7 +398,7 @@ function renderTours(s) {
           <span style="font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--text-soft)" data-pt="${s.subtitulo}" data-en="${s.subtituloEn || s.subtitulo}">${t(s.subtitulo, s.subtituloEn)}</span>
           <span style="font-size:0.7rem;color:var(--accent-2);letter-spacing:0.2em;font-weight:700">${s.ano || '2026'}</span>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;align-items:stretch">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;align-items:stretch;text-align:left">
           ${toursHTML}
         </div>
       </div>
@@ -410,22 +409,26 @@ function renderTours(s) {
 function renderBlog(s) {
   const artigos = s.artigos?.filter(a => a.ativo !== false) || [];
 
-  const artigosHTML = artigos.map(a => `
-    <article class="card editorial-card reveal-stagger">
-      <div class="editorial-card__img-wrap">
-        <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="editorial-card__img" loading="lazy">
-        <span class="editorial-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
+  const artigosHTML = artigos.map((a, idx) => {
+    const chapterNum = String(idx + 1).padStart(2, '0');
+    return `
+    <article class="journal-card reveal-stagger" onclick="openModal('modal-${a.id}')">
+      <div class="journal-card__visual">
+        <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="journal-card__img" loading="lazy">
+        <div class="journal-card__chapter">${chapterNum}</div>
+        <span class="journal-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
       </div>
-      <div class="editorial-card__body">
-        <span class="editorial-card__date">${formatDate(a.data)}</span>
-        <h3 class="editorial-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
-        <p class="editorial-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
-        <button class="editorial-card__cta" onclick="openModal('modal-${a.id}')" data-pt="Ler Mais" data-en="Read More">
-          ${ts('Ler Mais')} <span class="arrow">→</span>
+      <div class="journal-card__body">
+        <span class="journal-card__date">${formatDate(a.data)}</span>
+        <h3 class="journal-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
+        <p class="journal-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
+        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${a.id}')" data-pt="Ler capítulo" data-en="Read chapter">
+          ${SITE.lang === 'en' ? 'Read chapter' : 'Ler capítulo'} <span class="arrow">→</span>
         </button>
       </div>
     </article>
-  `).join('');
+    `;
+  }).join('');
 
   return `
     <section id="${s.id || 'blog'}" style="background:var(--bg)">
@@ -446,22 +449,26 @@ function renderCards(s) {
   const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
   const tagColorClass = s.tagCor === 'verde' ? 'green' : (s.tagCor === 'vermelho' ? 'red' : '');
 
-  const itensHTML = itens.map(i => `
-    <article class="card editorial-card reveal-stagger">
-      <div class="editorial-card__img-wrap">
-        <img src="${i.imagem}" alt="${t(i.titulo, i.tituloEn)}" class="editorial-card__img" loading="lazy">
-        <span class="editorial-card__category ${tagColorClass}" data-pt="${i.categoria}" data-en="${i.categoriaEn || i.categoria}">${t(i.categoria, i.categoriaEn)}</span>
+  const itensHTML = itens.map((i, idx) => {
+    const chapterNum = String(idx + 1).padStart(2, '0');
+    return `
+    <article class="journal-card reveal-stagger" onclick="openModal('modal-${i.id}')">
+      <div class="journal-card__visual">
+        <img src="${i.imagem}" alt="${t(i.titulo, i.tituloEn)}" class="journal-card__img" loading="lazy">
+        <div class="journal-card__chapter">${chapterNum}</div>
+        <span class="journal-card__category ${tagColorClass}" data-pt="${i.categoria}" data-en="${i.categoriaEn || i.categoria}">${t(i.categoria, i.categoriaEn)}</span>
       </div>
-      <div class="editorial-card__body">
-        <span class="editorial-card__date">${formatDate(i.data)}</span>
-        <h3 class="editorial-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
-        <p class="editorial-card__excerpt" data-pt="${i.resumo}" data-en="${i.resumoEn || i.resumo}">${t(i.resumo, i.resumoEn)}</p>
-        <button class="editorial-card__cta" onclick="openModal('modal-${i.id}')" data-pt="Ler Mais" data-en="Read More">
-          ${ts('Ler Mais')} <span class="arrow">→</span>
+      <div class="journal-card__body">
+        <span class="journal-card__date">${formatDate(i.data)}</span>
+        <h3 class="journal-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
+        <p class="journal-card__excerpt" data-pt="${i.resumo}" data-en="${i.resumoEn || i.resumo}">${t(i.resumo, i.resumoEn)}</p>
+        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${i.id}')" data-pt="Ler capítulo" data-en="Read chapter">
+          ${SITE.lang === 'en' ? 'Read chapter' : 'Ler capítulo'} <span class="arrow">→</span>
         </button>
       </div>
     </article>
-  `).join('');
+    `;
+  }).join('');
 
   return `
     <section id="${s.id || 'cards'}" style="background:${bgClass}">
@@ -898,7 +905,7 @@ function formatTourSubtitulo(tour, lang) {
   return [dataStr, preco].filter(Boolean).join(' · ');
 }
 
-// Modal editorial moderno: layout split (imagem + conteúdo)
+// Modal editorial moderno: layout split (imagem + conteúdo) — Estilo "Página de Livro"
 function renderModalEditorial(m) {
   const titulo = t(m.titulo, m.tituloEn);
   const subtitulo = m.subtitulo ? t(m.subtitulo, m.subtituloEn) : '';
@@ -917,35 +924,49 @@ function renderModalEditorial(m) {
 
   const dia = m.tourData?.dia || '';
   const mesRaw = m.tourData?.mes || '';
-  const dateStamp = m.imagem && dia ? `
-    <div class="date-stamp">
-      <span class="day">${dia}</span>
-      <span class="month">${mesRaw}</span>
-    </div>
-  ` : '';
 
-  // Modais com tourId (excursões) — layout split editorial completo
+  // Chapter number baseado no id do tour
+  const allTours = SITE.tours?.tours || [];
+  const tourIdx = allTours.findIndex(t => t.id === m.tourId);
+  const chapterNum = tourIdx >= 0 ? String(tourIdx + 1).padStart(2, '0') : '01';
+
+  // Modais com tourId (excursões) — Página de Livro completa
   if (m.tourId && m.imagem) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
-        <div class="modal-box modal-box--editorial">
-          <button class="modal-close-btn" onclick="closeModal('${m.id}')" aria-label="Fechar">✕</button>
-          <div class="modal-visual">
+        <div class="modal-box modal-book">
+          <div class="modal-book__close-hint">${SITE.lang === 'en' ? '× click outside to close' : '× clique fora para fechar'}</div>
+          <div class="modal-book__visual">
             <img src="${m.imagem}" alt="${titulo}">
-            ${dateStamp}
-          </div>
-          <div class="modal-body">
-            <div class="modal-eyebrow">${duracao || ts('pessoa')}</div>
-            <h3 class="modal-title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
-            ${subtitulo ? `<p class="modal-subtitle" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</p>` : ''}
-            <div class="modal-content-text" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
-            ${incluidosHTML ? `
-              <div class="modal-includes-title">${ts('Incluído no pacote:')}</div>
-              <ul class="modal-includes-list">${incluidosHTML}</ul>
+            <div class="modal-book__chapter-stamp">
+              <span class="label">${SITE.lang === 'en' ? 'Chapter' : 'Capítulo'}</span>
+              <span class="number">${chapterNum}</span>
+            </div>
+            ${dia ? `
+              <div class="modal-book__date-stamp">
+                <span class="day">${dia}</span>
+                <span class="month">${mesRaw}</span>
+              </div>
             ` : ''}
-            <div class="modal-footer">
-              ${m.preco != null ? `<div class="modal-price">${m.preco}€<small>/${ts('pessoa')}</small></div>` : '<div></div>'}
-              ${m.textoBotao ? `<button class="btn-primary" onclick="closeModal('${m.id}');openReservaModal('${m.tourId}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${t(m.textoBotao, m.textoBotaoEn)}</button>` : ''}
+          </div>
+          <div class="modal-book__body">
+            <div class="modal-book__eyebrow">${duracao || (SITE.lang === 'en' ? 'Tour' : 'Excursão')}</div>
+            <h3 class="modal-book__title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+            ${subtitulo ? `<p class="modal-book__subtitle" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</p>` : ''}
+            <div class="modal-book__content" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
+            ${incluidosHTML ? `
+              <div class="modal-book__notes">
+                <div class="modal-book__notes-title">${ts('Incluído no pacote:')}</div>
+                <ul class="modal-book__notes-list">${incluidosHTML}</ul>
+              </div>
+            ` : ''}
+            <div class="modal-book__footer">
+              ${m.preco != null ? `<div class="modal-book__price">${m.preco}€<small>/${ts('pessoa')}</small></div>` : '<div></div>'}
+              ${m.textoBotao ? `
+                <button class="modal-book__cta" onclick="closeModal('${m.id}');openReservaModal('${m.tourId}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">
+                  ${t(m.textoBotao, m.textoBotaoEn)} <span class="arrow">→</span>
+                </button>
+              ` : ''}
             </div>
           </div>
         </div>
@@ -953,28 +974,31 @@ function renderModalEditorial(m) {
     `;
   }
 
-  // Modais de blog/sustentabilidade (com imagem, sem tourId) — também usam split
-  // mas sem o footer de preço/botão — em vez disso, botões genéricos no fim
+  // Modais de blog/sustentabilidade (com imagem, sem tourId) — Página de Livro simplificada
   if (m.imagem && !m.botoes) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
-        <div class="modal-box modal-box--editorial">
-          <button class="modal-close-btn" onclick="closeModal('${m.id}')" aria-label="Fechar">✕</button>
-          <div class="modal-visual">
+        <div class="modal-box modal-book">
+          <div class="modal-book__close-hint">${SITE.lang === 'en' ? '× click outside to close' : '× clique fora para fechar'}</div>
+          <div class="modal-book__visual">
             <img src="${m.imagem}" alt="${titulo}">
           </div>
-          <div class="modal-body">
-            ${subtitulo ? `<div class="modal-eyebrow" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</div>` : ''}
-            <h3 class="modal-title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
-            <div class="modal-content-text" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
+          <div class="modal-book__body">
+            ${subtitulo ? `<div class="modal-book__eyebrow" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</div>` : ''}
+            <h3 class="modal-book__title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+            <div class="modal-book__content" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
             ${incluidosHTML ? `
-              <div class="modal-includes-title">${ts('Incluído no pacote:')}</div>
-              <ul class="modal-includes-list">${incluidosHTML}</ul>
+              <div class="modal-book__notes">
+                <div class="modal-book__notes-title">${ts('Incluído no pacote:')}</div>
+                <ul class="modal-book__notes-list">${incluidosHTML}</ul>
+              </div>
             ` : ''}
             ${m.textoBotao ? `
-              <div class="modal-footer">
+              <div class="modal-book__footer">
                 <div></div>
-                <button class="btn-primary" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${t(m.textoBotao, m.textoBotaoEn)}</button>
+                <button class="modal-book__cta" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">
+                  ${t(m.textoBotao, m.textoBotaoEn)} <span class="arrow">→</span>
+                </button>
               </div>
             ` : ''}
           </div>

@@ -1188,8 +1188,416 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   EDITORIAL CARDS — blog + sustentabilidade (design coordenado)
+   DIÁRIO DE VIAGEM — cards tipo entradas de manual/guia
    ============================================================ */
+.journal-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all .4s cubic-bezier(.22,.61,.36,1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.journal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-2);
+}
+.journal-card__visual {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+}
+.journal-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s cubic-bezier(.22,.61,.36,1);
+  display: block;
+}
+.journal-card:hover .journal-card__img { transform: scale(1.06); }
+.journal-card__chapter {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+  z-index: 2;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.journal-card__category {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  background: rgba(255,255,255,0.95);
+  color: var(--accent-2);
+  padding: 4px 10px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 2;
+  border-radius: 2px;
+}
+.journal-card__category.green { color: var(--accent); }
+.journal-card__category.red { color: #c2410c; }
+.journal-card__body {
+  padding: 24px 22px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.journal-card__date {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.journal-card__title {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.journal-card__excerpt {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.journal-card__cta {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--accent-2);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap .3s, color .25s;
+  position: relative;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--accent-2);
+}
+.journal-card__cta .arrow {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform .3s;
+}
+.journal-card__cta:hover {
+  color: var(--accent);
+  gap: 14px;
+  border-bottom-color: var(--accent);
+}
+.journal-card__cta:hover .arrow { transform: translateX(4px); }
+
+/* Variantes para tours (com preço) */
+.journal-card__price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 16px;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+}
+.journal-card__price {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.journal-card__price small {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 400;
+  margin-left: 4px;
+}
+.journal-card__duration {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ============================================================
+   POPUPS — PÁGINA DE LIVRO (split com notas laterais)
+   ============================================================ */
+.modal-book {
+  max-width: 920px !important;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  padding: 0 !important;
+  overflow: hidden;
+  position: relative;
+  border-radius: 2px;
+}
+.modal-book__visual {
+  position: relative;
+  min-height: 100%;
+  overflow: hidden;
+}
+.modal-book__visual img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal-book__visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,40,15,0.2), rgba(224,112,0,0.15));
+}
+.modal-book__chapter-stamp {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  z-index: 3;
+  color: #fff;
+  font-family: var(--serif);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+.modal-book__chapter-stamp .label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 4px;
+}
+.modal-book__chapter-stamp .number {
+  font-size: 3.5rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.modal-book__date-stamp {
+  position: absolute;
+  bottom: 28px;
+  left: 28px;
+  z-index: 3;
+  background: rgba(255,255,255,0.95);
+  padding: 10px 16px;
+  border-radius: 2px;
+  text-align: center;
+}
+.modal-book__date-stamp .day {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent-2);
+  display: block;
+}
+.modal-book__date-stamp .month {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  margin-top: 2px;
+}
+.modal-book__body {
+  padding: 40px 36px 32px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 90vh;
+  max-height: 90dvh;
+  position: relative;
+}
+.modal-book__eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  font-weight: 700;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-book__title {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 2.5vw, 2.3rem) !important;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+.modal-book__subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 1rem;
+  margin-bottom: 24px;
+}
+.modal-book__content {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+.modal-book__content p { margin-bottom: 12px; }
+.modal-book__content p:last-child { margin-bottom: 0; }
+.modal-book__content strong { color: var(--text); font-weight: 600; }
+
+/* Notas laterais tipo manual */
+.modal-book__notes {
+  background: var(--bg-soft);
+  border-left: 2px solid var(--accent-2);
+  padding: 16px 18px;
+  margin-bottom: 24px;
+  border-radius: 0 2px 2px 0;
+}
+.modal-book__notes-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 10px;
+}
+.modal-book__notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+.modal-book__notes-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.modal-book__notes-list li::before {
+  content: '—';
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.modal-book__footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.modal-book__price {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.modal-book__price small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 400;
+  margin-top: 2px;
+}
+.modal-book__cta {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 13px 26px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .3s cubic-bezier(.22,.61,.36,1);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-book__cta:hover {
+  background: var(--accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(224,112,0,0.25);
+}
+.modal-book__cta .arrow {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  transition: transform .3s;
+}
+.modal-book__cta:hover .arrow { transform: translateX(4px); }
+
+/* Hint para fechar (clica fora) — discreto, no canto */
+.modal-book__close-hint {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  opacity: 0.7;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .modal-book {
+    grid-template-columns: 1fr;
+    max-height: 92vh;
+    max-height: 92dvh;
+  }
+  .modal-book__visual {
+    min-height: 220px;
+    max-height: 280px;
+  }
+  .modal-book__body { padding: 28px 22px; }
+  .modal-book__title { font-size: 1.4rem !important; }
+  .modal-book__chapter-stamp .number { font-size: 2.5rem; }
+}
+
+/* Manter classes antigas para compatibilidade */
 .editorial-card {
   display: flex;
   flex-direction: column;
