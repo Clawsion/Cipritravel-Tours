@@ -575,7 +575,7 @@ function renderCTA(s) {
         <p style="opacity:0.92;margin-bottom:32px;font-size:1.05rem;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:500px;margin:0 auto">
           <input type="email" id="newsletter-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="flex:1;min-width:200px;padding:14px 22px;border-radius:999px;border:none;font-size:0.92rem;outline:none;background:rgba(255,255,255,0.95);color:#1a1a1a">
-          <button class="btn-outline" style="background:rgba(255,255,255,0.95);color:#008030;border-color:#fff;font-weight:700" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe')}</button>
+          <button class="btn-outline" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe')}</button>
         </div>
         <p id="newsletter-msg" style="margin-top:16px;opacity:0;transition:opacity .3s;font-weight:600;font-family:var(--serif)"></p>
       </div>
