@@ -412,23 +412,20 @@ function renderBlog(s) {
 
   const artigosHTML = artigos.map((a, idx) => {
     return `
-    <article class="magazine-card reveal-stagger" onclick="openModal('modal-${a.id}')">
-      <div class="magazine-card__visual">
-        <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="magazine-card__img" loading="lazy">
-        <div class="magazine-card__overlay"></div>
-        <span class="magazine-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
-        <div class="magazine-card__title-overlay">
-          <span class="magazine-card__date-stamp">${formatDate(a.data)}</span>
-          <h3 class="magazine-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
-        </div>
+    <article class="blog-card reveal-stagger" onclick="openModal('modal-${a.id}')">
+      <div class="blog-card__visual">
+        <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="blog-card__img" loading="lazy">
+        <span class="blog-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
       </div>
-      <div class="magazine-card__body">
-        <p class="magazine-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
-        <div class="magazine-card__footer magazine-card__footer--simple">
-          <button class="magazine-card__cta" onclick="event.stopPropagation();openModal('modal-${a.id}')" data-pt="Ler mais" data-en="Read more">
-            ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
-          </button>
+      <div class="blog-card__body">
+        <div>
+          <span class="blog-card__date">${formatDate(a.data)}</span>
+          <h3 class="blog-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
+          <p class="blog-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
         </div>
+        <button class="blog-card__cta" onclick="event.stopPropagation();openModal('modal-${a.id}')" data-pt="Ler mais" data-en="Read more">
+          ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
+        </button>
       </div>
     </article>
     `;
@@ -440,7 +437,7 @@ function renderBlog(s) {
         <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
         <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
         <p class="section-subtitle" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;margin-top:60px;text-align:left">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:28px;margin-top:60px;text-align:left">
           ${artigosHTML}
         </div>
       </div>
@@ -1072,7 +1069,7 @@ function renderModalFormulario(m) {
   const titulo = t(m.titulo, m.tituloEn);
   const textoBotao = t(m.textoBotao, m.textoBotaoEn);
 
-  // === MODAL DE RESERVA — Layout Contrato Premium ===
+  // === MODAL DE RESERVA — Layout Contrato Premium (sem sidebar) ===
   if (m.id === 'modal-reserva') {
     const isEn = SITE.lang === 'en';
     const L = isEn ? {
@@ -1092,13 +1089,6 @@ function renderModalFormulario(m) {
       phonePh: '+351 ...',
       notesLabel: 'Special Requests',
       notesPh: 'Dietary restrictions, mobility needs, pickup point...',
-      summary: 'Reservation Summary',
-      duration: 'Duration',
-      date: 'Date',
-      pax: 'Passengers',
-      ppu: 'Price per Person',
-      totalLabel: 'TOTAL',
-      note: 'Payment is processed after confirmation. We will contact you within 24h.',
       cta: 'Confirm Reservation',
       successIcon: '✓',
       successTitle: 'Reservation Received!',
@@ -1120,13 +1110,6 @@ function renderModalFormulario(m) {
       phonePh: '+351 ...',
       notesLabel: 'Pedidos Especiais',
       notesPh: 'Restrições alimentares, mobilidade, ponto de embarque...',
-      summary: 'Resumo da Reserva',
-      duration: 'Duração',
-      date: 'Data',
-      pax: 'Passageiros',
-      ppu: 'Preço por Pessoa',
-      totalLabel: 'TOTAL',
-      note: 'O pagamento é processado após confirmação. Entraremos em contacto em até 24h.',
       cta: 'Confirmar Reserva',
       successIcon: '✓',
       successTitle: 'Reserva Recebida!',
@@ -1151,14 +1134,14 @@ function renderModalFormulario(m) {
               </div>
               <div class="modal-contract__field">
                 <label class="modal-contract__field-label">${L.tourLabel}</label>
-                <select id="reserva-tour" class="modal-contract__field-select" onchange="updateReservationSummary()">
+                <select id="reserva-tour" class="modal-contract__field-select">
                   <option value="">${isEn ? '— Select —' : '— Selecionar —'}</option>
                   ${tourOptions}
                 </select>
               </div>
               <div class="modal-contract__field">
                 <label class="modal-contract__field-label">${L.paxLabel}</label>
-                <input type="number" id="reserva-pax" class="modal-contract__field-input" min="1" max="50" value="1" onchange="updateReservationSummary()" oninput="updateReservationSummary()">
+                <input type="number" id="reserva-pax" class="modal-contract__field-input" min="1" max="50" value="1">
               </div>
             </div>
 
@@ -1195,32 +1178,7 @@ function renderModalFormulario(m) {
             </div>
           </div>
 
-          <div class="modal-contract__sidebar">
-            <div class="modal-contract__sidebar-eyebrow">${L.summary}</div>
-            <div class="modal-contract__summary-tour">
-              <div class="modal-contract__summary-tour-name" id="reserva-summary-tour">—</div>
-              <div class="modal-contract__summary-row">
-                <span class="label">${L.date}</span>
-                <span class="value" id="reserva-summary-date">—</span>
-              </div>
-              <div class="modal-contract__summary-row">
-                <span class="label">${L.duration}</span>
-                <span class="value" id="reserva-summary-duration">—</span>
-              </div>
-              <div class="modal-contract__summary-row">
-                <span class="label">${L.pax}</span>
-                <span class="value" id="reserva-summary-pax">1</span>
-              </div>
-              <div class="modal-contract__summary-row">
-                <span class="label">${L.ppu}</span>
-                <span class="value" id="reserva-summary-ppu">—</span>
-              </div>
-            </div>
-            <div class="modal-contract__summary-total">
-              <div class="modal-contract__summary-total-label">${L.totalLabel}</div>
-              <div class="modal-contract__summary-total-value" id="reserva-summary-total">—</div>
-            </div>
-            <p class="modal-contract__summary-note">${L.note}</p>
+          <div class="modal-contract__footer">
             <button class="modal-contract__cta" id="btn-submit-${m.id}" onclick="submitReservation('${m.id}', '${L.successIcon}', '${L.successTitle}', '${L.successText}')">
               ${L.cta} <span class="arrow">→</span>
             </button>
@@ -1266,38 +1224,16 @@ function renderModalFormulario(m) {
   `;
 }
 
-// Atualiza o resumo lateral do modal de reserva quando o user muda tour/passageiros
-function updateReservationSummary() {
-  const sel = document.getElementById('reserva-tour');
-  const paxInput = document.getElementById('reserva-pax');
-  if (!sel) return;
-
-  const opt = sel.options[sel.selectedIndex];
-  const tourName = sel.value ? opt.text.split(' — ')[0] : '—';
-  const preco = opt?.dataset?.preco ? parseFloat(opt.dataset.preco) : 0;
-  const duracao = opt?.dataset?.duracao || '—';
-  const data = opt?.dataset?.data?.trim() || '—';
-  const pax = Math.max(1, parseInt(paxInput?.value) || 1);
-  const total = preco * pax;
-
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('reserva-summary-tour', tourName);
-  set('reserva-summary-date', data);
-  set('reserva-summary-duration', duracao);
-  set('reserva-summary-pax', pax);
-  set('reserva-summary-ppu', preco > 0 ? `${preco}€` : '—');
-  set('reserva-summary-total', total > 0 ? `${total}€` : '—');
-}
-
 // Submete a reserva (envia para Web3Forms como antes mas com os novos campos)
 function submitReservation(modalId, successIcon, successTitle, successText) {
-  const tour = document.getElementById('reserva-tour')?.value || '';
+  const tourSel = document.getElementById('reserva-tour');
+  const tour = tourSel?.value || '';
+  const tourName = tourSel?.selectedOptions?.[0]?.text?.split(' — ')[0] || tour;
   const pax = document.getElementById('reserva-pax')?.value || '1';
   const nome = document.getElementById('reserva-nome')?.value || '';
   const email = document.getElementById('reserva-email')?.value || '';
   const telefone = document.getElementById('reserva-telefone')?.value || '';
   const notas = document.getElementById('reserva-notas')?.value || '';
-  const total = document.getElementById('reserva-summary-total')?.textContent || '';
 
   if (!tour || !nome || !email) {
     alert(SITE.lang === 'en' ? 'Please fill in tour, name and email.' : 'Preencha excursão, nome e email.');
@@ -1309,23 +1245,22 @@ function submitReservation(modalId, successIcon, successTitle, successText) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      subject: SITE.lang === 'en' ? `New Reservation: ${tour}` : `Nova Reserva: ${tour}`,
+      subject: SITE.lang === 'en' ? `New Reservation: ${tourName}` : `Nova Reserva: ${tourName}`,
       from_name: 'Cipritravel Website',
-      tour: tour,
+      tour: tourName,
       passageiros: pax,
       nome: nome,
       email: email,
       telefone: telefone,
       notas: notas,
-      total: total,
-      _subject: SITE.lang === 'en' ? `Reservation: ${tour} (${pax} pax)` : `Reserva: ${tour} (${pax} pax)`
+      _subject: SITE.lang === 'en' ? `Reservation: ${tourName} (${pax} pax)` : `Reserva: ${tourName} (${pax} pax)`
     })
   }).then(r => r.json()).then(data => {
     if (data.success !== false) {
       const modalBox = document.querySelector(`#${modalId} .modal-contract`);
       if (modalBox) {
         modalBox.innerHTML = `
-          <div class="modal-contract__success" style="grid-column: 1 / -1;padding:60px 40px">
+          <div class="modal-contract__success">
             <div class="modal-contract__success-icon">${successIcon}</div>
             <h3 class="modal-contract__success-title">${successTitle}</h3>
             <p class="modal-contract__success-text">${successText}</p>
