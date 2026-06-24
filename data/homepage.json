@@ -52,6 +52,12 @@
       "id": "excursoes"
     },
     {
+      "type": "parallax-showcase",
+      "ativo": true,
+      "ordem": 4,
+      "id": "destaque"
+    },
+    {
       "tituloEn": "Travel Inspiration",
       "tagEn": "Blog",
       "artigos": [
@@ -113,7 +119,7 @@
         }
       ],
       "descricao": "Dicas, guias e histórias para enriquecer as suas viagens.",
-      "ordem": 4,
+      "ordem": 5,
       "ativo": true,
       "descricaoEn": "Tips, guides and stories to enrich your travels.",
       "titulo": "Inspiração para Viajar",
@@ -126,7 +132,7 @@
       "tagEn": "Sustainability",
       "corFundo": "branco",
       "descricao": "O nosso compromisso com a natureza, as comunidades e o futuro do planeta.",
-      "ordem": 5,
+      "ordem": 6,
       "tagCor": "verde",
       "ativo": true,
       "descricaoEn": "Our commitment to nature, communities and the future of our planet.",
@@ -184,7 +190,7 @@
       "tagEn": "About Us",
       "corFundo": "cinza",
       "citacaoEn": "\"We have further expanded our passion for travel, to create memorable experiences.\"",
-      "ordem": 6,
+      "ordem": 7,
       "ancoraBotao": "#contactos",
       "posicaoImagem": "direita",
       "texto1": "A **Cipritravel Tours** nasceu com um sonho simples: tornar cada viagem numa memória inesquecível. Criamos passeios leves, seguros e autênticos para quem quer descobrir sem preocupações. Ambiente organizado e profissional, para que possa desfrutar dos melhores momentos.",
@@ -205,7 +211,7 @@
       "tituloEn": "The Cipritravel Tours Difference",
       "tagEn": "Why Us?",
       "corFundo": "branco",
-      "ordem": 7,
+      "ordem": 8,
       "ativo": true,
       "titulo": "A Diferença da Cipritravel Tours",
       "type": "features",
@@ -253,7 +259,7 @@
       "tituloEn": "Stay Up to Date",
       "corFundo": "verde",
       "descricao": "Subscreva e receba as nossas excursões e promoções em primeira mão.",
-      "ordem": 8,
+      "ordem": 9,
       "ativo": true,
       "descricaoEn": "Subscribe and receive our tours and promotions first hand.",
       "textoBotao": "Subscrever",
@@ -270,7 +276,7 @@
       "corFundo": "cinza",
       "mostrarMapa": true,
       "descricao": "Se tiver alguma sugestão ou se quiser obter mais informações sobre as tours? Estamos ao seu dispor!",
-      "ordem": 9,
+      "ordem": 10,
       "ativo": true,
       "descricaoEn": "If you have any suggestions or would like more information about our tours? We are at your disposal!",
       "mapaEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3115.8!2d-9.0333!3d38.6167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDM3JzAwLjAiTiA5wrAwMicwMC4wIlc!5e0!3m2!1spt!2spt!4v1620000000000!5m2!1spt!2spt",

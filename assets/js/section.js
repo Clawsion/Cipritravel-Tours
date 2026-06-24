@@ -218,6 +218,7 @@ function renderSection(section) {
     'hero': renderHero,
     'banner': renderBanner,
     'tours': renderTours,
+    'parallax-showcase': renderParallaxShowcase,
     'blog': renderBlog,
     'cards': renderCards,
     'texto-imagem': renderTextoImagem,
@@ -227,8 +228,73 @@ function renderSection(section) {
     'spacer': renderSpacer,
     'html': renderHTML
   };
-  
+
   return renderers[section.type] ? renderers[section.type](section) : '';
+}
+
+// ============================================
+// PARALLAX SHOWCASE — excursion em destaque
+// ============================================
+function renderParallaxShowcase(s) {
+  // Procura a excursão marcada como destaque em tours.json
+  const allTours = SITE.tours?.tours || [];
+  const tour = allTours.find(t => t.destaque === true && t.ativo !== false)
+            || allTours.find(t => t.id === 'rota-sol-praia')
+            || allTours.find(t => t.ativo !== false);
+
+  if (!tour) return '';
+
+  const nome = t(tour.nome, tour.nomeEn);
+  const descricao = t(tour.descricao, tour.descricaoEn);
+  const duracao = t(tour.duracao, tour.duracaoEn);
+  const dia = tour.data?.dia || '';
+  const mes = tour.data?.mes || '';
+  const tituloDestaque = SITE.lang === 'en' ? 'Coastal Escape' : 'Fuga à Costa';
+
+  return `
+    <section class="parallax-showcase" id="destaque">
+      <img class="parallax-showcase__bg" src="${tour.imagem}" alt="${nome}" data-parallax>
+      <div class="parallax-showcase__overlay"></div>
+      <div class="parallax-showcase__inner">
+        <div class="parallax-showcase__text reveal">
+          <span class="section-tag" data-pt="Excursão em Destaque" data-en="Featured Tour">Excursão em Destaque</span>
+          <h2 class="parallax-showcase__title">
+            <span data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</span>
+            <em>${tituloDestaque}</em>
+          </h2>
+          <p class="parallax-showcase__desc" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
+          <div class="parallax-showcase__meta">
+            <div class="parallax-showcase__meta-item">
+              <span class="label">${SITE.lang === 'en' ? 'Date' : 'Data'}</span>
+              <span class="value">${dia} ${mes}</span>
+            </div>
+            <div class="parallax-showcase__meta-item">
+              <span class="label">${SITE.lang === 'en' ? 'Duration' : 'Duração'}</span>
+              <span class="value">${duracao}</span>
+            </div>
+            <div class="parallax-showcase__meta-item price">
+              <span class="label">${SITE.lang === 'en' ? 'From' : 'Desde'}</span>
+              <span class="value">${tour.preco}€</span>
+            </div>
+          </div>
+          <div class="parallax-showcase__actions">
+            <button class="btn-primary" onclick="openModal('modal-${tour.id}')" data-pt="Ver Detalhes" data-en="View Details">${SITE.lang === 'en' ? 'View Details' : 'Ver Detalhes'}</button>
+            <button class="btn-outline" onclick="openReservaModal('${tour.id}')" data-pt="Reservar Agora" data-en="Book Now">${ts('Reservar')}</button>
+          </div>
+        </div>
+        <div class="parallax-showcase__card reveal">
+          <img class="parallax-showcase__card-img" src="${tour.imagem}" alt="${nome}">
+          <div class="parallax-showcase__card-date">${dia} ${mes} · ${tour.preco}€</div>
+          <h3 class="parallax-showcase__card-title" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</h3>
+          <p class="parallax-showcase__card-desc" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
+          <div class="parallax-showcase__card-cta">
+            <span class="price">${tour.preco}€</span>
+            <button class="btn-primary" style="padding:10px 22px;font-size:0.78rem" onclick="closeModalOutside(event);openReservaModal('${tour.id}')">${ts('Reservar')}</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
 }
 
 // ============================================
@@ -442,21 +508,45 @@ function renderTextoImagem(s) {
 function renderFeatures(s) {
   const itens = s.itens || [];
   const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
-  
-  const itensHTML = itens.map(i => `
-    <div class="pq-card">
-      <div style="font-size:2.5rem;margin-bottom:16px">${i.icone}</div>
-      <h3 style="font-weight:700;margin-bottom:8px" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
-      <p style="color:var(--muted);font-size:0.88rem" data-pt="${i.descricao}" data-en="${i.descricaoEn || i.descricao}">${t(i.descricao, i.descricaoEn)}</p>
-    </div>
-  `).join('');
-  
+
+  // Se houver imagens nos itens, usa cards com foto (estilo magazine)
+  // Senão, fallback para cards com gradiente + letra
+  const itensHTML = itens.map(i => {
+    const titulo = t(i.titulo, i.tituloEn);
+    const descricao = t(i.descricao, i.descricaoEn);
+    const initial = (titulo || '?').charAt(0).toUpperCase();
+
+    if (i.imagem) {
+      return `
+        <div class="why-card reveal-stagger">
+          <img class="why-card__img" src="${i.imagem}" alt="${titulo}">
+          <div class="why-card__body">
+            <h3 class="why-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${titulo}</h3>
+            <p class="why-card__desc" data-pt="${i.descricao}" data-en="${i.descricaoEn || i.descricao}">${descricao}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // Fallback: card com gradiente + letra grande (sem ícone emoji)
+    return `
+      <div class="why-card reveal-stagger">
+        <div style="height:200px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:5rem;font-weight:700;font-style:italic">${initial}</div>
+        <div class="why-card__body">
+          <h3 class="why-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${titulo}</h3>
+          <p class="why-card__desc" data-pt="${i.descricao}" data-en="${i.descricaoEn || i.descricao}">${descricao}</p>
+        </div>
+      </div>
+    `;
+  }).join('');
+
   return `
-    <section id="${s.id || 'features'}" style="padding:80px 20px;background:${bgClass}">
-      <div style="max-width:1200px;margin:0 auto;text-align:center">
+    <section id="${s.id || 'features'}" style="background:${bgClass}">
+      <div style="text-align:center">
         <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
-        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:48px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px">
+        <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+        <p class="section-subtitle" data-pt="${s.descricao || ''}" data-en="${s.descricaoEn || s.descricao || ''}">${t(s.descricao || '', s.descricaoEn || s.descricao || '')}</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:60px">
           ${itensHTML}
         </div>
       </div>
@@ -466,91 +556,141 @@ function renderFeatures(s) {
 
 function renderCTA(s) {
   const colors = {
-    'verde': 'linear-gradient(135deg,#2d7a3a,#1e5e28)',
-    'laranja': 'linear-gradient(135deg,#f97316,#ea580c)',
-    'azul': 'linear-gradient(135deg,#1e40af,#1e3a8a)'
+    'verde':   'linear-gradient(135deg, #008030 0%, #006028 100%)',
+    'laranja': 'linear-gradient(135deg, #e07000 0%, #c2410c 100%)',
+    'azul':    'linear-gradient(135deg, #008030 0%, #e07000 100%)'
   };
-  
+
   const emailPlaceholder = ts('O seu email...');
-  
+
   return `
-    <section style="padding:60px 20px;background:${colors[s.corFundo] || colors.verde}">
-      <div style="max-width:600px;margin:0 auto;text-align:center;color:#fff">
-        <h2 class="font-playfair" style="font-size:2rem;font-weight:700;margin-bottom:12px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <p style="opacity:0.9;margin-bottom:28px" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-          <input type="email" id="newsletter-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="flex:1;min-width:200px;padding:12px 20px;border-radius:999px;border:none;font-size:0.9rem;outline:none">
-          <button class="btn-primary" style="background:#f97316;white-space:nowrap" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe')}</button>
+    <section style="padding:80px 24px;background:${colors[s.corFundo] || colors.verde};position:relative;overflow:hidden">
+      <div style="max-width:700px;margin:0 auto;text-align:center;color:#fff;position:relative;z-index:1">
+        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:16px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+        <p style="opacity:0.92;margin-bottom:32px;font-size:1.05rem;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:500px;margin:0 auto">
+          <input type="email" id="newsletter-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="flex:1;min-width:200px;padding:14px 22px;border-radius:999px;border:none;font-size:0.92rem;outline:none;background:rgba(255,255,255,0.95);color:#1a1a1a">
+          <button class="btn-outline" style="background:rgba(255,255,255,0.95);color:#008030;border-color:#fff;font-weight:700" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe')}</button>
         </div>
-        <p id="newsletter-msg" style="margin-top:16px;opacity:0;transition:opacity .3s;font-weight:600"></p>
+        <p id="newsletter-msg" style="margin-top:16px;opacity:0;transition:opacity .3s;font-weight:600;font-family:var(--serif)"></p>
       </div>
     </section>
   `;
 }
 
 function renderFormulario(s) {
-  const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
-  
   const namePlaceholder = SITE.lang === 'en' ? 'Your name...' : 'O seu nome...';
   const emailPlaceholder = SITE.lang === 'en' ? 'Your email...' : 'O seu email...';
   const msgPlaceholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
-  
+
+  // Contactos do config.json como fallback
+  const cfg = SITE.config?.contactos || {};
+  const tel = s.infoContacto?.telefone || cfg.telefone || '';
+  const email = s.infoContacto?.email || cfg.email || '';
+  const morada = s.infoContacto?.morada || cfg.morada || '';
+  const whatsapp = cfg.whatsapp || '';
+
+  // Google Maps embed se morada existir
+  const mapQuery = encodeURIComponent(morada || 'Baixa da Banheira, Portugal');
+  const mapEmbed = s.mapaEmbed || `https://www.google.com/maps?q=${mapQuery}&output=embed`;
+
+  // Textos localizados
+  const txtPhone = SITE.lang === 'en' ? 'Phone' : 'Telefone';
+  const txtAddress = SITE.lang === 'en' ? 'Address' : 'Morada';
+  const txtHours = SITE.lang === 'en' ? 'Opening Hours' : 'Horário';
+  const txtFullName = SITE.lang === 'en' ? 'Full Name' : 'Nome Completo';
+  const txtMessage = SITE.lang === 'en' ? 'Message' : 'Mensagem';
+  const txtSend = SITE.lang === 'en' ? 'Send Message' : 'Enviar Mensagem';
+  const txtMonFri = SITE.lang === 'en' ? 'Mon - Fri' : 'Seg - Sex';
+  const txtSat = SITE.lang === 'en' ? 'Saturday' : 'Sábado';
+  const txtSun = SITE.lang === 'en' ? 'Sunday' : 'Domingo';
+  const txtClosed = SITE.lang === 'en' ? 'Closed' : 'Fechado';
+
   return `
-    <section id="${s.id || 'contactos'}" style="padding:80px 20px;background:${bgClass}">
-      <div style="max-width:1100px;margin:0 auto">
-        <div style="text-align:center;margin-bottom:48px">
+    <section id="${s.id || 'contactos'}" class="contacts-section">
+      <div class="contacts-grid">
+        <div class="contacts-info reveal">
           <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
-          <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:12px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-          <p style="color:var(--muted)" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
-        </div>
-        <div class="grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start">
-          <div class="card" style="padding:32px">
-            <div style="margin-bottom:20px">
-              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Nome Completo" data-en="Full Name">${SITE.lang === 'en' ? 'Full Name' : 'Nome Completo'}</label>
-              <input type="text" id="contact-name" class="translatable-input" data-placeholder-pt="O seu nome..." data-placeholder-en="Your name..." placeholder="${namePlaceholder}" style="width:100%;padding:10px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;box-sizing:border-box">
-            </div>
-            <div style="margin-bottom:20px">
-              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Email" data-en="Email">Email</label>
-              <input type="email" id="contact-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="width:100%;padding:10px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;box-sizing:border-box">
-            </div>
-            <div style="margin-bottom:20px">
-              <label style="font-weight:600;font-size:0.88rem;display:block;margin-bottom:6px" data-pt="Mensagem" data-en="Message">${SITE.lang === 'en' ? 'Message' : 'Mensagem'}</label>
-              <textarea id="contact-msg" rows="4" class="translatable-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}" style="width:100%;padding:10px 16px;border-radius:10px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:0.9rem;outline:none;resize:vertical;box-sizing:border-box"></textarea>
-            </div>
-            <button class="btn-primary" style="width:100%" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${SITE.lang === 'en' ? 'Send Message' : 'Enviar Mensagem'}</button>
-            <p id="contact-success" style="margin-top:16px;color:#2d7a3a;font-weight:600;display:none;text-align:center"></p>
-          </div>
-          <div>
-            <div class="card" style="padding:24px;margin-bottom:20px">
-              <div style="display:flex;flex-direction:column;gap:16px">
-                <div style="display:flex;align-items:center;gap:12px">
-                  <div style="width:44px;height:44px;background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0">📞</div>
-                  <div>
-                    <p style="font-weight:600;font-size:0.88rem" data-pt="Telefone" data-en="Phone">${SITE.lang === 'en' ? 'Phone' : 'Telefone'}</p>
-                    <a href="tel:${s.infoContacto?.telefone}" style="color:#2d7a3a;font-weight:600">${s.infoContacto?.telefone}</a>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px">
-                  <div style="width:44px;height:44px;background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0">✉️</div>
-                  <div>
-                    <p style="font-weight:600;font-size:0.88rem" data-pt="Email" data-en="Email">Email</p>
-                    <a href="mailto:${s.infoContacto?.email}" style="color:#2d7a3a;font-weight:600">${s.infoContacto?.email}</a>
-                  </div>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px">
-                  <div style="width:44px;height:44px;background:linear-gradient(135deg,#2d7a3a,#1e5e28);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0">📍</div>
-                  <div>
-                    <p style="font-weight:600;font-size:0.88rem" data-pt="Morada" data-en="Address">${SITE.lang === 'en' ? 'Address' : 'Morada'}</p>
-                    <p style="color:var(--muted);font-size:0.88rem">${s.infoContacto?.morada}</p>
-                  </div>
-                </div>
+          <h2 data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+          <p data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
+
+          ${tel ? `
+            <a class="contact-card" href="tel:${tel.replace(/\s/g,'')}">
+              <div class="contact-card__visual">${txtPhone.charAt(0)}</div>
+              <div>
+                <div class="contact-card__label">${txtPhone}</div>
+                <div class="contact-card__value">${tel}</div>
               </div>
+            </a>
+          ` : ''}
+
+          ${email ? `
+            <a class="contact-card" href="mailto:${email}">
+              <div class="contact-card__visual">@</div>
+              <div>
+                <div class="contact-card__label">Email</div>
+                <div class="contact-card__value">${email}</div>
+              </div>
+            </a>
+          ` : ''}
+
+          ${morada ? `
+            <a class="contact-card" href="https://maps.google.com/?q=${encodeURIComponent(morada)}" target="_blank" rel="noopener">
+              <div class="contact-card__visual">↗</div>
+              <div>
+                <div class="contact-card__label">${txtAddress}</div>
+                <div class="contact-card__value" style="font-size:0.95rem;line-height:1.4">${morada}</div>
+              </div>
+            </a>
+          ` : ''}
+
+          ${whatsapp ? `
+            <a class="contact-card" href="https://wa.me/${whatsapp}" target="_blank" rel="noopener">
+              <div class="contact-card__visual" style="background:linear-gradient(135deg,#25d366,#128c4b)">W</div>
+              <div>
+                <div class="contact-card__label">WhatsApp</div>
+                <div class="contact-card__value">+${whatsapp}</div>
+              </div>
+            </a>
+          ` : ''}
+
+          <!-- Formulário inline moderno -->
+          <div class="card" style="padding:36px;margin-top:32px">
+            <div style="margin-bottom:24px">
+              <label style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:var(--text-soft);display:block;margin-bottom:8px">${txtFullName}</label>
+              <input type="text" id="contact-name" class="translatable-input" data-placeholder-pt="O seu nome..." data-placeholder-en="Your name..." placeholder="${namePlaceholder}" style="width:100%;padding:14px 18px;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;box-sizing:border-box;transition:border-color .25s" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'">
             </div>
-            ${s.mostrarMapa && s.mapaEmbed ? `
-            <div style="border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1)">
-              <iframe src="${s.mapaEmbed}" width="100%" height="280" style="border:0;display:block" allowfullscreen loading="lazy"></iframe>
+            <div style="margin-bottom:24px">
+              <label style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:var(--text-soft);display:block;margin-bottom:8px">Email</label>
+              <input type="email" id="contact-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="width:100%;padding:14px 18px;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;box-sizing:border-box;transition:border-color .25s" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'">
             </div>
-            ` : ''}
+            <div style="margin-bottom:24px">
+              <label style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:var(--text-soft);display:block;margin-bottom:8px">${txtMessage}</label>
+              <textarea id="contact-msg" rows="4" class="translatable-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}" style="width:100%;padding:14px 18px;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;resize:vertical;box-sizing:border-box;transition:border-color .25s;font-family:inherit" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+            </div>
+            <button class="btn-primary" style="width:100%" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${txtSend}</button>
+            <p id="contact-success" style="margin-top:16px;color:var(--accent);font-weight:600;display:none;text-align:center;font-family:var(--serif)"></p>
+          </div>
+        </div>
+
+        <div class="contacts-aside reveal">
+          <div class="contacts-map-wrap">
+            <iframe src="${mapEmbed}" width="100%" height="360" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="contacts-hours">
+            <h4>${txtHours}</h4>
+            <div class="contacts-hours-row">
+              <span class="day">${txtMonFri}</span>
+              <span class="hours">9h00 - 19h00</span>
+            </div>
+            <div class="contacts-hours-row">
+              <span class="day">${txtSat}</span>
+              <span class="hours">10h00 - 17h00</span>
+            </div>
+            <div class="contacts-hours-row">
+              <span class="day">${txtSun}</span>
+              <span class="hours" style="color:var(--muted)">${txtClosed}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -704,14 +844,12 @@ function renderModals() {
   const standaloneModais = (SITE.modais?.lista || []).filter(m => m.ativo !== false);
 
   // Modais das excursões são GERADOS automaticamente a partir de tours.json.
-  // Cada tour ativo gera o seu próprio modal — não é necessário editar em modais.json.
   const tourModais = (SITE.tours?.tours || [])
     .filter(t => t.ativo !== false)
     .map(tour => ({
       id: `modal-${tour.id}`,
       titulo: tour.nome,
       tituloEn: tour.nomeEn || tour.nome,
-      // Subtitulo gerado automaticamente: data + preço
       subtitulo: formatTourSubtitulo(tour, 'pt'),
       subtituloEn: formatTourSubtitulo(tour, 'en'),
       imagem: tour.imagem,
@@ -722,6 +860,10 @@ function renderModals() {
       textoBotao: tour.textoBotao || 'Reservar Agora',
       textoBotaoEn: tour.textoBotaoEn || 'Book Now',
       tourId: tour.id,
+      tourData: tour.data,
+      preco: tour.preco,
+      duracao: tour.duracao,
+      duracaoEn: tour.duracaoEn,
       tipo: 'conteudo',
       ativo: true
     }));
@@ -732,7 +874,7 @@ function renderModals() {
     if (m.tipo === 'formulario') {
       return renderModalFormulario(m);
     }
-    return renderModalGenerico(m);
+    return renderModalEditorial(m);
   }).join('');
 
   const modaisContainer = document.getElementById('modais-container');
@@ -749,13 +891,72 @@ function formatTourSubtitulo(tour, lang) {
   const mesRaw = tour.data?.mes || '';
   const ano = '2026';
   const mes = lang === 'en' ? (mesesEn[mesRaw] || mesRaw) : (mesesPt[mesRaw] || mesRaw);
-  const de = lang === 'en' ? '' : 'de ';
   const connector = lang === 'en' ? ', ' : ' de ';
   const dataStr = dia && mes ? `${dia}${connector}${mes} ${ano}` : '';
   const preco = tour.preco != null ? `${tour.preco}€` : '';
   return [dataStr, preco].filter(Boolean).join(' · ');
 }
 
+// Modal editorial moderno: layout split (imagem + conteúdo)
+function renderModalEditorial(m) {
+  const titulo = t(m.titulo, m.tituloEn);
+  const subtitulo = m.subtitulo ? t(m.subtitulo, m.subtituloEn) : '';
+  const conteudo = t(m.conteudo, m.conteudoEn);
+  const duracao = m.duracao ? t(m.duracao, m.duracaoEn) : '';
+
+  const incluidosRaw = m.incluidos || [];
+  const incluidosEnRaw = m.incluidosEn || [];
+  const normalizeItem = (item) => typeof item === 'object' && item !== null ? (item.item || '') : item;
+  const incluidos = incluidosRaw.map(normalizeItem).filter(Boolean);
+  const incluidosEn = incluidosEnRaw.length > 0 ? incluidosEnRaw.map(normalizeItem) : incluidos;
+
+  const incluidosHTML = incluidos.map((item, idx) => `
+    <li><span data-pt="${item}" data-en="${incluidosEn[idx] || item}">${t(item, incluidosEn[idx] || item)}</span></li>
+  `).join('');
+
+  const dia = m.tourData?.dia || '';
+  const mesRaw = m.tourData?.mes || '';
+  const dateStamp = m.imagem && dia ? `
+    <div class="date-stamp">
+      <span class="day">${dia}</span>
+      <span class="month">${mesRaw}</span>
+    </div>
+  ` : '';
+
+  // Modais com tourId (excursões) — layout split editorial
+  if (m.tourId && m.imagem) {
+    return `
+      <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
+        <div class="modal-box modal-box--editorial">
+          <button class="modal-close-btn" onclick="closeModal('${m.id}')" aria-label="Fechar">✕</button>
+          <div class="modal-visual">
+            <img src="${m.imagem}" alt="${titulo}">
+            ${dateStamp}
+          </div>
+          <div class="modal-body">
+            <div class="modal-eyebrow">${duracao || ts('pessoa')}</div>
+            <h3 class="modal-title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+            ${subtitulo ? `<p class="modal-subtitle" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</p>` : ''}
+            <div class="modal-content-text" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
+            ${incluidosHTML ? `
+              <div class="modal-includes-title">${ts('Incluído no pacote:')}</div>
+              <ul class="modal-includes-list">${incluidosHTML}</ul>
+            ` : ''}
+            <div class="modal-footer">
+              ${m.preco != null ? `<div class="modal-price">${m.preco}€<small>/${ts('pessoa')}</small></div>` : '<div></div>'}
+              ${m.textoBotao ? `<button class="btn-primary" onclick="closeModal('${m.id}');openReservaModal('${m.tourId}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${t(m.textoBotao, m.textoBotaoEn)}</button>` : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Fallback para modais genéricos (hero, privacidade, etc.) — sem layout split
+  return renderModalGenerico(m);
+}
+
+// Renderiza modal genérico (hero, privacidade, etc.) — visual antigo mas ainda funciona
 function renderModalGenerico(m) {
   const incluidosRaw = m.incluidos || [];
   const incluidosEnRaw = m.incluidosEn || [];
@@ -764,34 +965,32 @@ function renderModalGenerico(m) {
   const incluidosEn = incluidosEnRaw.length > 0 ? incluidosEnRaw.map(normalizeItem) : incluidos;
   const incluidosHTML = incluidos.filter(Boolean).map((item, idx) => `
     <div style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:0.88rem">
-      <span style="color:#2d7a3a;font-weight:700">✓</span>
+      <span style="color:var(--accent);font-weight:700">✓</span>
       <span data-pt="${item}" data-en="${incluidosEn[idx] || item}">${t(item, incluidosEn[idx] || item)}</span>
     </div>
   `).join('');
-  
+
   const titulo = t(m.titulo, m.tituloEn);
   const subtitulo = m.subtitulo ? t(m.subtitulo, m.subtituloEn) : '';
   const conteudo = t(m.conteudo, m.conteudoEn);
   const textoBotao = m.textoBotao ? t(m.textoBotao, m.textoBotaoEn) : '';
-  
+
   return `
     <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
-      <div class="modal-box ${m.imagem ? 'wide' : ''}" style="${!m.imagem ? 'padding:32px' : ''}">
-        ${m.imagem ? `<img src="${m.imagem}" alt="${titulo}" style="width:100%;height:220px;object-fit:cover;border-radius:20px 20px 0 0">` : ''}
-        <div style="${m.imagem ? 'padding:28px' : ''}">
-          <div style="display:flex;justify-content:space-between;align-items:${m.subtitulo ? 'start' : 'center'};margin-bottom:16px">
-            <div>
-              <h3 class="font-playfair" style="font-size:1.5rem;font-weight:700" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
-              ${m.subtitulo ? `<p style="color:#2d7a3a;font-weight:600;font-size:0.9rem" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</p>` : ''}
-            </div>
-            <button onclick="closeModal('${m.id}')" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted)">✕</button>
+      <div class="modal-box ${m.imagem ? 'wide' : ''}" style="${!m.imagem ? 'padding:40px' : ''}">
+        <button class="modal-close-btn" onclick="closeModal('${m.id}')" aria-label="Fechar" style="position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--border);cursor:pointer;font-size:1.1rem;color:var(--text);z-index:10;transition:all .2s">✕</button>
+        ${m.imagem ? `<img src="${m.imagem}" alt="${titulo}" style="width:100%;height:280px;object-fit:cover">` : ''}
+        <div style="${m.imagem ? 'padding:36px' : ''}">
+          <div style="margin-bottom:20px">
+            <h3 class="font-playfair" style="font-size:2rem;font-weight:500;letter-spacing:-0.01em;line-height:1.15" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+            ${m.subtitulo ? `<p style="font-family:var(--serif);font-style:italic;color:var(--text-soft);font-size:1rem;margin-top:8px" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</p>` : ''}
           </div>
-          <div style="color:var(--muted);font-size:0.88rem;line-height:1.8" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
+          <div style="color:var(--text-soft);font-size:0.95rem;line-height:1.8" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
           ${incluidosHTML ? `
-            <h4 style="font-weight:700;margin:16px 0 12px" data-pt="Incluído no pacote:" data-en="Included in the package:">${ts('Incluído no pacote:')}</h4>
+            <h4 style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:var(--text-soft);margin:24px 0 12px">${ts('Incluído no pacote:')}</h4>
             <div class="grid-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px">${incluidosHTML}</div>
           ` : ''}
-          ${m.textoBotao ? `<button class="btn-primary" style="margin-top:20px" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>` : ''}
+          ${m.textoBotao ? `<button class="btn-primary" style="margin-top:8px" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${textoBotao}</button>` : ''}
           ${m.botoes && m.botoes.length > 0 ? `<div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">${m.botoes.map(b => {
             const bText = t(b.texto, b.textoEn);
             if (b.acao === 'scroll' && b.ancora) {
@@ -1216,10 +1415,7 @@ window.addEventListener('scroll', () => {
 // ============================================
 // SCROLL REVEAL (IntersectionObserver)
 // ============================================
-// Adiciona fade-in staggered a todas as secções e cards quando entram
-// no viewport. Subtle pro — não distrai, parece premium.
 function setupScrollReveal() {
-  // Marca todos os <section> e cards com .reveal/.reveal-stagger
   const targets = document.querySelectorAll('main > section, .reveal, .reveal-stagger');
   targets.forEach(el => {
     if (!el.classList.contains('reveal') && !el.classList.contains('reveal-stagger')) {
@@ -1228,7 +1424,6 @@ function setupScrollReveal() {
   });
 
   if (!('IntersectionObserver' in window)) {
-    // Fallback: mostra tudo
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('visible'));
     return;
   }
@@ -1237,7 +1432,7 @@ function setupScrollReveal() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        obs.unobserve(entry.target); // só anima uma vez
+        obs.unobserve(entry.target);
       }
     });
   }, {
@@ -1246,6 +1441,45 @@ function setupScrollReveal() {
   });
 
   document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+}
+
+// ============================================
+// PARALLAX EFFECT
+// ============================================
+// Move a imagem de fundo do .parallax-showcase a 50% da velocidade do scroll
+// para criar profundidade. Leve, não distrai.
+function setupParallax() {
+  const parallaxEls = document.querySelectorAll('[data-parallax]');
+  if (!parallaxEls.length) return;
+
+  // Respeita prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Throttle com requestAnimationFrame
+  let ticking = false;
+  function update() {
+    parallaxEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      // Só atualiza se a secção estiver visível
+      if (rect.bottom > 0 && rect.top < windowHeight) {
+        // Offset relativo ao centro do viewport
+        const scrolled = (rect.top + rect.height / 2) - windowHeight / 2;
+        const speed = 0.15; // 15% da velocidade do scroll (subtil)
+        el.style.transform = `translateY(${-scrolled * speed}px) scale(1.05)`;
+      }
+    });
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  update(); // initial
 }
 
 // ============================================
@@ -1259,6 +1493,7 @@ async function bootstrap() {
   if (loaded) {
     renderPage();
     setupScrollReveal();
+    setupParallax();
   }
 }
 

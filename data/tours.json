@@ -38,6 +38,7 @@
     {
       "id": "rota-sol-praia",
       "ativo": true,
+      "destaque": true,
       "ordem": 2,
       "nome": "Rota do Sol e Praia",
       "nomeEn": "Sun & Beach Route: Alentejo and Algarve in One Day!",
