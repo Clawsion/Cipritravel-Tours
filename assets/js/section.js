@@ -723,24 +723,38 @@ function renderHTML(s) {
 // ============================================
 function renderMenu() {
   const itens = SITE.menu?.itens?.filter(i => i.ativo !== false) || [];
-  
+
   const menuHTML = itens.map(i => `
     <a href="${i.ancora}" class="nav-pill" id="pill-${i.ancora?.replace('#','')}">
       <span data-pt="${i.texto}" data-en="${i.textoEn || i.texto}">${t(i.texto, i.textoEn)}</span>
     </a>
   `).join('');
-  
+
   const menuContainer = document.querySelector('nav #menu-container');
   if (menuContainer) {
-    menuContainer.innerHTML = menuHTML + `
-      <div style="display:flex;align-items:center;gap:4px;margin-left:8px;border-left:1px solid var(--border);padding-left:8px">
-        <button class="lang-btn ${SITE.lang === 'pt' ? 'active' : ''}" id="btn-pt" onclick="setLang('pt')">🇵🇹 PT</button>
-        <button class="lang-btn ${SITE.lang === 'en' ? 'active' : ''}" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
-        <button class="theme-pill" id="theme-toggle" onclick="toggleTheme()">${SITE.theme === 'dark' ? '☀️' : '🌙'}</button>
-      </div>
-    `;
+    // Atualiza apenas os links do menu, mantendo os botões PT/EN e theme-icon
+    // que já estão no HTML estático (com a nova estrutura minimalista)
+    const existingActions = menuContainer.querySelector('div[style*="border-left"]');
+    menuContainer.innerHTML = menuHTML;
+    if (existingActions) {
+      menuContainer.appendChild(existingActions);
+    } else {
+      // Fallback: cria os botões novos se não existirem
+      const actions = document.createElement('div');
+      actions.style.cssText = 'display:flex;align-items:center;gap:6px;margin-left:8px;border-left:1px solid var(--border);padding-left:12px';
+      actions.innerHTML = `
+        <button class="lang-link ${SITE.lang === 'pt' ? 'active' : ''}" id="lang-pt" onclick="setLang('pt')">PT</button>
+        <span class="lang-sep">/</span>
+        <button class="lang-link ${SITE.lang === 'en' ? 'active' : ''}" id="lang-en" onclick="setLang('en')">EN</button>
+        <button class="theme-icon" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+          <span class="theme-icon__sun">☀</span>
+          <span class="theme-icon__moon">☾</span>
+        </button>
+      `;
+      menuContainer.appendChild(actions);
+    }
   }
-  
+
   const logo = document.querySelector('nav img');
   if (logo && SITE.menu?.logo) {
     logo.src = SITE.menu.logo;
