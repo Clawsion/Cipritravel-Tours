@@ -289,69 +289,72 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: rotate(15deg);
 }
 
-/* ===== Buttons — Retangulares sólidos com arrow (estilo editorial) ===== */
+/* ===== Buttons — Minimalistas: outline fino, hover preenche ===== */
 .btn-primary {
-  background: var(--accent);
-  color: #fff;
-  padding: 13px 28px;
-  border-radius: 2px;
-  font-weight: 700;
-  font-size: 0.74rem;
+  background: transparent;
+  color: var(--accent);
+  padding: 11px 26px;
+  border-radius: 0;
+  font-weight: 600;
+  font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
-  border: none;
-  transition: all .3s cubic-bezier(.22,.61,.36,1);
+  border: 1px solid var(--accent);
+  transition: all .35s cubic-bezier(.22,.61,.36,1);
   display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0,128,48,0.25);
+  box-shadow: none;
 }
 .btn-primary::after {
   content: '→';
   font-family: var(--serif);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 400;
   transition: transform .3s;
 }
 .btn-primary:hover {
-  background: var(--accent-2);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(224,112,0,0.35);
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: none;
+  box-shadow: none;
   gap: 14px;
 }
 .btn-primary:hover::after { transform: translateX(4px); }
 
 .btn-outline {
-  background: rgba(255,255,255,0.1);
+  background: transparent;
   color: #fff;
-  padding: 13px 28px;
-  border-radius: 2px;
-  font-weight: 700;
-  font-size: 0.74rem;
+  padding: 11px 26px;
+  border-radius: 0;
+  font-weight: 600;
+  font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.4);
-  transition: all .3s;
+  border: 1px solid rgba(255,255,255,0.5);
+  transition: all .35s;
   display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  backdrop-filter: blur(8px);
+  backdrop-filter: none;
 }
 .btn-outline::after {
   content: '→';
   font-family: var(--serif);
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 400;
   transition: transform .3s;
 }
 .btn-outline:hover {
-  background: rgba(255,255,255,0.2);
+  background: #fff;
+  color: var(--accent);
   border-color: #fff;
-  transform: translateY(-2px);
+  transform: none;
   gap: 14px;
 }
 .btn-outline:hover::after { transform: translateX(4px); }
