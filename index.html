@@ -42,24 +42,26 @@
       <a href="#sobre" class="nav-pill" id="pill-sobre"><span>SOBRE NÓS</span></a>
       <a href="#porque" class="nav-pill" id="pill-porque"><span>PORQUÊ NÓS?</span></a>
       <a href="#contactos" class="nav-pill" id="pill-contactos"><span>CONTACTOS</span></a>
-      <div style="display:flex;align-items:center;gap:4px;margin-left:8px;border-left:1px solid var(--border);padding-left:8px">
-        <button class="lang-btn active" id="btn-pt" onclick="setLang('pt')">🇵🇹 PT</button>
-        <button class="lang-btn" id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-left:8px;border-left:1px solid var(--border);padding-left:12px">
+        <button class="lang-toggle" id="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
+          <span class="lang-toggle__opt" data-lang="pt">PT</span>
+          <span class="lang-toggle__opt" data-lang="en">EN</span>
+        </button>
         <button class="theme-pill" id="theme-toggle" onclick="toggleTheme()">🌙</button>
       </div>
     </div>
 
     <!-- Direita: hamburger + idioma (mobile/tablet) -->
-    <div style="display:none;align-items:center;gap:6px;flex-shrink:0" id="mobile-right">
+    <div style="display:none;align-items:center;gap:8px;flex-shrink:0" id="mobile-right">
       <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <div style="display:flex;align-items:center;gap:3px">
-        <button class="lang-btn active" id="btn-pt-m" onclick="setLang('pt')" style="font-size:0.72rem;padding:4px 8px">🇵🇹</button>
-        <button class="lang-btn" id="btn-en-m" onclick="setLang('en')" style="font-size:0.72rem;padding:4px 8px">🇬🇧</button>
-      </div>
+      <button class="lang-toggle lang-toggle--sm" id="lang-toggle-m" onclick="toggleLang()" aria-label="Switch language">
+        <span class="lang-toggle__opt" data-lang="pt">PT</span>
+        <span class="lang-toggle__opt" data-lang="en">EN</span>
+      </button>
       <button class="theme-pill" id="theme-toggle-m" onclick="toggleTheme()" style="width:32px;height:32px;font-size:0.85rem">🌙</button>
     </div>
 

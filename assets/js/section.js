@@ -1134,35 +1134,47 @@ function scrollToSection(id) {
 function setLang(lang) {
   SITE.lang = lang;
   localStorage.setItem('lang', lang);
-  
+
   document.querySelectorAll('[data-pt]').forEach(el => {
     const pt = el.dataset.pt;
     const en = el.dataset.en || pt;
     el.textContent = (lang === 'en' ? en : pt).replace('{ano}', new Date().getFullYear());
   });
-  
+
   const nameInput = document.getElementById('contact-name');
   const emailInput = document.getElementById('contact-email');
   const msgInput = document.getElementById('contact-msg');
   const newsletterInput = document.getElementById('newsletter-email');
-  
+
   if (nameInput) nameInput.placeholder = lang === 'en' ? 'Your name...' : 'O seu nome...';
   if (emailInput) emailInput.placeholder = lang === 'en' ? 'Your email...' : 'O seu email...';
   if (msgInput) msgInput.placeholder = lang === 'en' ? 'Your message...' : 'A sua mensagem...';
   if (newsletterInput) newsletterInput.placeholder = lang === 'en' ? 'Your email...' : 'O seu email...';
-  
+
   document.querySelectorAll('.translatable-markdown').forEach(el => {
     const pt = decodeHtml(el.dataset.pt);
     const en = decodeHtml(el.dataset.en || el.dataset.pt);
     el.innerHTML = renderMarkdown(lang === 'en' ? en : pt);
   });
-  
+
   renderModals();
-  
+
+  // Atualiza o toggle PT/EN (desktop + mobile)
+  document.querySelectorAll('.lang-toggle').forEach(toggle => {
+    toggle.classList.toggle('is-en', lang === 'en');
+    toggle.setAttribute('aria-label', lang === 'en' ? 'Switch to Portuguese' : 'Switch to English');
+  });
+
+  // Compatibilidade com botões antigos (caso ainda existam)
   document.getElementById('btn-pt')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en')?.classList.toggle('active', lang === 'en');
   document.getElementById('btn-pt-m')?.classList.toggle('active', lang === 'pt');
   document.getElementById('btn-en-m')?.classList.toggle('active', lang === 'en');
+}
+
+// Toggle PT/EN: alterna entre os dois idiomas
+function toggleLang() {
+  setLang(SITE.lang === 'pt' ? 'en' : 'pt');
 }
 
 function applyLang(lang) {
@@ -1463,14 +1475,12 @@ function setupScrollReveal() {
 // ============================================
 // PARALLAX EFFECT
 // ============================================
-// Reverse parallax: a imagem começa em baixo (translateY positivo grande)
-// e vai subindo (translateY diminui) à medida que se faz scroll.
-// Isto cria a sensação de "a imagem sobe para revelar a secção".
+// Reverse parallax: imagem começa em baixo e sobe com o scroll
+// Agora a imagem é full-bleed (100% do container) então usamos translate em %
 function setupParallax() {
   const parallaxEls = document.querySelectorAll('[data-parallax-reverse]');
   if (!parallaxEls.length) return;
 
-  // Respeita prefers-reduced-motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   let ticking = false;
@@ -1480,22 +1490,20 @@ function setupParallax() {
       const rect = el.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Só atualiza se a secção estiver próxima do viewport
       if (rect.bottom > -200 && rect.top < windowHeight + 200) {
-        // Quanto da secção já entrou no viewport (0 = ainda não entrou, 1 = entrou completamente)
+        // Progress: 0 quando a secção ainda está abaixo do viewport, 1 quando está centrada
         const visibleProgress = Math.max(0, Math.min(1,
           (windowHeight - rect.top) / (windowHeight + rect.height)
         ));
 
-        // A imagem começa deslocada para baixo (translateY: 30%)
-        // e sobe para translateY: -10% conforme a secção entra no viewport
-        const startOffset = 30;   // % de altura da secção
-        const endOffset = -10;
+        // Imagem começa translateY(20%) e sobe até translateY(-5%)
+        const startOffset = 20;
+        const endOffset = -5;
         const currentOffset = startOffset - (startOffset - endOffset) * visibleProgress;
 
         const img = el.querySelector('.parallax-showcase__bg');
         if (img) {
-          img.style.transform = `translateY(${currentOffset}%) scale(1.1)`;
+          img.style.transform = `translateY(${currentOffset}%) scale(1.15)`;
         }
       }
     });
@@ -1509,7 +1517,7 @@ function setupParallax() {
     }
   }, { passive: true });
 
-  update(); // initial
+  update();
 }
 
 // ============================================

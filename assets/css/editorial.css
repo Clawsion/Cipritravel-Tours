@@ -74,10 +74,10 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 90px;
+  height: 130px;
 }
 .nav-logo {
-  height: 90px;
+  height: 130px;
   width: auto;
   object-fit: contain;
   cursor: pointer;
@@ -138,6 +138,61 @@ nav {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+}
+
+/* Switch PT/EN (toggle único estilo iOS) */
+.lang-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  width: 64px;
+  height: 28px;
+  transition: background .25s;
+}
+.lang-toggle:hover { border-color: var(--accent-2); }
+.lang-toggle__opt {
+  flex: 1;
+  text-align: center;
+  z-index: 2;
+  color: var(--muted);
+  transition: color .25s;
+  user-select: none;
+}
+.lang-toggle__opt[data-lang="pt"] { color: var(--text); }
+.lang-toggle__opt[data-lang="en"] { color: var(--muted); }
+.lang-toggle.is-en .lang-toggle__opt[data-lang="pt"] { color: var(--muted); }
+.lang-toggle.is-en .lang-toggle__opt[data-lang="en"] { color: var(--text); }
+.lang-toggle::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background: var(--accent);
+  border-radius: 999px;
+  transition: transform .35s cubic-bezier(.22,.61,.36,1), background .25s;
+  z-index: 1;
+  box-shadow: 0 1px 3px rgba(0,128,48,0.3);
+}
+.lang-toggle.is-en::before {
+  transform: translateX(100%);
+  background: var(--accent-2);
+  box-shadow: 0 1px 3px rgba(224,112,0,0.3);
+}
+.lang-toggle--sm {
+  width: 52px;
+  height: 24px;
+  font-size: 0.6rem;
 }
 .theme-pill {
   display: inline-flex;
@@ -513,7 +568,7 @@ nav {
 
 /* ===== Section spacing ===== */
 section {
-  scroll-margin-top: 90px;
+  scroll-margin-top: 130px;
   padding: 100px 24px;
 }
 section > div:first-child {
@@ -538,12 +593,13 @@ section > div:first-child {
 
 /* ============================================================
    PARALLAX SHOWCASE — excursion em destaque
-   Imagem começa em baixo e sobe com o scroll (reverse parallax)
+   Imagem full-bleed (full-size como hero), secção verticalmente mais pequena
    ============================================================ */
 .parallax-showcase {
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 70vh;
+  height: 70dvh;
+  min-height: 500px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -553,14 +609,14 @@ section > div:first-child {
 .parallax-showcase__bg-wrap {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: 0;
   overflow: hidden;
 }
 .parallax-showcase__bg {
   position: absolute;
-  inset: -20% 0;
+  inset: 0;
   width: 100%;
-  height: 140%;
+  height: 100%;
   object-fit: cover;
   will-change: transform;
   /* Estado inicial: imagem deslocada para baixo */
@@ -570,20 +626,18 @@ section > div:first-child {
 .parallax-showcase__overlay {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
   background:
-    linear-gradient(180deg, rgba(15,10,5,0.6) 0%, rgba(15,10,5,0.35) 40%, rgba(15,10,5,0.75) 100%),
-    linear-gradient(135deg, rgba(0,40,15,0.3) 0%, rgba(224,112,0,0.25) 100%);
+    linear-gradient(180deg, rgba(15,10,5,0.55) 0%, rgba(15,10,5,0.35) 35%, rgba(15,10,5,0.7) 100%),
+    linear-gradient(135deg, rgba(0,40,15,0.25) 0%, rgba(224,112,0,0.2) 100%);
 }
 .parallax-showcase__inner {
+  position: relative;
+  z-index: 2;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 100px 24px;
+  padding: 60px 24px;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 60px;
-  align-items: center;
 }
 .parallax-showcase__text {
   color: #fff;
@@ -596,32 +650,32 @@ section > div:first-child {
 .parallax-showcase__title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(2.4rem, 7vw, 5.5rem);
-  line-height: 1.02;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 1.05;
   letter-spacing: -0.025em;
-  margin: 20px 0 24px;
+  margin: 16px 0 20px;
   color: #fff;
 }
 .parallax-showcase__title em {
   display: block;
   font-style: italic;
   color: #fb923c;
-  font-size: 0.55em;
+  font-size: 0.5em;
   letter-spacing: 0;
   margin-top: 8px;
 }
 .parallax-showcase__desc {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
   font-weight: 300;
   color: rgba(255,255,255,0.92);
   line-height: 1.7;
-  margin-bottom: 36px;
+  margin-bottom: 28px;
   max-width: 540px;
 }
 .parallax-showcase__meta {
   display: flex;
-  gap: 40px;
-  margin-bottom: 36px;
+  gap: 36px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
 }
 .parallax-showcase__meta-item {
@@ -629,30 +683,30 @@ section > div:first-child {
 }
 .parallax-showcase__meta-item .label {
   display: block;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .parallax-showcase__meta-item .value {
   font-family: var(--serif);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 500;
 }
 .parallax-showcase__meta-item.price .value { color: #fb923c; }
 .parallax-showcase__actions {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 @media (max-width: 900px) {
-  .parallax-showcase { min-height: 90vh; min-height: 90dvh; }
-  .parallax-showcase__inner { padding: 60px 20px; }
-  .parallax-showcase__title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
-  .parallax-showcase__meta { gap: 24px; }
-  .parallax-showcase__meta-item .value { font-size: 1.2rem; }
+  .parallax-showcase { height: auto; min-height: 480px; padding: 50px 0; }
+  .parallax-showcase__inner { padding: 40px 20px; }
+  .parallax-showcase__title { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+  .parallax-showcase__meta { gap: 20px; }
+  .parallax-showcase__meta-item .value { font-size: 1.1rem; }
 }
 
 /* ============================================================
@@ -1340,12 +1394,12 @@ footer {
   .hamburger { display: flex !important; }
   .nav-inner {
     height: auto;
-    min-height: 70px;
+    min-height: 100px;
     padding: 10px 16px;
     align-items: center;
     justify-content: space-between;
   }
-  .nav-logo { height: 70px; }
+  .nav-logo { height: 100px; }
   .modal-box {
     border-radius: 4px;
     max-height: 88vh;
@@ -1378,8 +1432,8 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .nav-inner { min-height: 60px; padding: 8px 14px; }
-  .nav-logo { height: 60px; }
+  .nav-inner { min-height: 80px; padding: 8px 14px; }
+  .nav-logo { height: 85px; }
   #mobile-right .lang-btn { font-size: 0.65rem; padding: 3px 8px; }
   .modal-overlay { padding: 8px; }
   .modal-box { border-radius: 4px; max-height: 92vh; max-height: 92dvh; }
