@@ -1,0 +1,7 @@
+# Este ficheiro diz ao GitHub Pages para NÃO usar Jekyll.
+# Serve os ficheiros como-is, incluindo os que começam por _ (como _headers e _redirects).
+# Isto pára os erros de build do GitHub Pages.
+#
+# Nota: o site cipritraveltours.com é servido pela Cloudflare Pages,
+# não pelo GitHub Pages. Este ficheiro existe apenas para que o GitHub
+# Pages não mostre erros (é uma configuração redundante que ficou de antes).
