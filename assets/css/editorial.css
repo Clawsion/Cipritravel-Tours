@@ -600,19 +600,19 @@ section > div:first-child {
 }
 
 /* ============================================================
-   PARALLAX SHOWCASE — full-width aos cantos, altura moderada
-   Imagem grande que sobe de baixo para cima com o scroll
+   PARALLAX SHOWCASE — full-width aos cantos, altura curta
+   Imagem full-size 4K que sobe de baixo para cima com o scroll
    ============================================================ */
 .parallax-showcase {
   position: relative;
   /* Largura total aos cantos do site (sem margens laterais) */
   width: 100vw;
   width: 100dvw;
-  /* Altura moderada — não tão comprida verticalmente */
-  height: 55vh;
-  height: 55dvh;
-  min-height: 420px;
-  max-height: 650px;
+  /* Altura curta na vertical */
+  height: 38vh;
+  height: 38dvh;
+  min-height: 320px;
+  max-height: 480px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -632,17 +632,23 @@ section > div:first-child {
 }
 .parallax-showcase__bg {
   position: absolute;
-  /* Imagem MAIOR que o container para poder deslizar (translateY) */
-  top: -25%;
+  /* Imagem MAIOR que o container (130% altura) para poder deslizar
+     sem mostrar cortes nas bordas durante o movimento */
+  top: -15%;
   left: 0;
   width: 100%;
-  height: 150%;
+  height: 130%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
   will-change: transform;
   /* Estado inicial: imagem deslocada para baixo (pronta para subir) */
-  transform: translateY(20%);
+  transform: translateY(15%);
   transition: transform .15s linear;
+  /* Garantir máxima nitidez em todos os ecrãs */
+  image-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 .parallax-showcase__overlay {
   position: absolute;
@@ -671,10 +677,10 @@ section > div:first-child {
 .parallax-showcase__title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
   line-height: 1.05;
   letter-spacing: -0.025em;
-  margin: 14px 0 18px;
+  margin: 12px 0 14px;
   color: #fff;
 }
 .parallax-showcase__title em {
@@ -683,20 +689,20 @@ section > div:first-child {
   color: #fb923c;
   font-size: 0.5em;
   letter-spacing: 0;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 .parallax-showcase__desc {
-  font-size: clamp(0.92rem, 1.25vw, 1.1rem);
+  font-size: clamp(0.88rem, 1.15vw, 1.02rem);
   font-weight: 300;
   color: rgba(255,255,255,0.92);
-  line-height: 1.65;
-  margin-bottom: 24px;
+  line-height: 1.6;
+  margin-bottom: 18px;
   max-width: 540px;
 }
 .parallax-showcase__meta {
   display: flex;
-  gap: 32px;
-  margin-bottom: 26px;
+  gap: 28px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 .parallax-showcase__meta-item {
@@ -704,42 +710,47 @@ section > div:first-child {
 }
 .parallax-showcase__meta-item .label {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 .parallax-showcase__meta-item .value {
   font-family: var(--serif);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 500;
 }
 .parallax-showcase__meta-item.price .value { color: #fb923c; }
 .parallax-showcase__actions {
   display: flex;
-  gap: 11px;
+  gap: 10px;
   flex-wrap: wrap;
+}
+.parallax-showcase__actions .btn-primary,
+.parallax-showcase__actions .btn-outline {
+  padding: 10px 22px;
+  font-size: 0.75rem;
 }
 
 @media (max-width: 900px) {
   .parallax-showcase {
-    height: 65vh;
-    height: 65dvh;
-    min-height: 400px;
-    max-height: 500px;
+    height: 50vh;
+    height: 50dvh;
+    min-height: 340px;
+    max-height: 420px;
   }
   .parallax-showcase__inner { padding: 0 20px; }
-  .parallax-showcase__title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
-  .parallax-showcase__meta { gap: 20px; }
-  .parallax-showcase__meta-item .value { font-size: 1.05rem; }
+  .parallax-showcase__title { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+  .parallax-showcase__meta { gap: 18px; }
+  .parallax-showcase__meta-item .value { font-size: 1rem; }
 }
 @media (max-width: 480px) {
   .parallax-showcase {
-    height: 70vh;
-    height: 70dvh;
-    min-height: 360px;
-    max-height: 420px;
+    height: 55vh;
+    height: 55dvh;
+    min-height: 300px;
+    max-height: 380px;
   }
 }
 

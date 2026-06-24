@@ -1474,6 +1474,8 @@ function setupScrollReveal() {
 
 // ============================================
 // PARALLAX EFFECT — reverse (imagem sobe de baixo para cima com scroll)
+// Imagem tem 130% da altura do container, move 30% (15% → -15%)
+// Sempre cobre o container (sem cortes nas bordas visíveis)
 // ============================================
 function setupParallax() {
   const parallaxEls = document.querySelectorAll('[data-parallax-reverse]');
@@ -1494,11 +1496,11 @@ function setupParallax() {
           (windowHeight - rect.top) / (windowHeight + rect.height)
         ));
 
-        // A imagem tem 150% da altura do container (top: -25%, height: 150%)
-        // e começa deslocada para baixo (translateY 20%)
-        // Conforme se faz scroll, ela sobe até translateY(-15%)
-        // Isto cria o efeito "imagem grande que sobe de baixo para cima"
-        const startOffset = 20;
+        // Imagem 130% do container, top: -15%
+        // Começa translateY(15%) — imagem em baixo (parte inferior visível)
+        // Termina translateY(-15%) — imagem subiu (parte superior visível)
+        // Durante todo o movimento, a imagem cobre o container (sem cortes)
+        const startOffset = 15;
         const endOffset = -15;
         const currentOffset = startOffset - (startOffset - endOffset) * visibleProgress;
 
