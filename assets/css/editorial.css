@@ -687,10 +687,9 @@ section > div:first-child {
   /* Truque para escapar do container pai e tocar nos cantos */
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
-  /* Fundo dinâmico — acompanha o tema do site (creme no light, carvão no dark)
-     para que mesmo durante o movimento da imagem, a sensação é de continuidade
-     com o fundo do site acima e abaixo */
-  background: var(--bg);
+  /* Sem fundo (transparente) — se aparecer alguma brecha micro,
+     mostra o fundo da secção anterior do site */
+  background: transparent;
 }
 .parallax-showcase__bg-wrap {
   position: absolute;
@@ -702,11 +701,13 @@ section > div:first-child {
 }
 .parallax-showcase__bg {
   position: absolute;
-  /* Imagem MAIOR que o container (130% altura + 100% largura) para poder deslizar
-     sem mostrar brechas nas bordas durante o movimento */
+  /* Imagem MAIOR que o container para poder deslizar sem mostrar brechas:
+     - 130% altura (para movimento vertical)
+     - 110% largura (para cobrir bem em ecrãs ultra-largos 2K/4K)
+  */
   top: -15%;
-  left: -1%;
-  width: 102%;
+  left: -5%;
+  width: 110%;
   height: 130%;
   object-fit: cover;
   object-position: center center;
@@ -821,6 +822,14 @@ section > div:first-child {
     height: 55dvh;
     min-height: 300px;
     max-height: 380px;
+  }
+}
+
+/* Ecrãs ultra-largos (2K, 4K, ultra-wide) — garantir que a foto cobre */
+@media (min-width: 1921px) {
+  .parallax-showcase__bg {
+    left: -10%;
+    width: 120%;
   }
 }
 
