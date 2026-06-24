@@ -1614,12 +1614,13 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   flex: 1;
 }
 .modal-blog-article__body h2 {
-  font-family: var(--serif);
-  color: var(--text);
-  font-weight: 500;
-  font-size: 1.15rem;
-  margin: 14px 0 10px;
-  letter-spacing: -0.015em;
+  font-family: var(--serif) !important;
+  color: var(--text) !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  margin: 12px 0 8px !important;
+  letter-spacing: -0.015em !important;
+  line-height: 1.2 !important;
 }
 .modal-blog-article__body h2:first-child { margin-top: 0; }
 .modal-blog-article__body p {
@@ -1643,24 +1644,26 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   border-left: 2px solid var(--accent-2);
 }
 .modal-blog-article__body .blog-card-section h3 {
-  font-family: var(--sans);
-  color: var(--accent-2);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--border);
+  font-family: var(--sans) !important;
+  color: var(--accent-2) !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  margin: 0 0 8px 0 !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px solid var(--border) !important;
+  line-height: 1.2 !important;
 }
 .modal-blog-article__body .blog-card-section h4 {
-  font-family: var(--sans);
-  color: var(--accent-2);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin: 0 0 8px 0;
+  font-family: var(--sans) !important;
+  color: var(--accent-2) !important;
+  font-size: 0.6rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  margin: 8px 0 4px 0 !important;
+  line-height: 1.2 !important;
 }
 /* Listas dentro dos cards */
 .modal-blog-article__body ul,
@@ -3020,10 +3023,14 @@ footer {
 }
 
 /* ===== Modal heading ===== */
+.modal-box > h3:first-child,
+.modal-box .font-playfair {
+  font-family: var(--serif);
+}
+/* h3 dentro de modais — sem !important para permitir overrides */
 .modal-box h3 {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: 2rem !important;
   letter-spacing: -0.01em;
   line-height: 1.15;
 }
