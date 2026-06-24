@@ -101,6 +101,34 @@
           "titulo": "Cidades de Portugal com Gastronomia Típica",
           "id": "blog-4",
           "categoriaEn": "Gastronomy"
+        },
+        {
+          "id": "blog-5",
+          "titulo": "Aldeias Históricas de Portugal: 7 Joias Escondidas",
+          "tituloEn": "Historic Villages of Portugal: 7 Hidden Gems",
+          "categoria": "Cultura",
+          "categoriaEn": "Culture",
+          "data": "2026-03-10T09:00:00.000+00:00",
+          "imagem": "https://images.unsplash.com/photo-1555993539-1732b0258235?w=600",
+          "ativo": true,
+          "resumo": "Das muralhas medievais de Óbidos aos xistos do Piódão, descubra as aldeias que preservam a alma de Portugal.",
+          "resumoEn": "From Óbidos' medieval walls to Piódão's schist, discover the villages that preserve Portugal's soul.",
+          "conteudo": "## Aldeias que Contam Histórias\n\nPortugal esconde, nas suas serras e vales, aldeias que parecem paradas no tempo. Cada uma guarda histórias de reis, pastores e gente simples que construiu, pedra sobre pedra, um património único no mundo.\n\n### As 7 Aldeias Imperdíveis\n\n1. **Óbidos** — A Vila das Rainhas, com muralhas intactas e ginjinha tradicional\n2. **Piódão** — Aldeia de xisto encrustada na Serra do Açor, parece um presépio\n3. **Monsaraz** — Fortaleza alentejana com vista para o maior lago artificial da Europa\n4. **Sortelha** — Aldeia medieval granítica, uma das mais bem preservadas\n5. **Castelo Rodrigo** — Ruínas nobres com vista para a fronteira espanhola\n6. **Linhares da Beira** — Castelo templário e judaica preservada\n7. **Marvão** — Fortaleza no topo da serra, com vistas de 360 graus\n\n### Quando Visitar\n\nA **primavera** (abril-junho) é ideal: flores nos campos, temperaturas amenas e menos turistas. O **outono** (setembro-outubro) também é excelente para fotografia.\n\n### Dica da Cipritravel\n\nMuitas destas aldeias estão incluídas em circuitos de 1-2 dias. Combinar 2-3 numa só viagem é a forma ideal de as descobrir sem pressas.",
+          "conteudoEn": "## Villages That Tell Stories\n\nPortugal hides, in its mountains and valleys, villages that seem frozen in time. Each one holds stories of kings, shepherds and simple people who built, stone upon stone, a unique heritage in the world.\n\n### 7 Must-Visit Villages\n\n1. **Óbidos** — The Village of Queens, with intact walls and traditional ginjinha\n2. **Piódão** — Schist village nestled in Serra do Açor, looks like a nativity scene\n3. **Monsaraz** — Alentejo fortress overlooking Europe's largest artificial lake\n4. **Sortelha** — Granite medieval village, one of the best preserved\n5. **Castelo Rodrigo** — Noble ruins overlooking the Spanish border\n6. **Linhares da Beira** — Templar castle and preserved Jewish quarter\n7. **Marvão** — Hilltop fortress with 360-degree views\n\n### When to Visit\n\n**Spring** (April-June) is ideal: flowers in fields, mild temperatures and fewer tourists. **Autumn** (September-October) is also excellent for photography."
+        },
+        {
+          "id": "blog-6",
+          "titulo": "Roteiros de Vinho em Portugal: Do Douro ao Alentejo",
+          "tituloEn": "Wine Routes in Portugal: From Douro to Alentejo",
+          "categoria": "Enoturismo",
+          "categoriaEn": "Wine Tourism",
+          "data": "2026-03-22T14:00:00.000+00:00",
+          "imagem": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=600",
+          "ativo": true,
+          "resumo": "Descubra as melhores regiões vinícolas de Portugal, do Porto vinhateiro aos vinhos alentejanos. Quintas, provas e paisagens.",
+          "resumoEn": "Discover Portugal's best wine regions, from vintage Port to Alentejo wines. Estates, tastings and landscapes.",
+          "conteudo": "## Portugal: País de Vinho Milenar\n\nCom mais de 250 castas autóctones e uma tradição vitivinícola de mais de 2.000 anos, Portugal é um dos países mais fascinantes do mundo para enoturismo. Das encostas íngremes do Douro às planícies alentejanas, cada região tem a sua alma.\n\n### As 4 Regiões Imperdíveis\n\n#### 1. Douro Vinhateiro\nPatrimónio Mundial UNESCO desde 2001. As vinhas em socalcos seguem o rio Douro desde o Porto até à fronteira. Aqui nasce o Vinho do Porto, mas também os vinhos DOC de excelência.\n\n**Quintas a visitar:** Quinta do Bomfim, Quinta da Pacheca, Quinta do Crasto.\n\n#### 2. Alentejo\nA região dos vinhos macios e frutados. Planícies infinitas, sobreiros e vinhedos a perder de vista. É o coração do turismo de vinho em Portugal.\n\n**Quintas a visitar:** Herdade do Esporão, Quinta dos Valedos Vinhos, Adega Cartuxa.\n\n#### 3. Vinho Verde\nNo Minho, o Vinho Verde é leve, fresco e cítrico. Perfeito para peixes e marisco. As vinhas trepam em latadas, criando uma paisagem única.\n\n**Quintas a visitar:** Quinta de Soalheiro, Quinta da Aveleda, Casal Garcia.\n\n#### 4. Bairrada\nA terra do espumante e do leitão assado. Solos argilosos que dão vinhos tintos encorpados com elevada acidez.\n\n**Quintas a visitar:** Casa de Saima, Quinta das Bágeiras, Adega do Moleiro.\n\n### Como Planear a Viagem\n\nA primavera e o outono são as melhores épocas. Muitas quintas exigem marcação prévia. Uma viagem de 5-7 dias permite visitar 8-10 quintas com calma.",
+          "conteudoEn": "## Portugal: Land of Ancient Wine\n\nWith over 250 indigenous grape varieties and a winemaking tradition of over 2,000 years, Portugal is one of the world's most fascinating wine tourism countries. From the steep slopes of Douro to the Alentejo plains, each region has its soul.\n\n### 4 Must-Visit Regions\n\n#### 1. Douro Valley\nUNESCO World Heritage since 2001. The terraced vineyards follow the Douro River from Porto to the border. Here Port wine is born, but also DOC wines of excellence.\n\n#### 2. Alentejo\nThe region of smooth and fruity wines. Endless plains, cork oaks and vineyards as far as the eye can see.\n\n#### 3. Vinho Verde\nIn Minho, Vinho Verde is light, fresh and citrusy. Perfect for fish and seafood.\n\n#### 4. Bairrada\nThe land of sparkling wine and roast suckling pig.\n\n### How to Plan the Trip\n\nSpring and autumn are the best seasons. Many estates require advance booking. A 5-7 day trip allows visiting 8-10 estates at ease."
         }
       ],
       "descricao": "Dicas, guias e histórias para enriquecer as suas viagens.",

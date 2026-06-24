@@ -962,7 +962,53 @@ function renderModalEditorial(m) {
     `;
   }
 
-  // Modais de blog/sustentabilidade (com imagem, sem tourId) — Foto banner + conteúdo
+  // Modais de blog — Layout artigo rico (intro + body + callout)
+  if (m.id && m.id.startsWith('modal-blog-') && m.imagem) {
+    const isEn = SITE.lang === 'en';
+    // Procurar categoria correspondente no homepage.json
+    const blogId = m.id.replace('modal-blog-', 'blog-');
+    const blogSection = SITE.data?.secoes?.find(s => s.type === 'blog');
+    const blogArtigo = blogSection?.artigos?.find(a => a.id === blogId);
+    const categoria = blogArtigo ? t(blogArtigo.categoria, blogArtigo.categoriaEn) : (subtitulo || 'Blog');
+    const dataStr = blogArtigo ? formatDate(blogArtigo.data) : '';
+
+    // Parser melhor para o conteúdo do blog
+    const parsed = parseBlogContent(conteudo);
+
+    return `
+      <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
+        <div class="modal-box modal-blog-article">
+          <button class="modal-blog-article__close" onclick="closeModal('${m.id}')" aria-label="Fechar">✕</button>
+          <div class="modal-blog-article__banner">
+            <img src="${m.imagem}" alt="${titulo}">
+            <div class="modal-blog-article__banner-overlay">
+              <span class="modal-blog-article__banner-category">${categoria}</span>
+              <h3 class="modal-blog-article__banner-title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+              ${dataStr ? `<div class="modal-blog-article__banner-meta">${dataStr}</div>` : ''}
+            </div>
+          </div>
+          <div class="modal-blog-article__content">
+            ${parsed.intro ? `<p class="modal-blog-article__intro">${parsed.intro}</p>` : ''}
+            <div class="modal-blog-article__body">${parsed.body}</div>
+            ${parsed.callout ? `
+              <div class="modal-blog-article__callout">
+                <div class="modal-blog-article__callout-title">${parsed.calloutTitle || (isEn ? 'Note' : 'Nota')}</div>
+                <p>${parsed.callout}</p>
+              </div>
+            ` : ''}
+            <div class="modal-blog-article__footer">
+              <div class="modal-blog-article__footer-text">${isEn ? 'Inspired? Book your next adventure with us.' : 'Inspirado? Reserve a sua próxima aventura connosco.'}</div>
+              <button class="modal-blog-article__cta" onclick="closeModal('${m.id}');scrollToSection('excursoes')">
+                ${isEn ? 'View Tours' : 'Ver Excursões'} <span class="arrow">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Modais de sustentabilidade (com imagem, sem tourId, não-blog) — Foto banner + conteúdo
   if (m.imagem && !m.botoes) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
@@ -999,6 +1045,57 @@ function renderModalEditorial(m) {
 
   // Fallback para modais genéricos (hero, privacidade, etc.) — sem layout split
   return renderModalGenerico(m);
+}
+
+// Parser para conteúdo de blog — separa intro, body e callout
+function parseBlogContent(text) {
+  if (!text) return { intro: '', body: '', callout: '', calloutTitle: '' };
+
+  // Identificar callouts (secções tipo "### Quando Visitar", "### Dica")
+  const calloutRegex = /### (Quando Visitar|Dica[^;\n]*|Como Planear[^\n]*)\n\n([^\n#]+(?:\n[^\n#]+)*?)(?=\n###|\n##|$)/i;
+  let callout = '';
+  let calloutTitle = '';
+  let body = text;
+
+  const calloutMatch = text.match(calloutRegex);
+  if (calloutMatch) {
+    calloutTitle = calloutMatch[1];
+    callout = calloutMatch[2].trim();
+    body = text.replace(calloutMatch[0], '').trim();
+  }
+
+  // Separar intro (primeiro parágrafo depois do primeiro ##)
+  const lines = body.split('\n');
+  let intro = '';
+  let bodyRest = '';
+  let inIntro = false;
+  let foundFirstH2 = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.startsWith('## ')) {
+      foundFirstH2 = true;
+      bodyRest += line + '\n';
+      continue;
+    }
+    if (foundFirstH2 && !inIntro && line.trim() && !line.startsWith('#')) {
+      // primeiro parágrafo depois do primeiro h2
+      intro = line.trim();
+      inIntro = true;
+      continue;
+    }
+    bodyRest += line + '\n';
+  }
+
+  // Renderizar bodyRest como HTML
+  const bodyHTML = renderMarkdown(bodyRest.trim());
+
+  return {
+    intro: intro,
+    body: bodyHTML,
+    callout: callout,
+    calloutTitle: calloutTitle
+  };
 }
 
 // Renderiza modal genérico (hero, privacidade, etc.) — visual antigo mas ainda funciona

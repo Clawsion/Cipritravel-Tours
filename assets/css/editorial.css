@@ -1475,6 +1475,279 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
+   MODAL BLOG — layout rico com intro + destaque + body
+   Para artigos de blog (diferente dos tours)
+   ============================================================ */
+.modal-blog-article {
+  position: relative;
+  max-width: 820px !important;
+  width: 100%;
+  max-height: 92vh;
+  max-height: 92dvh;
+  border-radius: 2px !important;
+  overflow: hidden;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+.modal-blog-article__banner {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.modal-blog-article__banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.modal-blog-article__banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,10,5,0.3) 0%, rgba(15,10,5,0.75) 100%);
+  z-index: 1;
+}
+.modal-blog-article__banner-overlay {
+  position: absolute;
+  bottom: 24px;
+  left: 36px;
+  right: 36px;
+  z-index: 2;
+  color: #fff;
+}
+.modal-blog-article__banner-category {
+  display: inline-block;
+  background: var(--accent-2);
+  color: #fff;
+  padding: 5px 14px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+.modal-blog-article__banner-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.3rem) !important;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.modal-blog-article__banner-meta {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  font-weight: 600;
+  margin-top: 8px;
+}
+.modal-blog-article__close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: all .25s;
+  backdrop-filter: blur(8px);
+}
+.modal-blog-article__close:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  transform: rotate(90deg);
+}
+.modal-blog-article__content {
+  padding: 36px 44px 32px;
+  overflow-y: auto;
+  flex: 1;
+  background: var(--card);
+  color: var(--text);
+}
+/* Intro — primeiro parágrafo destacado (estilo revista) */
+.modal-blog-article__intro {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text);
+  font-style: italic;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.modal-blog-article__intro::before {
+  content: '"';
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: var(--accent-2);
+  position: absolute;
+  top: -20px;
+  left: -8px;
+  opacity: 0.4;
+  line-height: 1;
+}
+/* Body — conteúdo principal */
+.modal-blog-article__body {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.85;
+}
+.modal-blog-article__body h2,
+.modal-blog-article__body h3 {
+  font-family: var(--serif);
+  color: var(--text);
+  font-weight: 500;
+  margin: 28px 0 14px;
+  letter-spacing: -0.015em;
+}
+.modal-blog-article__body h2 { font-size: 1.5rem; }
+.modal-blog-article__body h3 { font-size: 1.2rem; }
+.modal-blog-article__body h4 { font-size: 1.05rem; }
+.modal-blog-article__body p {
+  margin-bottom: 16px;
+}
+.modal-blog-article__body strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.modal-blog-article__body ol,
+.modal-blog-article__body ul {
+  margin: 0 0 20px 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: list-counter;
+}
+.modal-blog-article__body ol li {
+  counter-increment: list-counter;
+  position: relative;
+  padding-left: 38px;
+  margin-bottom: 12px;
+  line-height: 1.65;
+}
+.modal-blog-article__body ol li::before {
+  content: counter(list-counter, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-2);
+  font-style: italic;
+}
+.modal-blog-article__body ul li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.modal-blog-article__body ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+/* Callout box — para secções tipo "Quando Visitar" / "Dica" */
+.modal-blog-article__callout {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0 2px 2px 0;
+}
+.modal-blog-article__callout-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.modal-blog-article__callout p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.modal-blog-article__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  margin-top: 28px;
+  gap: 16px;
+}
+.modal-blog-article__footer-text {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  flex: 1;
+}
+.modal-blog-article__cta {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .3s cubic-bezier(.22,.61,.36,1);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.modal-blog-article__cta:hover {
+  background: var(--accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(224,112,0,0.25);
+}
+.modal-blog-article__cta .arrow {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  transition: transform .3s;
+}
+.modal-blog-article__cta:hover .arrow { transform: translateX(4px); }
+
+@media (max-width: 700px) {
+  .modal-blog-article__banner { height: 200px; }
+  .modal-blog-article__content { padding: 28px 22px; }
+  .modal-blog-article__banner-title { font-size: 1.4rem !important; }
+  .modal-blog-article__intro { font-size: 1.05rem; }
+  .modal-blog-article__body { font-size: 0.92rem; }
+  .modal-blog-article__footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .modal-blog-article__cta { justify-content: center; }
+}
+
+/* ============================================================
    MODAL IMERSIVO — foto banner no topo + conteúdo em baixo
    Foto apenas em cima do popup, texto em baixo com cores normais
    ============================================================ */
