@@ -93,28 +93,7 @@ collections:
                   - { name: "subtitulo", label: "📝 Subtítulo (PT)", widget: "string" }
                   - { name: "subtituloEn", label: "📝 Subtítulo (EN)", widget: "string", required: false }
                   - { name: "ano", label: "📅 Ano", widget: "string", default: "2026" }
-                  - name: "excursoes"
-                    label: "Lista de Excursões"
-                    widget: "list"
-                    label_singular: "Excursão"
-                    fields:
-                      - { name: "id", label: "🆔 ID (slug)", widget: "string", hint: "Ex: geres, fatima-ortiga (sem espaços)" }
-                      - { name: "ativo", label: "✅ Ativo", widget: "boolean", default: true }
-                      - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
-                      - { name: "nome", label: "📌 Nome (PT)", widget: "string" }
-                      - { name: "nomeEn", label: "📌 Nome (EN)", widget: "string", required: false }
-                      - name: "data"
-                        label: "📅 Data"
-                        widget: "object"
-                        fields:
-                          - { name: "dia", label: "Dia", widget: "string" }
-                          - { name: "mes", label: "Mês", widget: "string" }
-                      - { name: "duracao", label: "⏱️ Duração (PT)", widget: "string", hint: "ex: 1 Dia, 2 Dias" }
-                      - { name: "duracaoEn", label: "⏱️ Duração (EN)", widget: "string", required: false }
-                      - { name: "descricao", label: "📝 Descrição (PT)", widget: "text" }
-                      - { name: "descricaoEn", label: "📝 Descrição (EN)", widget: "text", required: false }
-                      - { name: "preco", label: "💰 Preço (EUR)", widget: "number", value_type: "float", min: 0 }
-                      - { name: "corBadge", label: "🎨 Cor do Badge", widget: "select", options: ["laranja", "verde"], default: "laranja" }
+                  - { name: "observacao", label: "ℹ️ Nota", widget: "text", default: "As excursões são geridas na coleção '🎫 Excursões' abaixo.", hint: "Os cards e modais são gerados automaticamente a partir da coleção 'Excursões'." }
 
               - name: "blog"
                 label: "📝 Secção de Blog"
@@ -366,6 +345,59 @@ collections:
           - { name: "whatsapp", label: "📱 Número WhatsApp", widget: "string" }
           - { name: "whatsappMensagem", label: "💬 Mensagem WhatsApp (PT)", widget: "string" }
           - { name: "whatsappMensagemEn", label: "💬 Mensagem WhatsApp (EN)", widget: "string", required: false }
+
+  # ============================================
+  # EXCURSÕES (FONT ÚNICA — cards + modais são gerados automaticamente)
+  # ============================================
+  - name: "excursões"
+    label: "🎫 Excursões"
+    label_singular: "Excursão"
+    description: "Gere todas as excursões num único lugar. O card na home page e o modal/popup são gerados AUTOMATICAMENTE a partir destes dados. Não é preciso editar em dois sítios."
+    files:
+      - name: "tours"
+        label: "Lista de Excursões"
+        file: "data/tours.json"
+        fields:
+          - name: "tours"
+            label: "Excursões"
+            widget: "list"
+            label_singular: "Excursão"
+            summary: "{{fields.nome}} — {{fields.preco}}€"
+            fields:
+              - { name: "id", label: "🆔 ID (slug)", widget: "string", hint: "Ex: buddha-eden, fatima-obidos (sem espaços)" }
+              - { name: "ativo", label: "✅ Ativo (mostrar no site)", widget: "boolean", default: true }
+              - { name: "ordem", label: "🔢 Ordem de exibição", widget: "number", default: 1, min: 1, max: 100 }
+              - { name: "nome", label: "📌 Nome (PT)", widget: "string" }
+              - { name: "nomeEn", label: "📌 Nome (EN)", widget: "string", required: false }
+              - name: "data"
+                label: "📅 Data"
+                widget: "object"
+                fields:
+                  - { name: "dia", label: "Dia (ex: 27 ou 25-26)", widget: "string" }
+                  - { name: "mes", label: "Mês (ex: Jun, Jul, Ago)", widget: "select", options: ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"] }
+              - { name: "preco", label: "💰 Preço (EUR)", widget: "number", value_type: "float", min: 0, hint: "Aparece no card E no subtitulo do modal automaticamente" }
+              - { name: "duracao", label: "⏱️ Duração (PT)", widget: "string", hint: "ex: 1 Dia, 2 Dias" }
+              - { name: "duracaoEn", label: "⏱️ Duração (EN)", widget: "string", required: false }
+              - { name: "imagem", label: "🖼️ Imagem", widget: "image" }
+              - { name: "corBadge", label: "🎨 Cor do Badge", widget: "select", options: ["laranja", "verde"], default: "laranja" }
+              - { name: "descricao", label: "📝 Descrição curta (PT) — card", widget: "text", hint: "Texto curto que aparece no card da home page" }
+              - { name: "descricaoEn", label: "📝 Descrição curta (EN) — card", widget: "text", required: false }
+              - { name: "modalConteudo", label: "📄 Conteúdo do Modal (PT)", widget: "text", hint: "Texto longo dentro do popup. Suporta Markdown: **negrito**, quebras de linha, listas com - " }
+              - { name: "modalConteudoEn", label: "📄 Conteúdo do Modal (EN)", widget: "text", required: false }
+              - name: "incluidos"
+                label: "✓ Incluído no pacote (PT)"
+                widget: "list"
+                label_singular: "Item"
+                required: false
+                field: { name: "item", label: "Item", widget: "string" }
+              - name: "incluidosEn"
+                label: "✓ Incluído no pacote (EN)"
+                widget: "list"
+                label_singular: "Item"
+                required: false
+                field: { name: "item", label: "Item", widget: "string" }
+              - { name: "textoBotao", label: "🔘 Texto Botão (PT)", widget: "string", default: "Reservar Agora" }
+              - { name: "textoBotaoEn", label: "🔘 Texto Botão (EN)", widget: "string", default: "Book Now", required: false }
 
   # ============================================
   # MODAIS (POPUPS)

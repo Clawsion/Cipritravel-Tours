@@ -15,6 +15,7 @@ const SITE = {
   menu: null,
   footer: null,
   modais: null,
+  tours: null,
   config: null,
   lang: localStorage.getItem('lang') || 'pt',
   theme: localStorage.getItem('theme') || 'light'
@@ -136,6 +137,7 @@ async function loadAllData() {
       { key: 'menu',   url: `${BASE_URL}/data/menu.json${cacheBust}` },
       { key: 'footer', url: `${BASE_URL}/data/footer.json${cacheBust}` },
       { key: 'modais', url: `${BASE_URL}/data/modais.json${cacheBust}` },
+      { key: 'tours',  url: `${BASE_URL}/data/tours.json${cacheBust}` },
       { key: 'config', url: `${BASE_URL}/data/config.json${cacheBust}` }
     ];
 
@@ -294,7 +296,12 @@ function renderBanner(s) {
 }
 
 function renderTours(s) {
-  const tours = s.excursoes?.filter(e => e.ativo !== false) || [];
+  // Tours agora vêm da fonte única: data/tours.json (SITE.tours)
+  // Se SITE.tours não estiver carregado (fallback), usa s.excursoes (compatibilidade)
+  const toursSource = (SITE.tours && SITE.tours.tours) ? SITE.tours.tours : (s.excursoes || []);
+  const tours = toursSource
+    .filter(e => e.ativo !== false)
+    .sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
   
   const toursHTML = tours.map(tour => `
     <div class="card exc-card">
@@ -688,19 +695,60 @@ function renderFooter() {
 // MODAIS
 // ============================================
 function renderModals() {
-  const modais = SITE.modais?.lista?.filter(m => m.ativo !== false) || [];
-  
-  const modaisHTML = modais.map(m => {
+  // Modais "standalone" (hero, formulário reserva, privacidade, etc.) vêm de modais.json
+  const standaloneModais = (SITE.modais?.lista || []).filter(m => m.ativo !== false);
+
+  // Modais das excursões são GERADOS automaticamente a partir de tours.json.
+  // Cada tour ativo gera o seu próprio modal — não é necessário editar em modais.json.
+  const tourModais = (SITE.tours?.tours || [])
+    .filter(t => t.ativo !== false)
+    .map(tour => ({
+      id: `modal-${tour.id}`,
+      titulo: tour.nome,
+      tituloEn: tour.nomeEn || tour.nome,
+      // Subtitulo gerado automaticamente: data + preço
+      subtitulo: formatTourSubtitulo(tour, 'pt'),
+      subtituloEn: formatTourSubtitulo(tour, 'en'),
+      imagem: tour.imagem,
+      conteudo: tour.modalConteudo || tour.descricao || '',
+      conteudoEn: tour.modalConteudoEn || tour.descricaoEn || '',
+      incluidos: tour.incluidos || [],
+      incluidosEn: tour.incluidosEn || [],
+      textoBotao: tour.textoBotao || 'Reservar Agora',
+      textoBotaoEn: tour.textoBotaoEn || 'Book Now',
+      tourId: tour.id,
+      tipo: 'conteudo',
+      ativo: true
+    }));
+
+  const allModais = [...standaloneModais, ...tourModais];
+
+  const modaisHTML = allModais.map(m => {
     if (m.tipo === 'formulario') {
       return renderModalFormulario(m);
     }
     return renderModalGenerico(m);
   }).join('');
-  
+
   const modaisContainer = document.getElementById('modais-container');
   if (modaisContainer) {
     modaisContainer.innerHTML = modaisHTML;
   }
+}
+
+// Gera o subtitulo do modal: "27 de Junho de 2026 · 55€"
+function formatTourSubtitulo(tour, lang) {
+  const mesesPt = { Jan: 'Janeiro', Fev: 'Fevereiro', Mar: 'Março', Abr: 'Abril', Mai: 'Maio', Jun: 'Junho', Jul: 'Julho', Ago: 'Agosto', Set: 'Setembro', Out: 'Outubro', Nov: 'Novembro', Dez: 'Dezembro' };
+  const mesesEn = { Jan: 'January', Fev: 'February', Mar: 'March', Abr: 'April', Mai: 'May', Jun: 'June', Jul: 'July', Ago: 'August', Set: 'September', Out: 'October', Nov: 'November', Dez: 'December' };
+  const dia = tour.data?.dia || '';
+  const mesRaw = tour.data?.mes || '';
+  const ano = '2026';
+  const mes = lang === 'en' ? (mesesEn[mesRaw] || mesRaw) : (mesesPt[mesRaw] || mesRaw);
+  const de = lang === 'en' ? '' : 'de ';
+  const connector = lang === 'en' ? ', ' : ' de ';
+  const dataStr = dia && mes ? `${dia}${connector}${mes} ${ano}` : '';
+  const preco = tour.preco != null ? `${tour.preco}€` : '';
+  return [dataStr, preco].filter(Boolean).join(' · ');
 }
 
 function renderModalGenerico(m) {
@@ -754,17 +802,19 @@ function renderModalGenerico(m) {
 
 function renderModalFormulario(m) {
   let tourOptions = '';
-  if (m.id === 'modal-reserva' && SITE.data) {
-    const toursSection = SITE.data.secoes?.find(s => s.type === 'tours');
-    if (toursSection?.excursoes) {
-      tourOptions = toursSection.excursoes
-        .filter(e => e.ativo !== false)
-        .map(e => {
-          const nome = t(e.nome, e.nomeEn);
-          return `<option value="${e.id}">${nome} — ${e.preco}€/${ts('pessoa')}</option>`;
-        })
-        .join('');
-    }
+  if (m.id === 'modal-reserva') {
+    // Fonte única: tours.json
+    const tours = (SITE.tours?.tours || [])
+      .filter(e => e.ativo !== false)
+      .sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
+    // Fallback de compatibilidade (caso tours.json ainda não tenha carregado)
+    const fallbackTours = tours.length > 0 ? tours : (SITE.data?.secoes?.find(s => s.type === 'tours')?.excursoes || []);
+    tourOptions = fallbackTours
+      .map(e => {
+        const nome = t(e.nome, e.nomeEn);
+        return `<option value="${e.id}">${nome} — ${e.preco}€/${ts('pessoa')}</option>`;
+      })
+      .join('');
   }
   
   const titulo = t(m.titulo, m.tituloEn);
