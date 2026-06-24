@@ -687,9 +687,12 @@ section > div:first-child {
   /* Truque para escapar do container pai e tocar nos cantos */
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
-  /* Sem fundo (transparente) — se aparecer alguma brecha micro,
-     mostra o fundo da secção anterior do site */
-  background: transparent;
+  /* Fundo das abas laterais = MESMA cor do fundo do site
+     - Light mode: creme (#faf7f0)
+     - Dark mode: carvão (#161310)
+     Dá continuidade visual: as abas laterais parecem ser a mesma cor do fundo
+     do site (acima e abaixo do parallax) */
+  background: var(--bg);
 }
 .parallax-showcase__bg-wrap {
   position: absolute;
@@ -701,13 +704,11 @@ section > div:first-child {
 }
 .parallax-showcase__bg {
   position: absolute;
-  /* Imagem MAIOR que o container para poder deslizar sem mostrar brechas:
-     - 130% altura (para movimento vertical)
-     - 110% largura (para cobrir bem em ecrãs ultra-largos 2K/4K)
-  */
+  /* Imagem MAIOR que o container (130% altura) para poder deslizar
+     sem mostrar cortes nas bordas durante o movimento */
   top: -15%;
-  left: -5%;
-  width: 110%;
+  left: 0;
+  width: 100%;
   height: 130%;
   object-fit: cover;
   object-position: center center;
@@ -822,14 +823,6 @@ section > div:first-child {
     height: 55dvh;
     min-height: 300px;
     max-height: 380px;
-  }
-}
-
-/* Ecrãs ultra-largos (2K, 4K, ultra-wide) — garantir que a foto cobre */
-@media (min-width: 1921px) {
-  .parallax-showcase__bg {
-    left: -10%;
-    width: 120%;
   }
 }
 
