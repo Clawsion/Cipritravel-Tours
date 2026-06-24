@@ -489,24 +489,29 @@ function renderCards(s) {
 }
 
 function renderTextoImagem(s) {
-  const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
-  const imgFirst = s.posicaoImagem === 'esquerda';
-  
+  const isEn = SITE.lang === 'en';
+  const texto1 = t(s.texto1, s.texto1En);
+  const texto2 = t(s.texto2, s.texto2En);
+  const citacao = t(s.citacao, s.citacaoEn);
+  const titulo = t(s.titulo, s.tituloEn);
+  const tag = t(s.tag, s.tagEn);
+  const textoBotao = t(s.textoBotao, s.textoBotaoEn);
+
   return `
-    <section id="${s.id || 'sobre'}" style="padding:80px 20px;background:${bgClass}">
-      <div class="grid-2col" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
-        ${imgFirst ? `
-          <img src="${s.imagem}" alt="${s.titulo}" style="width:100%;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.15)">
-          <div>
-        ` : `<div>`}
-          <span class="section-tag" data-pt="${escapeHtml(s.tag)}" data-en="${escapeHtml(s.tagEn || s.tag)}">${t(s.tag, s.tagEn)}</span>
-          <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:20px" data-pt="${escapeHtml(s.titulo)}" data-en="${escapeHtml(s.tituloEn || s.titulo)}">${t(s.titulo, s.tituloEn)}</h2>
-          <div class="translatable-markdown" data-pt="${escapeHtml(s.texto1)}" data-en="${escapeHtml(s.texto1En || s.texto1)}" style="color:var(--muted);line-height:1.8;margin-bottom:16px">${renderMarkdown(t(s.texto1, s.texto1En))}</div>
-          <p class="font-playfair" style="color:#f97316;font-style:italic;font-size:1.1rem;border-left:4px solid #f97316;padding-left:16px;margin-bottom:16px" data-pt="${escapeHtml(s.citacao)}" data-en="${escapeHtml(s.citacaoEn || s.citacao)}">${t(s.citacao, s.citacaoEn)}</p>
-          <div class="translatable-markdown" data-pt="${escapeHtml(s.texto2)}" data-en="${escapeHtml(s.texto2En || s.texto2)}" style="color:var(--muted);line-height:1.8;margin-bottom:28px">${renderMarkdown(t(s.texto2, s.texto2En))}</div>
-          ${s.textoBotao ? `<button class="btn-primary" onclick="scrollToSection('${s.ancoraBotao?.replace('#','') || 'contactos'}')" data-pt="${escapeHtml(s.textoBotao)}" data-en="${escapeHtml(s.textoBotaoEn || s.textoBotao)}">${t(s.textoBotao, s.textoBotaoEn)}</button>` : ''}
+    <section id="${s.id || 'sobre'}" class="about-cinematic reveal" style="background-image:url('${s.imagem}')">
+      <div class="about-cinematic__inner">
+        <span class="about-cinematic__tag" data-pt="${escapeHtml(s.tag)}" data-en="${escapeHtml(s.tagEn || s.tag)}">${tag}</span>
+        <h2 class="about-cinematic__title" data-pt="${escapeHtml(s.titulo)}" data-en="${escapeHtml(s.tituloEn || s.titulo)}">${titulo}</h2>
+        <p class="about-cinematic__quote" data-pt="${escapeHtml(s.citacao)}" data-en="${escapeHtml(s.citacaoEn || s.citacao)}">${citacao}</p>
+        <div class="about-cinematic__text-grid">
+          <div class="about-cinematic__text translatable-markdown" data-pt="${escapeHtml(s.texto1)}" data-en="${escapeHtml(s.texto1En || s.texto1)}">${renderMarkdown(texto1)}</div>
+          <div class="about-cinematic__text translatable-markdown" data-pt="${escapeHtml(s.texto2)}" data-en="${escapeHtml(s.texto2En || s.texto2)}">${renderMarkdown(texto2)}</div>
         </div>
-        ${imgFirst ? '' : `<img src="${s.imagem}" alt="${s.titulo}" style="width:100%;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.15)">`}
+        ${s.textoBotao ? `
+          <div class="about-cinematic__cta">
+            <button class="btn-outline" onclick="scrollToSection('${s.ancoraBotao?.replace('#','') || 'contactos'}')" data-pt="${escapeHtml(s.textoBotao)}" data-en="${escapeHtml(s.textoBotaoEn || s.textoBotao)}">${textoBotao}</button>
+          </div>
+        ` : ''}
       </div>
     </section>
   `;
