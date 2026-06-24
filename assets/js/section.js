@@ -489,30 +489,38 @@ function renderCards(s) {
 }
 
 function renderTextoImagem(s) {
-  const isEn = SITE.lang === 'en';
   const texto1 = t(s.texto1, s.texto1En);
   const texto2 = t(s.texto2, s.texto2En);
   const citacao = t(s.citacao, s.citacaoEn);
   const titulo = t(s.titulo, s.tituloEn);
   const tag = t(s.tag, s.tagEn);
   const textoBotao = t(s.textoBotao, s.textoBotaoEn);
+  const imgFirst = s.posicaoImagem === 'esquerda';
+
+  const visualBlock = `
+    <div class="about-split__visual">
+      <img src="${s.imagem}" alt="${escapeHtml(titulo)}">
+      <span class="about-split__tag-overlay" data-pt="${escapeHtml(s.tag)}" data-en="${escapeHtml(s.tagEn || s.tag)}">${tag}</span>
+    </div>
+  `;
+
+  const panelBlock = `
+    <div class="about-split__panel">
+      <h2 class="about-split__title" data-pt="${escapeHtml(s.titulo)}" data-en="${escapeHtml(s.tituloEn || s.titulo)}">${titulo}</h2>
+      <p class="about-split__quote" data-pt="${escapeHtml(s.citacao)}" data-en="${escapeHtml(s.citacaoEn || s.citacao)}">${citacao}</p>
+      <div class="about-split__text translatable-markdown" data-pt="${escapeHtml(s.texto1)}" data-en="${escapeHtml(s.texto1En || s.texto1)}">${renderMarkdown(texto1)}</div>
+      <div class="about-split__text translatable-markdown" data-pt="${escapeHtml(s.texto2)}" data-en="${escapeHtml(s.texto2En || s.texto2)}">${renderMarkdown(texto2)}</div>
+      ${s.textoBotao ? `
+        <div class="about-split__cta">
+          <button class="btn-outline" onclick="scrollToSection('${s.ancoraBotao?.replace('#','') || 'contactos'}')" data-pt="${escapeHtml(s.textoBotao)}" data-en="${escapeHtml(s.textoBotaoEn || s.textoBotao)}">${textoBotao}</button>
+        </div>
+      ` : ''}
+    </div>
+  `;
 
   return `
-    <section id="${s.id || 'sobre'}" class="about-cinematic reveal" style="background-image:url('${s.imagem}')">
-      <div class="about-cinematic__inner">
-        <span class="about-cinematic__tag" data-pt="${escapeHtml(s.tag)}" data-en="${escapeHtml(s.tagEn || s.tag)}">${tag}</span>
-        <h2 class="about-cinematic__title" data-pt="${escapeHtml(s.titulo)}" data-en="${escapeHtml(s.tituloEn || s.titulo)}">${titulo}</h2>
-        <p class="about-cinematic__quote" data-pt="${escapeHtml(s.citacao)}" data-en="${escapeHtml(s.citacaoEn || s.citacao)}">${citacao}</p>
-        <div class="about-cinematic__text-grid">
-          <div class="about-cinematic__text translatable-markdown" data-pt="${escapeHtml(s.texto1)}" data-en="${escapeHtml(s.texto1En || s.texto1)}">${renderMarkdown(texto1)}</div>
-          <div class="about-cinematic__text translatable-markdown" data-pt="${escapeHtml(s.texto2)}" data-en="${escapeHtml(s.texto2En || s.texto2)}">${renderMarkdown(texto2)}</div>
-        </div>
-        ${s.textoBotao ? `
-          <div class="about-cinematic__cta">
-            <button class="btn-outline" onclick="scrollToSection('${s.ancoraBotao?.replace('#','') || 'contactos'}')" data-pt="${escapeHtml(s.textoBotao)}" data-en="${escapeHtml(s.textoBotaoEn || s.textoBotao)}">${textoBotao}</button>
-          </div>
-        ` : ''}
-      </div>
+    <section id="${s.id || 'sobre'}" class="about-split reveal">
+      ${imgFirst ? visualBlock + panelBlock : panelBlock + visualBlock}
     </section>
   `;
 }
@@ -565,24 +573,18 @@ function renderFeatures(s) {
 }
 
 function renderCTA(s) {
-  const colors = {
-    'verde':   'linear-gradient(135deg, #008030 0%, #006028 100%)',
-    'laranja': 'linear-gradient(135deg, #e07000 0%, #c2410c 100%)',
-    'azul':    'linear-gradient(135deg, #008030 0%, #e07000 100%)'
-  };
-
   const emailPlaceholder = ts('O seu email...');
 
   return `
-    <section style="padding:80px 24px;background:${colors[s.corFundo] || colors.verde};position:relative;overflow:hidden">
-      <div style="max-width:700px;margin:0 auto;text-align:center;color:#fff;position:relative;z-index:1">
-        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:16px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <p style="opacity:0.92;margin-bottom:32px;font-size:1.05rem;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
+    <section style="padding:80px 24px;background:var(--bg-soft);position:relative;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div style="max-width:700px;margin:0 auto;text-align:center;color:var(--text);position:relative;z-index:1">
+        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:16px;color:var(--text)" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+        <p style="opacity:0.85;margin-bottom:32px;font-size:1.05rem;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto;color:var(--text-soft)" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:500px;margin:0 auto">
-          <input type="email" id="newsletter-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="flex:1;min-width:200px;padding:14px 22px;border-radius:999px;border:none;font-size:0.92rem;outline:none;background:rgba(255,255,255,0.95);color:#1a1a1a">
-          <button class="btn-outline" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe')}</button>
+          <input type="email" id="newsletter-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="flex:1;min-width:200px;padding:13px 22px;border-radius:2px;border:1px solid var(--border);font-size:0.92rem;outline:none;background:var(--card);color:var(--text);transition:border-color .25s" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'">
+          <button class="btn-primary" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe')}</button>
         </div>
-        <p id="newsletter-msg" style="margin-top:16px;opacity:0;transition:opacity .3s;font-weight:600;font-family:var(--serif)"></p>
+        <p id="newsletter-msg" style="margin-top:16px;opacity:0;transition:opacity .3s;font-weight:600;font-family:var(--serif);color:var(--accent)"></p>
       </div>
     </section>
   `;
