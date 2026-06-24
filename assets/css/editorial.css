@@ -74,14 +74,19 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 130px;
+  height: 70px;
 }
 .nav-logo {
-  height: 130px;
+  height: 150px;
   width: auto;
   object-fit: contain;
   cursor: pointer;
   transition: transform .3s ease;
+  /* Logo transborda a navbar (que é curta) sem a aumentar */
+  margin-top: -40px;
+  margin-bottom: -40px;
+  position: relative;
+  z-index: 10;
 }
 .nav-logo:hover { transform: scale(1.04); }
 
@@ -140,59 +145,62 @@ nav {
   color: #fff;
 }
 
-/* Switch PT/EN (toggle único estilo iOS) */
+/* Switch PT/EN (editorial — texto com traço subtil) */
 .lang-toggle {
   position: relative;
   display: inline-flex;
   align-items: center;
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 3px;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 0;
   cursor: pointer;
   font-family: var(--sans);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  width: 64px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   height: 28px;
-  transition: background .25s;
+  transition: opacity .25s;
 }
-.lang-toggle:hover { border-color: var(--accent-2); }
+.lang-toggle:hover { opacity: 0.8; }
 .lang-toggle__opt {
-  flex: 1;
-  text-align: center;
-  z-index: 2;
+  position: relative;
   color: var(--muted);
   transition: color .25s;
   user-select: none;
+  padding: 2px 0;
 }
 .lang-toggle__opt[data-lang="pt"] { color: var(--text); }
 .lang-toggle__opt[data-lang="en"] { color: var(--muted); }
 .lang-toggle.is-en .lang-toggle__opt[data-lang="pt"] { color: var(--muted); }
 .lang-toggle.is-en .lang-toggle__opt[data-lang="en"] { color: var(--text); }
-.lang-toggle::before {
+/* Traço sob a opção ativa */
+.lang-toggle__opt::after {
   content: '';
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: calc(50% - 3px);
-  height: calc(100% - 6px);
-  background: var(--accent);
-  border-radius: 999px;
-  transition: transform .35s cubic-bezier(.22,.61,.36,1), background .25s;
-  z-index: 1;
-  box-shadow: 0 1px 3px rgba(0,128,48,0.3);
-}
-.lang-toggle.is-en::before {
-  transform: translateX(100%);
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
   background: var(--accent-2);
-  box-shadow: 0 1px 3px rgba(224,112,0,0.3);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .3s cubic-bezier(.22,.61,.36,1);
+}
+.lang-toggle__opt[data-lang="pt"]::after { transform: scaleX(1); }
+.lang-toggle.is-en .lang-toggle__opt[data-lang="pt"]::after { transform: scaleX(0); }
+.lang-toggle.is-en .lang-toggle__opt[data-lang="en"]::after { transform: scaleX(1); }
+/* Separador "/" entre PT e EN */
+.lang-toggle::before {
+  content: '/';
+  color: var(--border);
+  font-weight: 400;
+  font-size: 0.8em;
 }
 .lang-toggle--sm {
-  width: 52px;
+  font-size: 0.62rem;
   height: 24px;
-  font-size: 0.6rem;
+  gap: 6px;
 }
 .theme-pill {
   display: inline-flex;
@@ -568,7 +576,7 @@ nav {
 
 /* ===== Section spacing ===== */
 section {
-  scroll-margin-top: 130px;
+  scroll-margin-top: 70px;
   padding: 100px 24px;
 }
 section > div:first-child {
@@ -592,25 +600,29 @@ section > div:first-child {
 }
 
 /* ============================================================
-   PARALLAX SHOWCASE — excursion em destaque
-   Imagem full-bleed (full-size como hero), secção verticalmente mais pequena
+   PARALLAX SHOWCASE — full-bleed, sem margens, imagem 3:1
    ============================================================ */
 .parallax-showcase {
   position: relative;
-  height: 70vh;
-  height: 70dvh;
-  min-height: 500px;
+  /* Altura proporcional à imagem 3:1, sem margens/padding */
+  height: 42vw;
+  max-height: 600px;
+  min-height: 320px;
   display: flex;
   align-items: center;
   overflow: hidden;
   padding: 0;
+  margin: 0;
   isolation: isolate;
+  width: 100%;
 }
 .parallax-showcase__bg-wrap {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 .parallax-showcase__bg {
   position: absolute;
@@ -620,7 +632,7 @@ section > div:first-child {
   object-fit: cover;
   will-change: transform;
   /* Estado inicial: imagem deslocada para baixo */
-  transform: translateY(30%) scale(1.1);
+  transform: translateY(20%) scale(1.15);
   transition: transform .15s linear;
 }
 .parallax-showcase__overlay {
@@ -628,15 +640,14 @@ section > div:first-child {
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(180deg, rgba(15,10,5,0.55) 0%, rgba(15,10,5,0.35) 35%, rgba(15,10,5,0.7) 100%),
-    linear-gradient(135deg, rgba(0,40,15,0.25) 0%, rgba(224,112,0,0.2) 100%);
+    linear-gradient(90deg, rgba(15,10,5,0.65) 0%, rgba(15,10,5,0.35) 50%, rgba(15,10,5,0.55) 100%);
 }
 .parallax-showcase__inner {
   position: relative;
   z-index: 2;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 24px;
+  padding: 0 24px;
   width: 100%;
 }
 .parallax-showcase__text {
@@ -650,10 +661,10 @@ section > div:first-child {
 .parallax-showcase__title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-size: clamp(1.8rem, 4.5vw, 3.5rem);
   line-height: 1.05;
   letter-spacing: -0.025em;
-  margin: 16px 0 20px;
+  margin: 12px 0 14px;
   color: #fff;
 }
 .parallax-showcase__title em {
@@ -662,20 +673,20 @@ section > div:first-child {
   color: #fb923c;
   font-size: 0.5em;
   letter-spacing: 0;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 .parallax-showcase__desc {
-  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
   font-weight: 300;
   color: rgba(255,255,255,0.92);
-  line-height: 1.7;
-  margin-bottom: 28px;
+  line-height: 1.6;
+  margin-bottom: 22px;
   max-width: 540px;
 }
 .parallax-showcase__meta {
   display: flex;
-  gap: 36px;
-  margin-bottom: 28px;
+  gap: 28px;
+  margin-bottom: 22px;
   flex-wrap: wrap;
 }
 .parallax-showcase__meta-item {
@@ -683,30 +694,42 @@ section > div:first-child {
 }
 .parallax-showcase__meta-item .label {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.55);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 .parallax-showcase__meta-item .value {
   font-family: var(--serif);
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 500;
 }
 .parallax-showcase__meta-item.price .value { color: #fb923c; }
 .parallax-showcase__actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
+}
+.parallax-showcase__actions .btn-primary,
+.parallax-showcase__actions .btn-outline {
+  padding: 11px 22px;
+  font-size: 0.78rem;
 }
 
 @media (max-width: 900px) {
-  .parallax-showcase { height: auto; min-height: 480px; padding: 50px 0; }
-  .parallax-showcase__inner { padding: 40px 20px; }
-  .parallax-showcase__title { font-size: clamp(1.7rem, 7vw, 2.4rem); }
-  .parallax-showcase__meta { gap: 20px; }
-  .parallax-showcase__meta-item .value { font-size: 1.1rem; }
+  .parallax-showcase {
+    height: 60vw;
+    max-height: 480px;
+    min-height: 360px;
+  }
+  .parallax-showcase__inner { padding: 0 20px; }
+  .parallax-showcase__title { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+  .parallax-showcase__meta { gap: 18px; }
+  .parallax-showcase__meta-item .value { font-size: 1rem; }
+}
+@media (max-width: 480px) {
+  .parallax-showcase { height: 90vw; max-height: 380px; min-height: 300px; }
 }
 
 /* ============================================================
@@ -1393,13 +1416,16 @@ footer {
   #mobile-right { display: flex !important; }
   .hamburger { display: flex !important; }
   .nav-inner {
-    height: auto;
-    min-height: 100px;
-    padding: 10px 16px;
+    height: 60px;
+    padding: 0 16px;
     align-items: center;
     justify-content: space-between;
   }
-  .nav-logo { height: 100px; }
+  .nav-logo {
+    height: 110px;
+    margin-top: -25px;
+    margin-bottom: -25px;
+  }
   .modal-box {
     border-radius: 4px;
     max-height: 88vh;
@@ -1432,8 +1458,12 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .nav-inner { min-height: 80px; padding: 8px 14px; }
-  .nav-logo { height: 85px; }
+  .nav-inner { height: 55px; padding: 0 12px; }
+  .nav-logo {
+    height: 90px;
+    margin-top: -18px;
+    margin-bottom: -18px;
+  }
   #mobile-right .lang-btn { font-size: 0.65rem; padding: 3px 8px; }
   .modal-overlay { padding: 8px; }
   .modal-box { border-radius: 4px; max-height: 92vh; max-height: 92dvh; }
