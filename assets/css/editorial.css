@@ -1585,48 +1585,43 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 /* Intro — primeiro parágrafo destacado (estilo revista) */
 .modal-blog-article__intro {
   font-family: var(--serif);
-  font-size: 1.02rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.55;
   color: var(--text);
   font-style: italic;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
   position: relative;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  padding-left: 18px;
 }
 .modal-blog-article__intro::before {
   content: '"';
   font-family: var(--serif);
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   color: var(--accent-2);
   position: absolute;
-  top: -14px;
-  left: -6px;
-  opacity: 0.4;
+  top: -8px;
+  left: 0;
+  opacity: 0.5;
   line-height: 1;
 }
 /* Body — conteúdo principal */
 .modal-blog-article__body {
   color: var(--text-soft);
-  font-size: 0.86rem;
+  font-size: 0.85rem;
   line-height: 1.6;
   flex: 1;
 }
-.modal-blog-article__body h2,
-.modal-blog-article__body h3 {
+.modal-blog-article__body h2 {
   font-family: var(--serif);
   color: var(--text);
   font-weight: 500;
-  margin: 16px 0 10px;
+  font-size: 1.15rem;
+  margin: 14px 0 10px;
   letter-spacing: -0.015em;
 }
-.modal-blog-article__body h2 { font-size: 1.2rem; }
-.modal-blog-article__body h3 { font-size: 1.05rem; }
-.modal-blog-article__body h4 { font-size: 0.95rem; margin: 14px 0 8px; font-weight: 600; }
+.modal-blog-article__body h2:first-child { margin-top: 0; }
 .modal-blog-article__body p {
   margin-bottom: 10px;
 }
@@ -1634,38 +1629,54 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   color: var(--text);
   font-weight: 600;
 }
-.modal-blog-article__body ol,
-.modal-blog-article__body ul {
-  margin: 0 0 14px 0;
+/* Grid de cards (h3 + listas agrupados) */
+.modal-blog-article__body .blog-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.modal-blog-article__body .blog-card-section {
+  background: var(--bg-soft);
+  border-radius: 2px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--accent-2);
+}
+.modal-blog-article__body .blog-card-section h3 {
+  font-family: var(--sans);
+  color: var(--accent-2);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-blog-article__body .blog-card-section h4 {
+  font-family: var(--sans);
+  color: var(--accent-2);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+/* Listas dentro dos cards */
+.modal-blog-article__body ul,
+.modal-blog-article__body ol {
+  margin: 0;
   padding-left: 0;
   list-style: none;
   counter-reset: list-counter;
 }
-.modal-blog-article__body ol li {
-  counter-increment: list-counter;
-  position: relative;
-  padding-left: 32px;
-  margin-bottom: 7px;
-  line-height: 1.5;
-  font-size: 0.84rem;
-}
-.modal-blog-article__body ol li::before {
-  content: counter(list-counter, decimal-leading-zero);
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-family: var(--serif);
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--accent-2);
-  font-style: italic;
-}
 .modal-blog-article__body ul li {
   position: relative;
-  padding-left: 20px;
+  padding-left: 16px;
   margin-bottom: 5px;
-  line-height: 1.5;
-  font-size: 0.84rem;
+  line-height: 1.45;
+  font-size: 0.82rem;
+  color: var(--text-soft);
 }
 .modal-blog-article__body ul li::before {
   content: '—';
@@ -1673,6 +1684,26 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   left: 0;
   color: var(--accent);
   font-weight: 700;
+}
+.modal-blog-article__body ol li {
+  counter-increment: list-counter;
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 7px;
+  line-height: 1.45;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+.modal-blog-article__body ol li::before {
+  content: counter(list-counter, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--accent-2);
+  font-style: italic;
 }
 /* Callout box — para secções tipo "Quando Visitar" / "Dica" */
 .modal-blog-article__callout {
@@ -1859,24 +1890,16 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   font-family: var(--serif);
   font-style: italic;
   color: var(--text-soft);
-  font-size: 0.95rem;
-  margin-bottom: 14px;
-  padding-bottom: 14px;
+  font-size: 0.92rem;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 .modal-immersive__body-text {
   color: var(--text-soft);
-  font-size: 0.88rem;
-  line-height: 1.65;
-  margin-bottom: 18px;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
 }
 .modal-immersive__body-text p { margin-bottom: 8px; }
 .modal-immersive__body-text p:last-child { margin-bottom: 0; }

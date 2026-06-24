@@ -1047,7 +1047,7 @@ function renderModalEditorial(m) {
   return renderModalGenerico(m);
 }
 
-// Parser para conteúdo de blog — separa intro, body e callout
+// Parser para conteúdo de blog — separa intro, body (organizado em cards) e callout
 function parseBlogContent(text) {
   if (!text) return { intro: '', body: '', callout: '', calloutTitle: '' };
 
@@ -1087,8 +1087,8 @@ function parseBlogContent(text) {
     bodyRest += line + '\n';
   }
 
-  // Renderizar bodyRest como HTML
-  const bodyHTML = renderMarkdown(bodyRest.trim());
+  // Renderizar bodyRest como HTML organizado em cards
+  const bodyHTML = renderBlogBodyHTML(bodyRest.trim());
 
   return {
     intro: intro,
@@ -1096,6 +1096,92 @@ function parseBlogContent(text) {
     callout: callout,
     calloutTitle: calloutTitle
   };
+}
+
+// Renderiza o body do blog em cards organizados (h3 + lista = 1 card)
+function renderBlogBodyHTML(text) {
+  if (!text) return '';
+
+  const lines = text.split('\n');
+  let html = '';
+  let i = 0;
+  let currentList = [];
+  let inOl = false;
+
+  function flushList() {
+    if (currentList.length === 0) return;
+    const tag = inOl ? 'ol' : 'ul';
+    html += `<${tag}>` + currentList.join('') + `</${tag}>`;
+    currentList = [];
+    inOl = false;
+  }
+
+  while (i < lines.length) {
+    const line = lines[i];
+
+    if (line.startsWith('## ')) {
+      flushList();
+      html += `<h2>${line.replace('## ', '').trim()}</h2>`;
+    } else if (line.startsWith('### ')) {
+      flushList();
+      html += `<h3>${line.replace('### ', '').trim()}</h3>`;
+    } else if (line.startsWith('#### ')) {
+      flushList();
+      html += `<h4>${line.replace('#### ', '').trim()}</h4>`;
+    } else if (line.match(/^\d+\.\s/)) {
+      // lista numerada
+      if (!inOl) { flushList(); inOl = true; }
+      const content = line.replace(/^\d+\.\s/, '').trim();
+      currentList.push(`<li>${parseInlineMd(content)}</li>`);
+    } else if (line.match(/^[-*]\s/)) {
+      // lista com bullets
+      if (inOl) { flushList(); }
+      const content = line.replace(/^[-*]\s/, '').trim();
+      currentList.push(`<li>${parseInlineMd(content)}</li>`);
+    } else if (line.trim() === '') {
+      flushList();
+    } else {
+      flushList();
+      html += `<p>${parseInlineMd(line.trim())}</p>`;
+    }
+    i++;
+  }
+  flushList();
+
+  // Agrupar h3 + listas seguintes em cards
+  // Estratégia: dividir o HTML por h3 e envolver cada secção
+  const sections = html.split(/(?=<h3>)/);
+  let result = '';
+  let hasCards = false;
+  const cardsBuffer = [];
+
+  for (const section of sections) {
+    if (section.startsWith('<h3>')) {
+      // Esta secção começa com h3 — é um card
+      hasCards = true;
+      cardsBuffer.push(`<div class="blog-card-section">${section}</div>`);
+    } else {
+      // Conteúdo antes/depois dos cards — texto normal
+      if (cardsBuffer.length > 0) {
+        result += `<div class="blog-card-grid">${cardsBuffer.join('')}</div>`;
+        cardsBuffer.length = 0;
+      }
+      result += section;
+    }
+  }
+  if (cardsBuffer.length > 0) {
+    result += `<div class="blog-card-grid">${cardsBuffer.join('')}</div>`;
+  }
+
+  return result;
+}
+
+// Parse inline markdown (bold, italic, links)
+function parseInlineMd(text) {
+  if (!text) return '';
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>');
 }
 
 // Renderiza modal genérico (hero, privacidade, etc.) — visual antigo mas ainda funciona
