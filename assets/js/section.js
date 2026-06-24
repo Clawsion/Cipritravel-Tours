@@ -366,18 +366,21 @@ function renderTours(s) {
     const dataLabel = `${tour.data?.dia || ''} ${tour.data?.mes || ''}`.trim();
 
     return `
-    <article class="journal-card reveal-stagger" onclick="openModal('modal-${tour.id}')">
-      <div class="journal-card__visual">
-        <img src="${tour.imagem}" alt="${nome}" class="journal-card__img" loading="lazy">
-        <span class="journal-card__category ${tour.corBadge === 'verde' ? 'green' : ''}">${dataLabel || 'Tour'}</span>
+    <article class="magazine-card reveal-stagger" onclick="openModal('modal-${tour.id}')">
+      <div class="magazine-card__visual">
+        <img src="${tour.imagem}" alt="${nome}" class="magazine-card__img" loading="lazy">
+        <div class="magazine-card__overlay"></div>
+        <span class="magazine-card__category ${tour.corBadge === 'verde' ? 'green' : ''}">${dataLabel || 'Tour'}</span>
+        <div class="magazine-card__title-overlay">
+          <span class="magazine-card__date-stamp">🕐 ${duracao}</span>
+          <h3 class="magazine-card__title" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</h3>
+        </div>
       </div>
-      <div class="journal-card__body">
-        <span class="journal-card__date">🕐 ${duracao}</span>
-        <h3 class="journal-card__title" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</h3>
-        <p class="journal-card__excerpt" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
-        <div class="journal-card__price-row">
-          <span class="journal-card__price">${tour.preco}€<small>/${ts('pessoa')}</small></span>
-          <button class="journal-card__cta" onclick="event.stopPropagation();openReservaModal('${tour.id}')" data-pt="Reservar" data-en="Book">
+      <div class="magazine-card__body">
+        <p class="magazine-card__excerpt" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
+        <div class="magazine-card__footer">
+          <span class="magazine-card__price">${tour.preco}€<small>/${ts('pessoa')}</small></span>
+          <button class="magazine-card__cta" onclick="event.stopPropagation();openReservaModal('${tour.id}')" data-pt="Reservar" data-en="Book">
             ${ts('Reservar')} <span class="arrow">→</span>
           </button>
         </div>
@@ -409,18 +412,23 @@ function renderBlog(s) {
 
   const artigosHTML = artigos.map((a, idx) => {
     return `
-    <article class="journal-card reveal-stagger" onclick="openModal('modal-${a.id}')">
-      <div class="journal-card__visual">
-        <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="journal-card__img" loading="lazy">
-        <span class="journal-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
+    <article class="magazine-card reveal-stagger" onclick="openModal('modal-${a.id}')">
+      <div class="magazine-card__visual">
+        <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="magazine-card__img" loading="lazy">
+        <div class="magazine-card__overlay"></div>
+        <span class="magazine-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
+        <div class="magazine-card__title-overlay">
+          <span class="magazine-card__date-stamp">${formatDate(a.data)}</span>
+          <h3 class="magazine-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
+        </div>
       </div>
-      <div class="journal-card__body">
-        <span class="journal-card__date">${formatDate(a.data)}</span>
-        <h3 class="journal-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
-        <p class="journal-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
-        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${a.id}')" data-pt="Ler mais" data-en="Read more">
-          ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
-        </button>
+      <div class="magazine-card__body">
+        <p class="magazine-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
+        <div class="magazine-card__footer magazine-card__footer--simple">
+          <button class="magazine-card__cta" onclick="event.stopPropagation();openModal('modal-${a.id}')" data-pt="Ler mais" data-en="Read more">
+            ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
+          </button>
+        </div>
       </div>
     </article>
     `;
@@ -447,18 +455,23 @@ function renderCards(s) {
 
   const itensHTML = itens.map((i, idx) => {
     return `
-    <article class="journal-card reveal-stagger" onclick="openModal('modal-${i.id}')">
-      <div class="journal-card__visual">
-        <img src="${i.imagem}" alt="${t(i.titulo, i.tituloEn)}" class="journal-card__img" loading="lazy">
-        <span class="journal-card__category ${tagColorClass}" data-pt="${i.categoria}" data-en="${i.categoriaEn || i.categoria}">${t(i.categoria, i.categoriaEn)}</span>
+    <article class="magazine-card reveal-stagger" onclick="openModal('modal-${i.id}')">
+      <div class="magazine-card__visual">
+        <img src="${i.imagem}" alt="${t(i.titulo, i.tituloEn)}" class="magazine-card__img" loading="lazy">
+        <div class="magazine-card__overlay"></div>
+        <span class="magazine-card__category ${tagColorClass}" data-pt="${i.categoria}" data-en="${i.categoriaEn || i.categoria}">${t(i.categoria, i.categoriaEn)}</span>
+        <div class="magazine-card__title-overlay">
+          <span class="magazine-card__date-stamp">${formatDate(i.data)}</span>
+          <h3 class="magazine-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
+        </div>
       </div>
-      <div class="journal-card__body">
-        <span class="journal-card__date">${formatDate(i.data)}</span>
-        <h3 class="journal-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
-        <p class="journal-card__excerpt" data-pt="${i.resumo}" data-en="${i.resumoEn || i.resumo}">${t(i.resumo, i.resumoEn)}</p>
-        <button class="journal-card__cta" onclick="event.stopPropagation();openModal('modal-${i.id}')" data-pt="Ler mais" data-en="Read more">
-          ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
-        </button>
+      <div class="magazine-card__body">
+        <p class="magazine-card__excerpt" data-pt="${i.resumo}" data-en="${i.resumoEn || i.resumo}">${t(i.resumo, i.resumoEn)}</p>
+        <div class="magazine-card__footer magazine-card__footer--simple">
+          <button class="magazine-card__cta" onclick="event.stopPropagation();openModal('modal-${i.id}')" data-pt="Ler mais" data-en="Read more">
+            ${SITE.lang === 'en' ? 'Read more' : 'Ler mais'} <span class="arrow">→</span>
+          </button>
+        </div>
       </div>
     </article>
     `;
@@ -916,44 +929,29 @@ function renderModalEditorial(m) {
     <li><span data-pt="${item}" data-en="${incluidosEn[idx] || item}">${t(item, incluidosEn[idx] || item)}</span></li>
   `).join('');
 
-  const dia = m.tourData?.dia || '';
-  const mesRaw = m.tourData?.mes || '';
-
-  // Chapter number baseado no id do tour
-  const allTours = SITE.tours?.tours || [];
-  const tourIdx = allTours.findIndex(t => t.id === m.tourId);
-  const chapterNum = tourIdx >= 0 ? String(tourIdx + 1).padStart(2, '0') : '01';
-
-  // Modais com tourId (excursões) — Página de Livro completa
+  // Modais com tourId (excursões) — Popup Imersivo Full-Screen
   if (m.tourId && m.imagem) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
-        <div class="modal-box modal-book">
-          <div class="modal-book__close-hint">${SITE.lang === 'en' ? '× click outside to close' : '× clique fora para fechar'}</div>
-          <div class="modal-book__visual">
-            <img src="${m.imagem}" alt="${titulo}">
-            ${dia ? `
-              <div class="modal-book__date-stamp">
-                <span class="day">${dia}</span>
-                <span class="month">${mesRaw}</span>
-              </div>
-            ` : ''}
-          </div>
-          <div class="modal-book__body">
-            <div class="modal-book__eyebrow">${duracao || (SITE.lang === 'en' ? 'Tour' : 'Excursão')}</div>
-            <h3 class="modal-book__title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
-            ${subtitulo ? `<p class="modal-book__subtitle" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</p>` : ''}
-            <div class="modal-book__content" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
+        <div class="modal-box modal-immersive">
+          <img src="${m.imagem}" alt="${titulo}" class="modal-immersive__bg">
+          <div class="modal-immersive__bg-overlay"></div>
+          <button class="modal-immersive__close" onclick="closeModal('${m.id}')" aria-label="Fechar">✕</button>
+          <div class="modal-immersive__content">
+            <div class="modal-immersive__eyebrow">${duracao || (SITE.lang === 'en' ? 'Tour' : 'Excursão')}</div>
+            <h3 class="modal-immersive__title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+            ${subtitulo ? `<p class="modal-immersive__subtitle" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</p>` : ''}
+            <div class="modal-immersive__body-text" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
             ${incluidosHTML ? `
-              <div class="modal-book__notes">
-                <div class="modal-book__notes-title">${ts('Incluído no pacote:')}</div>
-                <ul class="modal-book__notes-list">${incluidosHTML}</ul>
+              <div class="modal-immersive__notes">
+                <div class="modal-immersive__notes-title">${ts('Incluído no pacote:')}</div>
+                <ul class="modal-immersive__notes-list">${incluidosHTML}</ul>
               </div>
             ` : ''}
-            <div class="modal-book__footer">
-              ${m.preco != null ? `<div class="modal-book__price">${m.preco}€<small>/${ts('pessoa')}</small></div>` : '<div></div>'}
+            <div class="modal-immersive__footer">
+              ${m.preco != null ? `<div class="modal-immersive__price">${m.preco}€<small>/${ts('pessoa')}</small></div>` : '<div></div>'}
               ${m.textoBotao ? `
-                <button class="modal-book__cta" onclick="closeModal('${m.id}');openReservaModal('${m.tourId}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">
+                <button class="modal-immersive__cta" onclick="closeModal('${m.id}');openReservaModal('${m.tourId}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">
                   ${t(m.textoBotao, m.textoBotaoEn)} <span class="arrow">→</span>
                 </button>
               ` : ''}
@@ -964,29 +962,28 @@ function renderModalEditorial(m) {
     `;
   }
 
-  // Modais de blog/sustentabilidade (com imagem, sem tourId) — Página de Livro simplificada
+  // Modais de blog/sustentabilidade (com imagem, sem tourId) — Popup Imersivo sem preço
   if (m.imagem && !m.botoes) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
-        <div class="modal-box modal-book">
-          <div class="modal-book__close-hint">${SITE.lang === 'en' ? '× click outside to close' : '× clique fora para fechar'}</div>
-          <div class="modal-book__visual">
-            <img src="${m.imagem}" alt="${titulo}">
-          </div>
-          <div class="modal-book__body">
-            ${subtitulo ? `<div class="modal-book__eyebrow" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</div>` : ''}
-            <h3 class="modal-book__title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
-            <div class="modal-book__content" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
+        <div class="modal-box modal-immersive">
+          <img src="${m.imagem}" alt="${titulo}" class="modal-immersive__bg">
+          <div class="modal-immersive__bg-overlay"></div>
+          <button class="modal-immersive__close" onclick="closeModal('${m.id}')" aria-label="Fechar">✕</button>
+          <div class="modal-immersive__content">
+            ${subtitulo ? `<div class="modal-immersive__eyebrow" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</div>` : ''}
+            <h3 class="modal-immersive__title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+            <div class="modal-immersive__body-text" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
             ${incluidosHTML ? `
-              <div class="modal-book__notes">
-                <div class="modal-book__notes-title">${ts('Incluído no pacote:')}</div>
-                <ul class="modal-book__notes-list">${incluidosHTML}</ul>
+              <div class="modal-immersive__notes">
+                <div class="modal-immersive__notes-title">${ts('Incluído no pacote:')}</div>
+                <ul class="modal-immersive__notes-list">${incluidosHTML}</ul>
               </div>
             ` : ''}
             ${m.textoBotao ? `
-              <div class="modal-book__footer">
+              <div class="modal-immersive__footer">
                 <div></div>
-                <button class="modal-book__cta" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">
+                <button class="modal-immersive__cta" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">
                   ${t(m.textoBotao, m.textoBotaoEn)} <span class="arrow">→</span>
                 </button>
               </div>

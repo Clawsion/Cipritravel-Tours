@@ -1188,8 +1188,386 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   DIÁRIO DE VIAGEM — cards tipo entradas de manual/guia
+   MAGAZINE EDITORIAL PREMIUM — cards estilo Condé Nast / AFAR
+   Foto domina (60% do card), título sobreposto, preço serif gigante
    ============================================================ */
+.magazine-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all .4s cubic-bezier(.22,.61,.36,1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.magazine-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-2);
+}
+.magazine-card__visual {
+  position: relative;
+  overflow: hidden;
+  height: 280px;
+  flex-shrink: 0;
+}
+.magazine-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s cubic-bezier(.22,.61,.36,1);
+  display: block;
+}
+.magazine-card:hover .magazine-card__img { transform: scale(1.08); }
+.magazine-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15,10,5,0) 30%, rgba(15,10,5,0.85) 100%);
+  z-index: 1;
+}
+.magazine-card__category {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255,255,255,0.95);
+  color: var(--accent-2);
+  padding: 5px 12px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  z-index: 2;
+  border-radius: 2px;
+  backdrop-filter: blur(6px);
+}
+.magazine-card__category.green { color: var(--accent); }
+.magazine-card__category.red { color: #c2410c; }
+.magazine-card__title-overlay {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  right: 18px;
+  z-index: 2;
+  color: #fff;
+}
+.magazine-card__date-stamp {
+  display: inline-block;
+  font-size: 0.58rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.magazine-card__title {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.magazine-card__body {
+  padding: 22px 22px 22px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.magazine-card__excerpt {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 22px;
+  flex: 1;
+}
+.magazine-card__footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  gap: 16px;
+}
+.magazine-card__price {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+.magazine-card__price small {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 400;
+  display: block;
+  margin-top: 4px;
+}
+.magazine-card__cta {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: var(--accent-2);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap .3s, color .25s;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--accent-2);
+}
+.magazine-card__cta .arrow {
+  font-family: var(--serif);
+  font-size: 1rem;
+  transition: transform .3s;
+}
+.magazine-card__cta:hover {
+  color: var(--accent);
+  gap: 14px;
+  border-bottom-color: var(--accent);
+}
+.magazine-card__cta:hover .arrow { transform: translateX(4px); }
+
+/* Variante sem preço (para blog/sustentabilidade) */
+.magazine-card__footer--simple {
+  justify-content: flex-start;
+}
+
+/* ============================================================
+   MODAL IMERSIVO — full-screen tipo Airbnb Luxe
+   Foto como background com blur, painel de conteúdo com glassmorphism
+   ============================================================ */
+.modal-immersive {
+  position: relative;
+  max-width: 100% !important;
+  width: 100vw;
+  width: 100dvw;
+  height: 100vh;
+  height: 100dvh;
+  border-radius: 0 !important;
+  overflow: hidden;
+  background: var(--bg);
+  display: flex;
+  align-items: stretch;
+}
+.modal-immersive__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.55);
+}
+.modal-immersive__bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(0,40,15,0.4) 0%, rgba(15,10,5,0.5) 100%);
+}
+.modal-immersive__content {
+  position: relative;
+  z-index: 2;
+  margin: auto;
+  width: 100%;
+  max-width: 520px;
+  padding: 50px 40px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 4px;
+  color: #fff;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  max-height: 88vh;
+  max-height: 88dvh;
+  overflow-y: auto;
+}
+body.dark .modal-immersive__content {
+  background: rgba(34,29,22,0.55);
+  border-color: rgba(255,255,255,0.15);
+}
+.modal-immersive__close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  width: 36px;
+  height: 36px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: all .25s;
+}
+.modal-immersive__close:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  transform: rotate(90deg);
+}
+.modal-immersive__eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #fb923c;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.modal-immersive__title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem) !important;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  color: #fff;
+}
+.modal-immersive__subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+.modal-immersive__body-text {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+.modal-immersive__body-text p { margin-bottom: 12px; }
+.modal-immersive__body-text p:last-child { margin-bottom: 0; }
+.modal-immersive__body-text strong { color: #fff; font-weight: 600; }
+.modal-immersive__notes {
+  background: rgba(255,255,255,0.08);
+  border-left: 2px solid #fb923c;
+  padding: 18px 20px;
+  margin-bottom: 28px;
+  border-radius: 0 2px 2px 0;
+}
+.modal-immersive__notes-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fb923c;
+  margin-bottom: 12px;
+}
+.modal-immersive__notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.modal-immersive__notes-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: rgba(255,255,255,0.92);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.modal-immersive__notes-list li::before {
+  content: '—';
+  color: #4ade80;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.modal-immersive__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+.modal-immersive__price {
+  font-family: var(--serif);
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #fb923c;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.modal-immersive__price small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 400;
+  margin-top: 4px;
+}
+.modal-immersive__cta {
+  background: #fb923c;
+  color: #fff;
+  border: none;
+  padding: 14px 26px;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .3s cubic-bezier(.22,.61,.36,1);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-immersive__cta:hover {
+  background: #fff;
+  color: var(--accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+.modal-immersive__cta .arrow {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  transition: transform .3s;
+}
+.modal-immersive__cta:hover .arrow { transform: translateX(4px); }
+
+@media (max-width: 700px) {
+  .modal-immersive__content {
+    max-width: 92%;
+    padding: 32px 24px;
+    max-height: 80vh;
+    max-height: 80dvh;
+  }
+  .modal-immersive__title { font-size: 1.5rem !important; }
+  .modal-immersive__footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .modal-immersive__cta { justify-content: center; }
+}
+
+/* Manter classes antigas para compatibilidade */
 .journal-card {
   position: relative;
   background: var(--card);
