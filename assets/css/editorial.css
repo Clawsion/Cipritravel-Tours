@@ -1348,65 +1348,75 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   MODAL IMERSIVO — full-screen tipo Airbnb Luxe
-   Foto como background com blur, painel de conteúdo com glassmorphism
+   MODAL IMERSIVO — foto banner no topo + conteúdo em baixo
+   Foto apenas em cima do popup, texto em baixo com cores normais
    ============================================================ */
 .modal-immersive {
   position: relative;
-  max-width: 100% !important;
-  width: 100vw;
-  width: 100dvw;
-  height: 100vh;
-  height: 100dvh;
-  border-radius: 0 !important;
+  max-width: 880px !important;
+  width: 100%;
+  max-height: 92vh;
+  max-height: 92dvh;
+  border-radius: 2px !important;
   overflow: hidden;
-  background: var(--bg);
+  background: var(--card);
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
 }
-.modal-immersive__bg {
-  position: absolute;
-  inset: 0;
+.modal-immersive__banner {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.modal-immersive__banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
-  filter: brightness(0.55);
+  display: block;
 }
-.modal-immersive__bg-overlay {
+.modal-immersive__banner::after {
+  content: '';
   position: absolute;
   inset: 0;
+  background: linear-gradient(180deg, rgba(15,10,5,0.2) 0%, rgba(15,10,5,0.6) 100%);
   z-index: 1;
-  background: linear-gradient(135deg, rgba(0,40,15,0.4) 0%, rgba(15,10,5,0.5) 100%);
 }
-.modal-immersive__content {
-  position: relative;
+.modal-immersive__banner-overlay {
+  position: absolute;
+  bottom: 24px;
+  left: 32px;
+  right: 32px;
   z-index: 2;
-  margin: auto;
-  width: 100%;
-  max-width: 520px;
-  padding: 50px 40px;
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 4px;
   color: #fff;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-  max-height: 88vh;
-  max-height: 88dvh;
-  overflow-y: auto;
 }
-body.dark .modal-immersive__content {
-  background: rgba(34,29,22,0.55);
-  border-color: rgba(255,255,255,0.15);
+.modal-immersive__banner-eyebrow {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fb923c;
+  margin-bottom: 8px;
+}
+.modal-immersive__banner-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.4rem) !important;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 .modal-immersive__close {
   position: absolute;
-  top: 20px;
-  right: 24px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
+  top: 18px;
+  right: 20px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
   color: #fff;
   width: 36px;
   height: 36px;
@@ -1418,60 +1428,51 @@ body.dark .modal-immersive__content {
   justify-content: center;
   z-index: 5;
   transition: all .25s;
+  backdrop-filter: blur(8px);
 }
 .modal-immersive__close:hover {
   background: var(--accent-2);
   border-color: var(--accent-2);
   transform: rotate(90deg);
 }
-.modal-immersive__eyebrow {
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #fb923c;
-  font-weight: 700;
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-}
-.modal-immersive__title {
-  font-family: var(--serif);
-  font-size: clamp(1.8rem, 4vw, 2.8rem) !important;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 10px;
-  color: #fff;
+.modal-immersive__content {
+  padding: 36px 40px 32px;
+  overflow-y: auto;
+  flex: 1;
+  background: var(--card);
+  color: var(--text);
 }
 .modal-immersive__subtitle {
   font-family: var(--serif);
   font-style: italic;
-  color: rgba(255,255,255,0.85);
+  color: var(--text-soft);
   font-size: 1.05rem;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
 }
 .modal-immersive__body-text {
-  color: rgba(255,255,255,0.92);
+  color: var(--text-soft);
   font-size: 0.95rem;
   line-height: 1.75;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 .modal-immersive__body-text p { margin-bottom: 12px; }
 .modal-immersive__body-text p:last-child { margin-bottom: 0; }
-.modal-immersive__body-text strong { color: #fff; font-weight: 600; }
+.modal-immersive__body-text strong { color: var(--text); font-weight: 600; }
 .modal-immersive__notes {
-  background: rgba(255,255,255,0.08);
-  border-left: 2px solid #fb923c;
-  padding: 18px 20px;
+  background: var(--bg-soft);
+  border-left: 2px solid var(--accent-2);
+  padding: 18px 22px;
   margin-bottom: 28px;
   border-radius: 0 2px 2px 0;
 }
 .modal-immersive__notes-title {
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   font-weight: 700;
-  color: #fb923c;
+  color: var(--accent-2);
   margin-bottom: 12px;
 }
 .modal-immersive__notes-list {
@@ -1485,13 +1486,13 @@ body.dark .modal-immersive__content {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  color: rgba(255,255,255,0.92);
+  color: var(--text-soft);
   font-size: 0.88rem;
   line-height: 1.5;
 }
 .modal-immersive__notes-list li::before {
   content: '—';
-  color: #4ade80;
+  color: var(--accent);
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -1500,14 +1501,14 @@ body.dark .modal-immersive__content {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
 }
 .modal-immersive__price {
   font-family: var(--serif);
-  font-size: 2.3rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  color: #fb923c;
+  color: var(--accent);
   letter-spacing: -0.02em;
   line-height: 1;
 }
@@ -1515,17 +1516,17 @@ body.dark .modal-immersive__content {
   display: block;
   font-family: var(--sans);
   font-size: 0.6rem;
-  color: rgba(255,255,255,0.6);
+  color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-weight: 400;
   margin-top: 4px;
 }
 .modal-immersive__cta {
-  background: #fb923c;
+  background: var(--accent);
   color: #fff;
   border: none;
-  padding: 14px 26px;
+  padding: 14px 28px;
   font-family: var(--sans);
   font-size: 0.72rem;
   font-weight: 700;
@@ -1539,10 +1540,9 @@ body.dark .modal-immersive__content {
   gap: 10px;
 }
 .modal-immersive__cta:hover {
-  background: #fff;
-  color: var(--accent-2);
+  background: var(--accent-2);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 16px rgba(224,112,0,0.25);
 }
 .modal-immersive__cta .arrow {
   font-family: var(--serif);
@@ -1552,19 +1552,306 @@ body.dark .modal-immersive__content {
 .modal-immersive__cta:hover .arrow { transform: translateX(4px); }
 
 @media (max-width: 700px) {
-  .modal-immersive__content {
-    max-width: 92%;
-    padding: 32px 24px;
-    max-height: 80vh;
-    max-height: 80dvh;
-  }
-  .modal-immersive__title { font-size: 1.5rem !important; }
+  .modal-immersive__banner { height: 220px; }
+  .modal-immersive__content { padding: 28px 22px; }
+  .modal-immersive__banner-title { font-size: 1.4rem !important; }
   .modal-immersive__footer {
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
   }
   .modal-immersive__cta { justify-content: center; }
+}
+
+/* ============================================================
+   MODAL CONTRATO — Popup de Reserva Premium estilo contrato
+   Formal, bonito, com cabeçalho, secções, resumo lateral
+   ============================================================ */
+.modal-contract {
+  max-width: 920px !important;
+  width: 100%;
+  max-height: 92vh;
+  max-height: 92dvh;
+  border-radius: 2px !important;
+  overflow: hidden;
+  background: var(--card);
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  padding: 0 !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  position: relative;
+}
+.modal-contract__form {
+  padding: 40px 40px 32px;
+  overflow-y: auto;
+  max-height: 92vh;
+  max-height: 92dvh;
+}
+.modal-contract__sidebar {
+  background: var(--bg-soft);
+  padding: 40px 32px;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+.modal-contract__header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-contract__header-eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 10px;
+}
+.modal-contract__header-title {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.modal-contract__header-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+.modal-contract__section {
+  margin-bottom: 28px;
+}
+.modal-contract__section-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.modal-contract__section-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 2px;
+  letter-spacing: 0;
+}
+.modal-contract__field {
+  margin-bottom: 14px;
+}
+.modal-contract__field-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+.modal-contract__field-input,
+.modal-contract__field-select,
+.modal-contract__field-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.92rem;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color .25s, box-shadow .25s;
+}
+.modal-contract__field-input:focus,
+.modal-contract__field-select:focus,
+.modal-contract__field-textarea:focus {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(224,112,0,0.1);
+}
+.modal-contract__field-textarea {
+  resize: vertical;
+  min-height: 70px;
+  font-family: inherit;
+}
+.modal-contract__field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.modal-contract__sidebar-eyebrow {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-contract__summary-tour {
+  margin-bottom: 24px;
+}
+.modal-contract__summary-tour-name {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.modal-contract__summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 0.85rem;
+  border-bottom: 1px dashed var(--border);
+}
+.modal-contract__summary-row:last-of-type { border-bottom: none; }
+.modal-contract__summary-row .label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+}
+.modal-contract__summary-row .value {
+  color: var(--text);
+  font-weight: 500;
+  font-family: var(--serif);
+}
+.modal-contract__summary-total {
+  margin-top: 20px;
+  padding: 18px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  text-align: center;
+}
+.modal-contract__summary-total-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.modal-contract__summary-total-value {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.modal-contract__summary-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 10px;
+  line-height: 1.5;
+  font-style: italic;
+}
+.modal-contract__cta {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 16px 24px;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .3s cubic-bezier(.22,.61,.36,1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.modal-contract__cta:hover {
+  background: var(--accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(224,112,0,0.3);
+}
+.modal-contract__cta .arrow {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  transition: transform .3s;
+}
+.modal-contract__cta:hover .arrow { transform: translateX(4px); }
+.modal-contract__close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: all .25s;
+}
+.modal-contract__close:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  color: #fff;
+  transform: rotate(90deg);
+}
+.modal-contract__success {
+  text-align: center;
+  padding: 40px 20px;
+}
+.modal-contract__success-icon {
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-style: italic;
+}
+.modal-contract__success-title {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.modal-contract__success-text {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .modal-contract {
+    grid-template-columns: 1fr;
+    max-height: 92vh;
+    max-height: 92dvh;
+  }
+  .modal-contract__form { padding: 28px 22px; }
+  .modal-contract__sidebar { padding: 28px 22px; border-left: none; border-top: 1px solid var(--border); }
+  .modal-contract__field-row { grid-template-columns: 1fr; }
+  .modal-contract__header-title { font-size: 1.5rem; }
 }
 
 /* Manter classes antigas para compatibilidade */
