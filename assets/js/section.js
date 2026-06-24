@@ -236,10 +236,10 @@ function renderSection(section) {
 // PARALLAX SHOWCASE — excursion em destaque
 // ============================================
 function renderParallaxShowcase(s) {
-  // Procura a excursão marcada como destaque em tours.json
+  // Procura a excursão marcada como destaque em tours.json (pode estar ativo=false)
   const allTours = SITE.tours?.tours || [];
-  const tour = allTours.find(t => t.destaque === true && t.ativo !== false)
-            || allTours.find(t => t.id === 'rota-sol-praia')
+  const tour = allTours.find(t => t.destaque === true)
+            || allTours.find(t => t.id === 'fatima-obidos')
             || allTours.find(t => t.ativo !== false);
 
   if (!tour) return '';
@@ -249,15 +249,17 @@ function renderParallaxShowcase(s) {
   const duracao = t(tour.duracao, tour.duracaoEn);
   const dia = tour.data?.dia || '';
   const mes = tour.data?.mes || '';
-  const tituloDestaque = SITE.lang === 'en' ? 'Coastal Escape' : 'Fuga à Costa';
+  const tituloDestaque = SITE.lang === 'en' ? 'Featured Journey' : 'Viagem em Destaque';
 
   return `
     <section class="parallax-showcase" id="destaque">
-      <img class="parallax-showcase__bg" src="${tour.imagem}" alt="${nome}" data-parallax>
+      <div class="parallax-showcase__bg-wrap" data-parallax-reverse>
+        <img class="parallax-showcase__bg" src="${tour.imagem}" alt="${nome}">
+      </div>
       <div class="parallax-showcase__overlay"></div>
       <div class="parallax-showcase__inner">
         <div class="parallax-showcase__text reveal">
-          <span class="section-tag" data-pt="Excursão em Destaque" data-en="Featured Tour">Excursão em Destaque</span>
+          <span class="section-tag" data-pt="Excursão em Destaque" data-en="Featured Tour">${SITE.lang === 'en' ? 'Featured Tour' : 'Excursão em Destaque'}</span>
           <h2 class="parallax-showcase__title">
             <span data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</span>
             <em>${tituloDestaque}</em>
@@ -280,16 +282,6 @@ function renderParallaxShowcase(s) {
           <div class="parallax-showcase__actions">
             <button class="btn-primary" onclick="openModal('modal-${tour.id}')" data-pt="Ver Detalhes" data-en="View Details">${SITE.lang === 'en' ? 'View Details' : 'Ver Detalhes'}</button>
             <button class="btn-outline" onclick="openReservaModal('${tour.id}')" data-pt="Reservar Agora" data-en="Book Now">${ts('Reservar')}</button>
-          </div>
-        </div>
-        <div class="parallax-showcase__card reveal">
-          <img class="parallax-showcase__card-img" src="${tour.imagem}" alt="${nome}">
-          <div class="parallax-showcase__card-date">${dia} ${mes} · ${tour.preco}€</div>
-          <h3 class="parallax-showcase__card-title" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</h3>
-          <p class="parallax-showcase__card-desc" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
-          <div class="parallax-showcase__card-cta">
-            <span class="price">${tour.preco}€</span>
-            <button class="btn-primary" style="padding:10px 22px;font-size:0.78rem" onclick="closeModalOutside(event);openReservaModal('${tour.id}')">${ts('Reservar')}</button>
           </div>
         </div>
       </div>
@@ -417,29 +409,31 @@ function renderTours(s) {
 
 function renderBlog(s) {
   const artigos = s.artigos?.filter(a => a.ativo !== false) || [];
-  
+
   const artigosHTML = artigos.map(a => `
-    <div class="card" style="text-align:left">
-      <img src="${a.imagem}" alt="${a.titulo}" class="blog-img">
-      <div style="padding:20px">
-        <span style="background:linear-gradient(135deg,#2d7a3a,#1e5e28);color:#fff;padding:3px 10px;border-radius:999px;font-size:0.7rem;font-weight:600" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
-        <h3 style="font-weight:700;margin:10px 0 8px;font-size:1rem" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
-        <p style="color:var(--muted);font-size:0.82rem;margin-bottom:16px" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="color:var(--muted);font-size:0.75rem">${formatDate(a.data)}</span>
-          <button class="btn-primary" style="padding:6px 16px;font-size:0.78rem" onclick="openModal('modal-${a.id}')" data-pt="Ler Mais" data-en="Read More">${ts('Ler Mais')}</button>
-        </div>
+    <article class="card editorial-card reveal-stagger">
+      <div class="editorial-card__img-wrap">
+        <img src="${a.imagem}" alt="${t(a.titulo, a.tituloEn)}" class="editorial-card__img" loading="lazy">
+        <span class="editorial-card__category" data-pt="${a.categoria}" data-en="${a.categoriaEn || a.categoria}">${t(a.categoria, a.categoriaEn)}</span>
       </div>
-    </div>
+      <div class="editorial-card__body">
+        <span class="editorial-card__date">${formatDate(a.data)}</span>
+        <h3 class="editorial-card__title" data-pt="${a.titulo}" data-en="${a.tituloEn || a.titulo}">${t(a.titulo, a.tituloEn)}</h3>
+        <p class="editorial-card__excerpt" data-pt="${a.resumo}" data-en="${a.resumoEn || a.resumo}">${t(a.resumo, a.resumoEn)}</p>
+        <button class="editorial-card__cta" onclick="openModal('modal-${a.id}')" data-pt="Ler Mais" data-en="Read More">
+          ${ts('Ler Mais')} <span class="arrow">→</span>
+        </button>
+      </div>
+    </article>
   `).join('');
-  
+
   return `
-    <section id="${s.id || 'blog'}" style="padding:80px 20px;background:var(--bg)">
-      <div style="max-width:1200px;margin:0 auto;text-align:center">
+    <section id="${s.id || 'blog'}" style="background:var(--bg)">
+      <div style="text-align:center">
         <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
-        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:12px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <p style="color:var(--muted);margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">
+        <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+        <p class="section-subtitle" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;margin-top:60px;text-align:left">
           ${artigosHTML}
         </div>
       </div>
@@ -451,29 +445,31 @@ function renderCards(s) {
   const itens = s.itens?.filter(i => i.ativo !== false) || [];
   const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
   const tagColorClass = s.tagCor === 'verde' ? 'green' : (s.tagCor === 'vermelho' ? 'red' : '');
-  
+
   const itensHTML = itens.map(i => `
-    <div class="sust-card">
-      <img src="${i.imagem}" alt="${i.titulo}" style="width:100%;height:200px;object-fit:cover">
-      <div style="padding:20px;text-align:left">
-        <span class="section-tag ${tagColorClass}" style="font-size:0.7rem;padding:3px 10px" data-pt="${i.categoria}" data-en="${i.categoriaEn || i.categoria}">${t(i.categoria, i.categoriaEn)}</span>
-        <h3 style="font-weight:700;margin:10px 0 8px;font-size:1rem" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
-        <p style="color:var(--muted);font-size:0.82rem;margin-bottom:16px" data-pt="${i.resumo}" data-en="${i.resumoEn || i.resumo}">${t(i.resumo, i.resumoEn)}</p>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="color:var(--muted);font-size:0.75rem">${formatDate(i.data)}</span>
-          <button class="btn-primary" style="padding:6px 16px;font-size:0.78rem" onclick="openModal('modal-${i.id}')" data-pt="Ler Mais" data-en="Read More">${ts('Ler Mais')}</button>
-        </div>
+    <article class="card editorial-card reveal-stagger">
+      <div class="editorial-card__img-wrap">
+        <img src="${i.imagem}" alt="${t(i.titulo, i.tituloEn)}" class="editorial-card__img" loading="lazy">
+        <span class="editorial-card__category ${tagColorClass}" data-pt="${i.categoria}" data-en="${i.categoriaEn || i.categoria}">${t(i.categoria, i.categoriaEn)}</span>
       </div>
-    </div>
+      <div class="editorial-card__body">
+        <span class="editorial-card__date">${formatDate(i.data)}</span>
+        <h3 class="editorial-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${t(i.titulo, i.tituloEn)}</h3>
+        <p class="editorial-card__excerpt" data-pt="${i.resumo}" data-en="${i.resumoEn || i.resumo}">${t(i.resumo, i.resumoEn)}</p>
+        <button class="editorial-card__cta" onclick="openModal('modal-${i.id}')" data-pt="Ler Mais" data-en="Read More">
+          ${ts('Ler Mais')} <span class="arrow">→</span>
+        </button>
+      </div>
+    </article>
   `).join('');
-  
+
   return `
-    <section id="${s.id || 'cards'}" style="padding:80px 20px;background:${bgClass}">
-      <div style="max-width:1200px;margin:0 auto;text-align:center">
+    <section id="${s.id || 'cards'}" style="background:${bgClass}">
+      <div style="text-align:center">
         <span class="section-tag ${tagColorClass}" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
-        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:12px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <p style="color:var(--muted);margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+        <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+        <p class="section-subtitle" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;margin-top:60px;text-align:left">
           ${itensHTML}
         </div>
       </div>
@@ -506,32 +502,26 @@ function renderTextoImagem(s) {
 }
 
 function renderFeatures(s) {
-  const itens = s.itens || [];
+  const itens = (s.itens || []).filter(i => i.ativo !== false);
   const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
 
-  // Se houver imagens nos itens, usa cards com foto (estilo magazine)
-  // Senão, fallback para cards com gradiente + letra
-  const itensHTML = itens.map(i => {
+  // Itens com foto: cards verticais estilo magazine com hover overlay
+  // Grid sempre 1 linha no desktop (até 6 cards), responsivo para 2/1
+  const itensHTML = itens.map((i, idx) => {
     const titulo = t(i.titulo, i.tituloEn);
     const descricao = t(i.descricao, i.descricaoEn);
     const initial = (titulo || '?').charAt(0).toUpperCase();
 
-    if (i.imagem) {
-      return `
-        <div class="why-card reveal-stagger">
-          <img class="why-card__img" src="${i.imagem}" alt="${titulo}">
-          <div class="why-card__body">
-            <h3 class="why-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${titulo}</h3>
-            <p class="why-card__desc" data-pt="${i.descricao}" data-en="${i.descricaoEn || i.descricao}">${descricao}</p>
-          </div>
-        </div>
-      `;
-    }
+    const visual = i.imagem
+      ? `<img class="why-card__img" src="${i.imagem}" alt="${titulo}" loading="lazy">`
+      : `<div class="why-card__img" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:4.5rem;font-weight:700;font-style:italic">${initial}</div>`;
 
-    // Fallback: card com gradiente + letra grande (sem ícone emoji)
     return `
       <div class="why-card reveal-stagger">
-        <div style="height:200px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:5rem;font-weight:700;font-style:italic">${initial}</div>
+        <div class="why-card__visual">
+          ${visual}
+          <div class="why-card__overlay-num">${String(idx+1).padStart(2,'0')}</div>
+        </div>
         <div class="why-card__body">
           <h3 class="why-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${titulo}</h3>
           <p class="why-card__desc" data-pt="${i.descricao}" data-en="${i.descricaoEn || i.descricao}">${descricao}</p>
@@ -540,13 +530,17 @@ function renderFeatures(s) {
     `;
   }).join('');
 
+  // Grid dinâmico: 1 linha no desktop, 2 cols tablet, 1 col mobile
+  const itemCount = itens.length;
+  const gridCols = itemCount <= 4 ? `repeat(${itemCount}, 1fr)` : `repeat(5, 1fr)`;
+
   return `
     <section id="${s.id || 'features'}" style="background:${bgClass}">
       <div style="text-align:center">
         <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
         <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
         <p class="section-subtitle" data-pt="${s.descricao || ''}" data-en="${s.descricaoEn || s.descricao || ''}">${t(s.descricao || '', s.descricaoEn || s.descricao || '')}</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:60px">
+        <div class="why-grid" style="display:grid;grid-template-columns:${gridCols};gap:24px;margin-top:64px">
           ${itensHTML}
         </div>
       </div>
@@ -590,107 +584,100 @@ function renderFormulario(s) {
   const morada = s.infoContacto?.morada || cfg.morada || '';
   const whatsapp = cfg.whatsapp || '';
 
-  // Google Maps embed se morada existir
+  // Google Maps embed
   const mapQuery = encodeURIComponent(morada || 'Baixa da Banheira, Portugal');
   const mapEmbed = s.mapaEmbed || `https://www.google.com/maps?q=${mapQuery}&output=embed`;
 
   // Textos localizados
-  const txtPhone = SITE.lang === 'en' ? 'Phone' : 'Telefone';
-  const txtAddress = SITE.lang === 'en' ? 'Address' : 'Morada';
-  const txtHours = SITE.lang === 'en' ? 'Opening Hours' : 'Horário';
-  const txtFullName = SITE.lang === 'en' ? 'Full Name' : 'Nome Completo';
-  const txtMessage = SITE.lang === 'en' ? 'Message' : 'Mensagem';
-  const txtSend = SITE.lang === 'en' ? 'Send Message' : 'Enviar Mensagem';
-  const txtMonFri = SITE.lang === 'en' ? 'Mon - Fri' : 'Seg - Sex';
-  const txtSat = SITE.lang === 'en' ? 'Saturday' : 'Sábado';
-  const txtSun = SITE.lang === 'en' ? 'Sunday' : 'Domingo';
-  const txtClosed = SITE.lang === 'en' ? 'Closed' : 'Fechado';
+  const L = SITE.lang === 'en' ? {
+    phone: 'Call us', address: 'Find us', hours: 'Opening Hours',
+    fullName: 'Your Name', message: 'Message', send: 'Send Message',
+    monFri: 'Mon – Fri', sat: 'Saturday', sun: 'Sunday', closed: 'Closed',
+    directContact: 'Direct Contact', quickMessage: 'Quick Message',
+    subtitle: 'We respond within 24 hours. Bookings, questions, custom tours — just reach out.'
+  } : {
+    phone: 'Ligue-nos', address: 'Encontre-nos', hours: 'Horário',
+    fullName: 'O seu Nome', message: 'Mensagem', send: 'Enviar Mensagem',
+    monFri: 'Seg – Sex', sat: 'Sábado', sun: 'Domingo', closed: 'Fechado',
+    directContact: 'Contacto Direto', quickMessage: 'Mensagem Rápida',
+    subtitle: 'Respondemos em até 24 horas. Reservas, dúvidas, tours personalizados — fale connosco.'
+  };
 
   return `
     <section id="${s.id || 'contactos'}" class="contacts-section">
       <div class="contacts-grid">
+        <!-- Lado esquerdo: Contacto Direto visual + horários -->
         <div class="contacts-info reveal">
           <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
           <h2 data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-          <p data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
+          <p data-pt="${s.descricao || L.subtitle}" data-en="${s.descricaoEn || L.subtitle}">${t(s.descricao || L.subtitle, s.descricaoEn || L.subtitle)}</p>
+
+          <h3 class="contacts-block-title">${L.directContact}</h3>
 
           ${tel ? `
-            <a class="contact-card" href="tel:${tel.replace(/\s/g,'')}">
-              <div class="contact-card__visual">${txtPhone.charAt(0)}</div>
-              <div>
-                <div class="contact-card__label">${txtPhone}</div>
-                <div class="contact-card__value">${tel}</div>
-              </div>
+            <a class="contact-link" href="tel:${tel.replace(/\s/g,'')}">
+              <span class="contact-link__label">${L.phone}</span>
+              <span class="contact-link__value">${tel}</span>
+              <span class="contact-link__arrow">→</span>
             </a>
           ` : ''}
 
           ${email ? `
-            <a class="contact-card" href="mailto:${email}">
-              <div class="contact-card__visual">@</div>
-              <div>
-                <div class="contact-card__label">Email</div>
-                <div class="contact-card__value">${email}</div>
-              </div>
-            </a>
-          ` : ''}
-
-          ${morada ? `
-            <a class="contact-card" href="https://maps.google.com/?q=${encodeURIComponent(morada)}" target="_blank" rel="noopener">
-              <div class="contact-card__visual">↗</div>
-              <div>
-                <div class="contact-card__label">${txtAddress}</div>
-                <div class="contact-card__value" style="font-size:0.95rem;line-height:1.4">${morada}</div>
-              </div>
+            <a class="contact-link" href="mailto:${email}">
+              <span class="contact-link__label">Email</span>
+              <span class="contact-link__value">${email}</span>
+              <span class="contact-link__arrow">→</span>
             </a>
           ` : ''}
 
           ${whatsapp ? `
-            <a class="contact-card" href="https://wa.me/${whatsapp}" target="_blank" rel="noopener">
-              <div class="contact-card__visual" style="background:linear-gradient(135deg,#25d366,#128c4b)">W</div>
-              <div>
-                <div class="contact-card__label">WhatsApp</div>
-                <div class="contact-card__value">+${whatsapp}</div>
-              </div>
+            <a class="contact-link" href="https://wa.me/${whatsapp}" target="_blank" rel="noopener">
+              <span class="contact-link__label">WhatsApp</span>
+              <span class="contact-link__value">+${whatsapp}</span>
+              <span class="contact-link__arrow">→</span>
             </a>
           ` : ''}
 
-          <!-- Formulário inline moderno -->
-          <div class="card" style="padding:36px;margin-top:32px">
-            <div style="margin-bottom:24px">
-              <label style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:var(--text-soft);display:block;margin-bottom:8px">${txtFullName}</label>
-              <input type="text" id="contact-name" class="translatable-input" data-placeholder-pt="O seu nome..." data-placeholder-en="Your name..." placeholder="${namePlaceholder}" style="width:100%;padding:14px 18px;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;box-sizing:border-box;transition:border-color .25s" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'">
+          ${morada ? `
+            <a class="contact-link" href="https://maps.google.com/?q=${encodeURIComponent(morada)}" target="_blank" rel="noopener">
+              <span class="contact-link__label">${L.address}</span>
+              <span class="contact-link__value" style="font-size:0.95rem;line-height:1.4">${morada}</span>
+              <span class="contact-link__arrow">→</span>
+            </a>
+          ` : ''}
+
+          <div class="contacts-hours-mini">
+            <h4>${L.hours}</h4>
+            <div class="contacts-hours-row">
+              <span class="day">${L.monFri}</span>
+              <span class="hours">9h00 — 19h00</span>
             </div>
-            <div style="margin-bottom:24px">
-              <label style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:var(--text-soft);display:block;margin-bottom:8px">Email</label>
-              <input type="email" id="contact-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="width:100%;padding:14px 18px;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;box-sizing:border-box;transition:border-color .25s" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'">
+            <div class="contacts-hours-row">
+              <span class="day">${L.sat}</span>
+              <span class="hours">10h00 — 17h00</span>
             </div>
-            <div style="margin-bottom:24px">
-              <label style="font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;color:var(--text-soft);display:block;margin-bottom:8px">${txtMessage}</label>
-              <textarea id="contact-msg" rows="4" class="translatable-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}" style="width:100%;padding:14px 18px;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.95rem;outline:none;resize:vertical;box-sizing:border-box;transition:border-color .25s;font-family:inherit" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+            <div class="contacts-hours-row">
+              <span class="day">${L.sun}</span>
+              <span class="hours" style="color:var(--muted)">${L.closed}</span>
             </div>
-            <button class="btn-primary" style="width:100%" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${txtSend}</button>
-            <p id="contact-success" style="margin-top:16px;color:var(--accent);font-weight:600;display:none;text-align:center;font-family:var(--serif)"></p>
           </div>
         </div>
 
+        <!-- Lado direito: Mapa em cima, formulário em baixo -->
         <div class="contacts-aside reveal">
           <div class="contacts-map-wrap">
-            <iframe src="${mapEmbed}" width="100%" height="360" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="${mapEmbed}" width="100%" height="320" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
-          <div class="contacts-hours">
-            <h4>${txtHours}</h4>
-            <div class="contacts-hours-row">
-              <span class="day">${txtMonFri}</span>
-              <span class="hours">9h00 - 19h00</span>
+
+          <div class="contacts-form-card">
+            <h3>${L.quickMessage}</h3>
+            <div class="contacts-form-grid">
+              <input type="text" id="contact-name" class="translatable-input contacts-input" data-placeholder-pt="O seu nome..." data-placeholder-en="Your name..." placeholder="${namePlaceholder}">
+              <input type="email" id="contact-email" class="translatable-input contacts-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}">
             </div>
-            <div class="contacts-hours-row">
-              <span class="day">${txtSat}</span>
-              <span class="hours">10h00 - 17h00</span>
-            </div>
-            <div class="contacts-hours-row">
-              <span class="day">${txtSun}</span>
-              <span class="hours" style="color:var(--muted)">${txtClosed}</span>
-            </div>
+            <textarea id="contact-msg" rows="4" class="translatable-input contacts-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}"></textarea>
+            <button class="btn-primary contacts-submit" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${L.send}</button>
+            <p id="contact-success" style="margin-top:14px;color:var(--accent);font-weight:600;display:none;text-align:center;font-family:var(--serif)"></p>
           </div>
         </div>
       </div>
@@ -923,7 +910,7 @@ function renderModalEditorial(m) {
     </div>
   ` : '';
 
-  // Modais com tourId (excursões) — layout split editorial
+  // Modais com tourId (excursões) — layout split editorial completo
   if (m.tourId && m.imagem) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
@@ -946,6 +933,36 @@ function renderModalEditorial(m) {
               ${m.preco != null ? `<div class="modal-price">${m.preco}€<small>/${ts('pessoa')}</small></div>` : '<div></div>'}
               ${m.textoBotao ? `<button class="btn-primary" onclick="closeModal('${m.id}');openReservaModal('${m.tourId}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${t(m.textoBotao, m.textoBotaoEn)}</button>` : ''}
             </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Modais de blog/sustentabilidade (com imagem, sem tourId) — também usam split
+  // mas sem o footer de preço/botão — em vez disso, botões genéricos no fim
+  if (m.imagem && !m.botoes) {
+    return `
+      <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
+        <div class="modal-box modal-box--editorial">
+          <button class="modal-close-btn" onclick="closeModal('${m.id}')" aria-label="Fechar">✕</button>
+          <div class="modal-visual">
+            <img src="${m.imagem}" alt="${titulo}">
+          </div>
+          <div class="modal-body">
+            ${subtitulo ? `<div class="modal-eyebrow" data-pt="${m.subtitulo}" data-en="${m.subtituloEn || m.subtitulo}">${subtitulo}</div>` : ''}
+            <h3 class="modal-title" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
+            <div class="modal-content-text" data-pt="${m.conteudo}" data-en="${m.conteudoEn || m.conteudo}">${renderMarkdown(conteudo)}</div>
+            ${incluidosHTML ? `
+              <div class="modal-includes-title">${ts('Incluído no pacote:')}</div>
+              <ul class="modal-includes-list">${incluidosHTML}</ul>
+            ` : ''}
+            ${m.textoBotao ? `
+              <div class="modal-footer">
+                <div></div>
+                <button class="btn-primary" onclick="closeModal('${m.id}');openReservaModal('${m.tourId || ''}')" data-pt="${m.textoBotao}" data-en="${m.textoBotaoEn || m.textoBotao}">${t(m.textoBotao, m.textoBotaoEn)}</button>
+              </div>
+            ` : ''}
           </div>
         </div>
       </div>
@@ -1446,27 +1463,40 @@ function setupScrollReveal() {
 // ============================================
 // PARALLAX EFFECT
 // ============================================
-// Move a imagem de fundo do .parallax-showcase a 50% da velocidade do scroll
-// para criar profundidade. Leve, não distrai.
+// Reverse parallax: a imagem começa em baixo (translateY positivo grande)
+// e vai subindo (translateY diminui) à medida que se faz scroll.
+// Isto cria a sensação de "a imagem sobe para revelar a secção".
 function setupParallax() {
-  const parallaxEls = document.querySelectorAll('[data-parallax]');
+  const parallaxEls = document.querySelectorAll('[data-parallax-reverse]');
   if (!parallaxEls.length) return;
 
   // Respeita prefers-reduced-motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // Throttle com requestAnimationFrame
   let ticking = false;
+
   function update() {
     parallaxEls.forEach(el => {
       const rect = el.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      // Só atualiza se a secção estiver visível
-      if (rect.bottom > 0 && rect.top < windowHeight) {
-        // Offset relativo ao centro do viewport
-        const scrolled = (rect.top + rect.height / 2) - windowHeight / 2;
-        const speed = 0.15; // 15% da velocidade do scroll (subtil)
-        el.style.transform = `translateY(${-scrolled * speed}px) scale(1.05)`;
+
+      // Só atualiza se a secção estiver próxima do viewport
+      if (rect.bottom > -200 && rect.top < windowHeight + 200) {
+        // Quanto da secção já entrou no viewport (0 = ainda não entrou, 1 = entrou completamente)
+        const visibleProgress = Math.max(0, Math.min(1,
+          (windowHeight - rect.top) / (windowHeight + rect.height)
+        ));
+
+        // A imagem começa deslocada para baixo (translateY: 30%)
+        // e sobe para translateY: -10% conforme a secção entra no viewport
+        const startOffset = 30;   // % de altura da secção
+        const endOffset = -10;
+        const currentOffset = startOffset - (startOffset - endOffset) * visibleProgress;
+
+        const img = el.querySelector('.parallax-showcase__bg');
+        if (img) {
+          img.style.transform = `translateY(${currentOffset}%) scale(1.1)`;
+        }
       }
     });
     ticking = false;

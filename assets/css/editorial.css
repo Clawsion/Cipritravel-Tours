@@ -537,47 +537,57 @@ section > div:first-child {
 }
 
 /* ============================================================
-   PARALLAX SHOWCASE — excursion em destaque (Rota do Sol e Praia)
+   PARALLAX SHOWCASE — excursion em destaque
+   Imagem começa em baixo e sobe com o scroll (reverse parallax)
    ============================================================ */
 .parallax-showcase {
   position: relative;
-  min-height: 90vh;
-  min-height: 90dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   overflow: hidden;
   padding: 0;
   isolation: isolate;
 }
+.parallax-showcase__bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
 .parallax-showcase__bg {
   position: absolute;
-  inset: -10% 0;
+  inset: -20% 0;
   width: 100%;
-  height: 120%;
+  height: 140%;
   object-fit: cover;
-  z-index: -2;
   will-change: transform;
-  transition: transform .1s linear;
+  /* Estado inicial: imagem deslocada para baixo */
+  transform: translateY(30%) scale(1.1);
+  transition: transform .15s linear;
 }
 .parallax-showcase__overlay {
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(135deg, rgba(0,40,15,0.55) 0%, rgba(20,15,5,0.4) 40%, rgba(224,112,0,0.45) 100%);
+    linear-gradient(180deg, rgba(15,10,5,0.6) 0%, rgba(15,10,5,0.35) 40%, rgba(15,10,5,0.75) 100%),
+    linear-gradient(135deg, rgba(0,40,15,0.3) 0%, rgba(224,112,0,0.25) 100%);
 }
 .parallax-showcase__inner {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 100px 24px;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 60px;
   align-items: center;
 }
 .parallax-showcase__text {
   color: #fff;
+  max-width: 640px;
 }
 .parallax-showcase__text .section-tag {
   color: #fb923c;
@@ -586,28 +596,32 @@ section > div:first-child {
 .parallax-showcase__title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(2.4rem, 6vw, 4.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin: 16px 0 20px;
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 20px 0 24px;
   color: #fff;
 }
 .parallax-showcase__title em {
+  display: block;
   font-style: italic;
   color: #fb923c;
+  font-size: 0.55em;
+  letter-spacing: 0;
+  margin-top: 8px;
 }
 .parallax-showcase__desc {
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
   font-weight: 300;
-  color: rgba(255,255,255,0.9);
+  color: rgba(255,255,255,0.92);
   line-height: 1.7;
-  margin-bottom: 32px;
-  max-width: 480px;
+  margin-bottom: 36px;
+  max-width: 540px;
 }
 .parallax-showcase__meta {
   display: flex;
-  gap: 28px;
-  margin-bottom: 32px;
+  gap: 40px;
+  margin-bottom: 36px;
   flex-wrap: wrap;
 }
 .parallax-showcase__meta-item {
@@ -616,14 +630,14 @@ section > div:first-child {
 .parallax-showcase__meta-item .label {
   display: block;
   font-size: 0.65rem;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 4px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 6px;
 }
 .parallax-showcase__meta-item .value {
   font-family: var(--serif);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 500;
 }
 .parallax-showcase__meta-item.price .value { color: #fb923c; }
@@ -633,76 +647,12 @@ section > div:first-child {
   flex-wrap: wrap;
 }
 
-/* Painel de imagem flutuante à direita */
-.parallax-showcase__card {
-  position: relative;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 8px;
-  padding: 40px 32px;
-  color: #fff;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-  max-width: 420px;
-  margin-left: auto;
-  transform: translateY(0);
-  transition: transform .4s ease;
-}
-.parallax-showcase__card:hover { transform: translateY(-6px); }
-.parallax-showcase__card-img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 24px;
-}
-.parallax-showcase__card-date {
-  display: inline-block;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: #fb923c;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-.parallax-showcase__card-title {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  font-weight: 500;
-  line-height: 1.15;
-  margin-bottom: 12px;
-  color: #fff;
-}
-.parallax-showcase__card-desc {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.6;
-  margin-bottom: 24px;
-}
-.parallax-showcase__card-cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,0.18);
-}
-.parallax-showcase__card-cta .price {
-  font-family: var(--serif);
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fb923c;
-}
-
 @media (max-width: 900px) {
-  .parallax-showcase { min-height: auto; }
-  .parallax-showcase__inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 60px 20px;
-  }
-  .parallax-showcase__card { max-width: 100%; margin-left: 0; }
-  .parallax-showcase__title { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  .parallax-showcase { min-height: 90vh; min-height: 90dvh; }
+  .parallax-showcase__inner { padding: 60px 20px; }
+  .parallax-showcase__title { font-size: clamp(1.8rem, 8vw, 2.6rem); }
+  .parallax-showcase__meta { gap: 24px; }
+  .parallax-showcase__meta-item .value { font-size: 1.2rem; }
 }
 
 /* ============================================================
@@ -898,7 +848,7 @@ section > div:first-child {
 }
 
 /* ============================================================
-   CONTACTOS MODERNOS
+   CONTACTOS — design direto e visual (editorial)
    ============================================================ */
 .contacts-section {
   background: var(--bg-soft) !important;
@@ -906,8 +856,8 @@ section > div:first-child {
 }
 .contacts-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
   max-width: 1400px;
   margin: 0 auto;
   align-items: start;
@@ -916,121 +866,254 @@ section > div:first-child {
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1.1;
+  line-height: 1.05;
   letter-spacing: -0.02em;
-  margin: 16px 0 24px;
+  margin: 16px 0 20px;
 }
 .contacts-info > p {
   color: var(--text-soft);
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.7;
-  margin-bottom: 40px;
-  max-width: 480px;
+  margin-bottom: 48px;
+  max-width: 440px;
 }
-.contact-card {
+.contacts-block-title {
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.contact-link {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 24px 28px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  margin-bottom: 16px;
-  transition: all .35s cubic-bezier(.22,.61,.36,1);
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: inherit;
+  transition: all .35s cubic-bezier(.22,.61,.36,1);
 }
-.contact-card:hover {
-  transform: translateX(8px);
-  border-color: var(--accent-2);
-  box-shadow: var(--shadow-lg);
+.contact-link:hover {
+  padding-left: 12px;
 }
-.contact-card__visual {
-  width: 56px;
-  height: 56px;
-  border-radius: 4px;
-  object-fit: cover;
-  flex-shrink: 0;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-family: var(--serif);
-  font-size: 1.4rem;
-  font-weight: 700;
-  overflow: hidden;
-}
-.contact-card__visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.contact-card__label {
-  font-size: 0.65rem;
+.contact-link__label {
+  font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 4px;
   font-weight: 600;
+  flex: 0 0 100px;
 }
-.contact-card__value {
+.contact-link__value {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+  transition: color .25s;
+}
+.contact-link:hover .contact-link__value { color: var(--accent-2); }
+.contact-link__arrow {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--muted);
+  transition: transform .35s, color .25s;
+}
+.contact-link:hover .contact-link__arrow {
+  transform: translateX(8px);
+  color: var(--accent-2);
+}
+
+.contacts-hours-mini {
+  margin-top: 36px;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--border);
+}
+.contacts-hours-mini h4 {
   font-family: var(--serif);
   font-size: 1.1rem;
   font-weight: 500;
+  margin-bottom: 12px;
   color: var(--text);
-}
-.contacts-aside {
-  position: sticky;
-  top: 100px;
-}
-.contacts-map-wrap {
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-lg);
-  margin-bottom: 24px;
-}
-.contacts-map-wrap iframe {
-  width: 100%;
-  height: 360px;
-  border: 0;
-  display: block;
-  filter: grayscale(40%) contrast(1.05);
-  transition: filter .4s;
-}
-.contacts-map-wrap:hover iframe { filter: grayscale(0%) contrast(1); }
-.contacts-hours {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 28px;
-}
-.contacts-hours h4 {
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin-bottom: 16px;
 }
 .contacts-hours-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.9rem;
+  padding: 8px 0;
+  font-size: 0.88rem;
 }
-.contacts-hours-row:last-child { border-bottom: none; }
 .contacts-hours-row .day { color: var(--text-soft); }
-.contacts-hours-row .hours { color: var(--accent); font-weight: 600; }
+.contacts-hours-row .hours { color: var(--accent); font-weight: 600; font-family: var(--serif); }
+
+.contacts-aside { display: flex; flex-direction: column; gap: 24px; }
+.contacts-map-wrap {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.contacts-map-wrap iframe {
+  width: 100%;
+  height: 280px;
+  border: 0;
+  display: block;
+  filter: grayscale(30%) contrast(1.05);
+  transition: filter .4s;
+}
+.contacts-map-wrap:hover iframe { filter: grayscale(0%) contrast(1); }
+
+.contacts-form-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+}
+.contacts-form-card h3 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+.contacts-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.contacts-input {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.92rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color .25s, box-shadow .25s;
+  font-family: inherit;
+}
+.contacts-input:focus {
+  border-color: var(--accent-2);
+  box-shadow: 0 0 0 3px rgba(224,112,0,0.12);
+}
+.contacts-input::placeholder { color: var(--muted); opacity: 0.7; }
+textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100px; }
+.contacts-submit { width: 100%; }
 
 @media (max-width: 900px) {
-  .contacts-grid { grid-template-columns: 1fr; gap: 40px; }
-  .contacts-aside { position: static; }
-  .contacts-map-wrap iframe { height: 280px; }
+  .contacts-grid { grid-template-columns: 1fr; gap: 48px; }
+  .contacts-map-wrap iframe { height: 240px; }
+  .contacts-form-grid { grid-template-columns: 1fr; }
 }
 
 /* ============================================================
-   WHY US (porquê nós) — substituir ícones por imagens recortadas
+   EDITORIAL CARDS — blog + sustentabilidade (design coordenado)
+   ============================================================ */
+.editorial-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+.editorial-card__img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 240px;
+}
+.editorial-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .8s cubic-bezier(.22,.61,.36,1);
+  display: block;
+}
+.editorial-card:hover .editorial-card__img { transform: scale(1.08); }
+.editorial-card__category {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(255,255,255,0.95);
+  color: var(--accent-2);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+}
+.editorial-card__category.green { color: var(--accent); }
+.editorial-card__category.red { color: #c2410c; }
+.editorial-card__body {
+  padding: 28px 24px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.editorial-card__date {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.editorial-card__title {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+.editorial-card__excerpt {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  flex: 1;
+}
+.editorial-card__cta {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--accent-2);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap .3s, color .25s;
+}
+.editorial-card__cta .arrow {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform .3s;
+}
+.editorial-card__cta:hover {
+  color: var(--accent);
+  gap: 14px;
+}
+.editorial-card__cta:hover .arrow { transform: translateX(4px); }
+
+/* ============================================================
+   WHY US — cards em 1 linha, fotos temáticas, overlay número
    ============================================================ */
 .why-card {
   position: relative;
@@ -1040,33 +1123,71 @@ section > div:first-child {
   overflow: hidden;
   transition: all .4s cubic-bezier(.22,.61,.36,1);
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .why-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-10px);
   box-shadow: var(--shadow-lg);
   border-color: var(--accent);
 }
+.why-card__visual {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
 .why-card__img {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
   transition: transform .8s cubic-bezier(.22,.61,.36,1);
+  display: block;
 }
-.why-card:hover .why-card__img { transform: scale(1.08); }
+.why-card:hover .why-card__img { transform: scale(1.1); }
+.why-card__overlay-num {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+  z-index: 2;
+  opacity: 0.85;
+}
 .why-card__body {
-  padding: 28px 24px;
+  padding: 24px 22px 26px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .why-card__title {
   font-family: var(--serif);
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 .why-card__desc {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.65;
+  flex: 1;
+}
+
+/* Responsive grid para Porquê Nós */
+@media (max-width: 1100px) {
+  .why-grid { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 800px) {
+  .why-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 540px) {
+  .why-grid { grid-template-columns: 1fr !important; }
+  .why-card__visual { height: 200px; }
 }
 
 /* ============================================================

@@ -37,12 +37,18 @@
       "textoBotaoEn": "Book Now"
     },
     {
+      "type": "parallax-showcase",
+      "ativo": true,
+      "ordem": 3,
+      "id": "destaque"
+    },
+    {
       "subtituloEn": "Upcoming Tours",
       "ano": "2026",
       "tituloEn": "Featured Destinations",
       "tagEn": "Tours",
       "descricao": "Escolha a sua próxima aventura entre os nossos tours mais populares, cuidadosamente planeados para si.",
-      "ordem": 3,
+      "ordem": 4,
       "ativo": true,
       "descricaoEn": "Choose your next adventure from our most popular tours, carefully planned for you.",
       "subtitulo": "Próximas Excursões",
@@ -50,12 +56,6 @@
       "type": "tours",
       "tag": "Excursões",
       "id": "excursoes"
-    },
-    {
-      "type": "parallax-showcase",
-      "ativo": true,
-      "ordem": 4,
-      "id": "destaque"
     },
     {
       "tituloEn": "Travel Inspiration",
@@ -223,35 +223,40 @@
           "titulo": "Segurança Total",
           "tituloEn": "Total Safety",
           "descricao": "Todos os nossos tours incluem seguro de viagem e guia acompanhante.",
-          "descricaoEn": "All our tours include travel insurance and accompanying guide."
+          "descricaoEn": "All our tours include travel insurance and accompanying guide.",
+          "imagem": "/assets/images/uploads/aviao.jpg"
         },
         {
           "icone": "🚌",
           "titulo": "Conforto Garantido",
           "tituloEn": "Guaranteed Comfort",
           "descricao": "Autocarros modernos e equipados, pensados para oferecer o máximo conforto a todos os passageiros.",
-          "descricaoEn": "Modern and equipped coaches, designed to offer maximum comfort to all passengers."
+          "descricaoEn": "Modern and equipped coaches, designed to offer maximum comfort to all passengers.",
+          "imagem": "/assets/images/uploads/buddha-eden.jpg"
         },
         {
           "icone": "💰",
           "titulo": "Preço Justo",
           "tituloEn": "Fair Price",
           "descricao": "Transparência total nos preços — sem surpresas, sem custos escondidos.",
-          "descricaoEn": "Total price transparency — no surprises, no hidden costs."
+          "descricaoEn": "Total price transparency — no surprises, no hidden costs.",
+          "imagem": "/assets/images/uploads/badajoz.jpg"
         },
         {
           "icone": "✨",
           "titulo": "Experiências Únicas",
           "tituloEn": "Unique Experiences",
           "descricao": "Itinerários pensados ao detalhe para criar memórias que ficam para sempre.",
-          "descricaoEn": "Itineraries thought out in detail to create memories that last forever."
+          "descricaoEn": "Itineraries thought out in detail to create memories that last forever.",
+          "imagem": "/assets/images/uploads/serra-estrela-cascatas.jpg"
         },
         {
           "icone": "🌿",
           "titulo": "Turismo Consciente",
           "tituloEn": "Conscious Tourism",
           "descricao": "Promovemos práticas eco-sustentáveis em cada roteiro, garantindo a preservação dos destinos.",
-          "descricaoEn": "We promote eco-sustainable practices on every route, ensuring the preservation of destinations."
+          "descricaoEn": "We promote eco-sustainable practices on every route, ensuring the preservation of destinations.",
+          "imagem": "/assets/images/uploads/fatima-obidos.jpg"
         }
       ]
     },
