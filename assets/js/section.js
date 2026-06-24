@@ -1473,9 +1473,8 @@ function setupScrollReveal() {
 }
 
 // ============================================
-// PARALLAX EFFECT
+// PARALLAX EFFECT — reverse (imagem sobe de baixo para cima com scroll)
 // ============================================
-// Reverse parallax para secção full-bleed (100vh como o hero)
 function setupParallax() {
   const parallaxEls = document.querySelectorAll('[data-parallax-reverse]');
   if (!parallaxEls.length) return;
@@ -1495,14 +1494,17 @@ function setupParallax() {
           (windowHeight - rect.top) / (windowHeight + rect.height)
         ));
 
-        // Imagem começa translateY(15%) e sobe até translateY(-5%)
-        const startOffset = 15;
-        const endOffset = -5;
+        // A imagem tem 150% da altura do container (top: -25%, height: 150%)
+        // e começa deslocada para baixo (translateY 20%)
+        // Conforme se faz scroll, ela sobe até translateY(-15%)
+        // Isto cria o efeito "imagem grande que sobe de baixo para cima"
+        const startOffset = 20;
+        const endOffset = -15;
         const currentOffset = startOffset - (startOffset - endOffset) * visibleProgress;
 
         const img = el.querySelector('.parallax-showcase__bg');
         if (img) {
-          img.style.transform = `translateY(${currentOffset}%) scale(1.1)`;
+          img.style.transform = `translateY(${currentOffset}%)`;
         }
       }
     });
