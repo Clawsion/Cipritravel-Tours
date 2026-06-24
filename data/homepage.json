@@ -37,18 +37,12 @@
       "textoBotaoEn": "Book Now"
     },
     {
-      "type": "parallax-showcase",
-      "ativo": true,
-      "ordem": 3,
-      "id": "destaque"
-    },
-    {
       "subtituloEn": "Upcoming Tours",
       "ano": "2026",
       "tituloEn": "Featured Destinations",
       "tagEn": "Tours",
       "descricao": "Escolha a sua próxima aventura entre os nossos tours mais populares, cuidadosamente planeados para si.",
-      "ordem": 4,
+      "ordem": 3,
       "ativo": true,
       "descricaoEn": "Choose your next adventure from our most popular tours, carefully planned for you.",
       "subtitulo": "Próximas Excursões",
@@ -56,6 +50,12 @@
       "type": "tours",
       "tag": "Excursões",
       "id": "excursoes"
+    },
+    {
+      "type": "parallax-showcase",
+      "ativo": true,
+      "ordem": 4,
+      "id": "destaque"
     },
     {
       "tituloEn": "Travel Inspiration",

@@ -2,39 +2,6 @@
   "_comentario": "Fonte única de verdade para excursões. Editar apenas aqui via CMS. Os cards da home page e os modais são gerados automaticamente a partir deste ficheiro.",
   "tours": [
     {
-      "id": "fatima-obidos",
-      "ativo": false,
-      "destaque": true,
-      "ordem": 0,
-      "nome": "Fátima & Óbidos",
-      "nomeEn": "Fátima & Óbidos",
-      "data": {
-        "dia": "13",
-        "mes": "Jun"
-      },
-      "preco": 49,
-      "duracao": "1 Dia",
-      "duracaoEn": "1 Day",
-      "imagem": "/assets/images/uploads/fatima-obidos.jpg",
-      "corBadge": "laranja",
-      "descricao": "Visita ao Santuário de Fátima com tempo livre para oração. Tarde na encantadora vila medieval de Óbidos.",
-      "descricaoEn": "Visit to the Sanctuary of Fátima with free time for prayer. Afternoon in the charming medieval village of Óbidos.",
-      "modalConteudo": "Visita ao Santuário de Fátima com tempo livre para oração e contemplação. Tarde na encantadora vila medieval de Óbidos, conhecida como a \"Vila das Rainhas\", onde poderá caminhar pelas ruas muradas, provar a famosa ginjinha e apreciar a arquitectura histórica.\n\n**Locais de Embarque:** Setúbal, Baixa da Banheira, Sete Rios e Gare Oriente.",
-      "modalConteudoEn": "Visit to the Sanctuary of Fátima with free time for prayer and contemplation. Afternoon in the charming medieval village of Óbidos, known as the \"Town of Queens\", where you can walk through the walled streets, taste the famous ginjinha and appreciate the historic architecture.\n\n**Departure Points:** Setúbal, Baixa da Banheira, Sete Rios and Gare Oriente.",
-      "incluidos": [
-        "Autocarro de Turismo com AC",
-        "Guia Acompanhante",
-        "Seguro de Viagem"
-      ],
-      "incluidosEn": [
-        "Tourist Coach with AC",
-        "Accompanying Guide",
-        "Travel Insurance"
-      ],
-      "textoBotao": "Reservar Agora",
-      "textoBotaoEn": "Book Now"
-    },
-    {
       "id": "buddha-eden",
       "ativo": true,
       "ordem": 1,
@@ -81,7 +48,7 @@
       "preco": 58,
       "duracao": "1 Dia",
       "duracaoEn": "1 Day",
-      "imagem": "/assets/images/uploads/rota-sol-praia.jpg",
+      "imagem": "/assets/images/uploads/rota-sol-praia-4k.jpg",
       "corBadge": "laranja",
       "descricao": "Manhã na Praia de São Torpes (Alentejo) com as suas famosas águas aquecidas. Tarde na Praia da Rocha (Algarve) com arraias douradas e o ambiente vibrante de Portimão.",
       "descricaoEn": "Morning at São Torpes Beach (Alentejo) with its famous warm waters. Afternoon at Praia da Rocha (Algarve) with golden sands and the vibrant atmosphere of Portimão.",
@@ -98,7 +65,8 @@
         "Travel Insurance"
       ],
       "textoBotao": "Reservar Agora",
-      "textoBotaoEn": "Book Now"
+      "textoBotaoEn": "Book Now",
+      "destaque": true
     },
     {
       "id": "santiago-compostela",
