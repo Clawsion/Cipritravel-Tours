@@ -1211,9 +1211,20 @@ window.addEventListener('scroll', () => {
 // ============================================
 // INICIALIZAÇÃO
 // ============================================
-document.addEventListener('DOMContentLoaded', async () => {
+// Robusto contra race condition: se o DOM já tiver sido parsed quando
+// section.js carregar, DOMContentLoaded já disparou e o listener nunca
+// seria chamado. Verificamos readyState para cobrir ambos os casos.
+async function bootstrap() {
   const loaded = await loadAllData();
   if (loaded) {
     renderPage();
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  // Ainda a fazer parse do HTML — DOMContentLoaded ainda vai disparar
+  document.addEventListener('DOMContentLoaded', bootstrap);
+} else {
+  // DOM já está pronto ('interactive' ou 'complete') — executar já
+  bootstrap();
+}
