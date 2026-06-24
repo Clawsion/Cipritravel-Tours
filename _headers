@@ -4,9 +4,11 @@
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 
-# JSON data — short cache (conteúdo do CMS pode mudar)
+# JSON data — SEM cache no browser, cache mínimo no CDN.
+# O JS já faz cache-busting com ?v=timestamp, mas isto garante que mesmo
+# clientes antigos (sem o cache-bust) ou crawlers sempre veem conteúdo fresco.
 /data/*.json
-  Cache-Control: public, max-age=60, s-maxage=300
+  Cache-Control: public, max-age=0, must-revalidate, s-maxage=10
 
 # Imagens, fontes e JS — cache longo
 /assets/*

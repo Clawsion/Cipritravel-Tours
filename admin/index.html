@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
     <style>
       body { margin: 0; background: #0f172a; }
-      
+
       .loading-screen {
         display: flex;
         flex-direction: column;
@@ -20,7 +20,7 @@
       }
       .loading-screen h1 { margin-bottom: 10px; }
       .loading-screen p { opacity: 0.7; }
-      
+
       .spinner {
         width: 50px;
         height: 50px;
@@ -30,7 +30,7 @@
         animation: spin 1s linear infinite;
         margin-bottom: 20px;
       }
-      
+
       @keyframes spin {
         to { transform: rotate(360deg); }
       }
@@ -39,6 +39,54 @@
       #nc-root ~ #loading-screen,
       #nc-root:not(:empty) ~ #loading-screen {
         display: none;
+      }
+
+      /* ===== Barra de ferramentas do admin (top-right) ===== */
+      #cipri-admin-tools {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 99999;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-family: 'Poppins', sans-serif;
+      }
+      #cipri-admin-tools button {
+        background: linear-gradient(135deg,#2d7a3a,#1e5e28);
+        color: #fff;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        transition: all .15s;
+      }
+      #cipri-admin-tools button:hover {
+        background: linear-gradient(135deg,#f97316,#ea580c);
+        transform: translateY(-1px);
+      }
+      #cipri-admin-tools .cipri-badge {
+        background: rgba(45,122,58,0.2);
+        color: #4ade80;
+        border: 1px solid rgba(74,222,128,0.3);
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 500;
+      }
+      #cipri-admin-tools .cipri-badge.warn {
+        background: rgba(249,115,22,0.2);
+        color: #fb923c;
+        border-color: rgba(251,146,60,0.4);
+      }
+      #cipri-admin-tools .cipri-badge.err {
+        background: rgba(220,38,38,0.2);
+        color: #fca5a5;
+        border-color: rgba(252,165,165,0.4);
       }
     </style>
   </head>
@@ -51,13 +99,30 @@
       <p>A carregar o painel de administração...</p>
     </div>
 
+    <!-- Barra de ferramentas do admin (aparece após login) -->
+    <div id="cipri-admin-tools" style="display:none">
+      <span class="cipri-badge" id="cipri-status-badge" title="Estado do site público">a verificar…</span>
+      <button onclick="window.open('/?bust=' + Date.now(), '_blank')" title="Abrir o site público numa nova separadora, forçando refresh">🌐 Ver Site</button>
+      <button onclick="cipriPurgeAndReload()" title="Limpa cache do site público e volta aqui">♻️ Limpar Cache</button>
+    </div>
+
     <!-- Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
 
-    <!-- Esconder loading screen quando CMS estiver pronto -->
+    <!-- Lógica auxiliar do admin -->
     <script>
+      /**
+       * Cipritravel Admin — ferramentas auxiliares
+       *
+       * Resolve 3 problemas identificados:
+       *  1. Cache do site público retém conteúdo antigo mesmo após publicar
+       *  2. Falta de feedback sobre se a publicação chegou ao site
+       *  3. Sem botão para forçar atualização
+       */
+
+      // Eventos do Decap CMS — disparados quando o utilizador publica
       window.addEventListener('load', function () {
-        // Aguarda o CMS inicializar e esconde o loading
+        // Esconde loading screen quando o CMS inicializa
         const observer = new MutationObserver(function () {
           const cmsRoot = document.getElementById('nc-root');
           if (cmsRoot && cmsRoot.children.length > 0) {
@@ -68,15 +133,13 @@
               setTimeout(() => loading.style.display = 'none', 500);
             }
             observer.disconnect();
+            // Mostra a barra de ferramentas
+            document.getElementById('cipri-admin-tools').style.display = 'flex';
           }
         });
+        observer.observe(document.body, { childList: true, subtree: true });
 
-        observer.observe(document.body, { 
-          childList: true, 
-          subtree: true 
-        });
-
-        // Fallback: esconde após 5 segundos de qualquer forma
+        // Fallback: esconde loading após 5s
         setTimeout(function () {
           const loading = document.getElementById('loading-screen');
           if (loading) {
@@ -84,8 +147,131 @@
             loading.style.transition = 'opacity 0.5s ease';
             setTimeout(() => loading.style.display = 'none', 500);
           }
+          document.getElementById('cipri-admin-tools').style.display = 'flex';
         }, 5000);
+
+        // Hook nos eventos do Decap CMS para dar feedback visual
+        if (window.decapCMS) {
+          // Quando uma entrada é publicada com sucesso
+          window.decapCMS.registerEventListener(['postPublished'], function () {
+            cipriShowToast('✅ Publicado! O site vai atualizar em ~30s…', 'success');
+            // Marca o badge como "a atualizar"
+            const badge = document.getElementById('cipri-status-badge');
+            badge.className = 'cipri-badge warn';
+            badge.textContent = '🔄 a atualizar site…';
+            // Agenda uma verificação
+            setTimeout(cipriCheckPublicSite, 30000);
+          });
+          // Enquanto está a salvar
+          window.decapCMS.registerEventListener(['postUnpublished', 'onPublish'], function () {
+            cipriShowToast('⏳ A publicar…', 'info');
+          });
+        }
       });
+
+      /**
+       * Verifica se o site público está a servir a versão mais recente
+       * dos dados. Compara o ETag/Last-Modified com o GitHub raw.
+       */
+      async function cipriCheckPublicSite() {
+        const badge = document.getElementById('cipri-status-badge');
+        try {
+          // Busca homepage.json do site público com cache-bust
+          const publicRes = await fetch('/data/homepage.json?v=' + Date.now(), { cache: 'no-store' });
+          const githubRes = await fetch('https://api.github.com/repos/Clawsion/Cipritravel-Tours/commits?path=data/homepage.json&per_page=1');
+
+          if (!publicRes.ok) throw new Error('site ' + publicRes.status);
+
+          let githubDate = null;
+          if (githubRes.ok) {
+            const commits = await githubRes.json();
+            if (commits.length > 0) {
+              githubDate = new Date(commits[0].commit.committer.date);
+            }
+          }
+
+          // Lê o JSON público e compara com o conteúdo do GitHub raw
+          const publicJson = await publicRes.json();
+          const rawRes = await fetch('https://raw.githubusercontent.com/Clawsion/Cipritravel-Tours/main/data/homepage.json?t=' + Date.now(), { cache: 'no-store' });
+          const rawText = await rawRes.text();
+          const rawJson = JSON.parse(rawText);
+
+          // Compara versões — usa um campo _v se existir, senão compara stringify
+          const publicVersion = publicJson._v || JSON.stringify(publicJson).length;
+          const rawVersion    = rawJson._v || JSON.stringify(rawJson).length;
+
+          if (publicVersion === rawVersion) {
+            badge.className = 'cipri-badge';
+            badge.textContent = '✅ site sincronizado';
+            if (githubDate) {
+              badge.title = 'Última publicação: ' + githubDate.toLocaleString('pt-PT');
+            }
+          } else {
+            badge.className = 'cipri-badge warn';
+            badge.textContent = '⏳ site a atualizar…';
+            // Re-verifica em 30s
+            setTimeout(cipriCheckPublicSite, 30000);
+          }
+        } catch (e) {
+          badge.className = 'cipri-badge err';
+          badge.textContent = '⚠️ erro ao verificar';
+          badge.title = e.message;
+        }
+      }
+
+      /**
+       * Limpa caches do site público e volta ao admin.
+       * Não há API de purge para Cloudflare Pages sem credenciais,
+       * mas fazer um fetch no-store + recarregar o admin costuma resolver.
+       */
+      async function cipriPurgeAndReload() {
+        const btn = event?.target;
+        if (btn) { btn.disabled = true; btn.textContent = '♻️ a limpar…'; }
+        try {
+          // Força refetch de todos os JSON do site
+          await Promise.all([
+            fetch('/data/homepage.json?v=' + Date.now(), { cache: 'no-store' }),
+            fetch('/data/menu.json?v='     + Date.now(), { cache: 'no-store' }),
+            fetch('/data/footer.json?v='   + Date.now(), { cache: 'no-store' }),
+            fetch('/data/modais.json?v='   + Date.now(), { cache: 'no-store' }),
+            fetch('/data/config.json?v='   + Date.now(), { cache: 'no-store' })
+          ]);
+          cipriShowToast('✅ Cache limpo. A verificar sincronização…', 'success');
+          await cipriCheckPublicSite();
+        } catch (e) {
+          cipriShowToast('⚠️ Erro: ' + e.message, 'error');
+        } finally {
+          if (btn) { btn.disabled = false; btn.textContent = '♻️ Limpar Cache'; }
+        }
+      }
+
+      /**
+       * Toast simples
+       */
+      function cipriShowToast(msg, type) {
+        let toast = document.getElementById('cipri-toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'cipri-toast';
+          toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:14px 24px;border-radius:10px;font-family:Poppins,sans-serif;font-size:14px;font-weight:600;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:opacity 0.3s;max-width:90vw;text-align:center';
+          document.body.appendChild(toast);
+        }
+        toast.textContent = msg;
+        toast.style.background = type === 'success' ? 'linear-gradient(135deg,#2d7a3a,#1e5e28)'
+                              : type === 'error'   ? 'linear-gradient(135deg,#dc2626,#b91c1c)'
+                              :                      'linear-gradient(135deg,#f97316,#ea580c)';
+        toast.style.color = '#fff';
+        toast.style.opacity = '1';
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.style.opacity = '0', 5000);
+      }
+
+      // Verifica sincronização periodicamente (a cada 60s)
+      setInterval(() => {
+        if (document.getElementById('cipri-admin-tools').style.display === 'flex') {
+          cipriCheckPublicSite();
+        }
+      }, 60000);
     </script>
 
   </body>

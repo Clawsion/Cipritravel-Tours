@@ -124,17 +124,23 @@ const TRANSLATIONS = {
 async function loadAllData() {
   try {
     console.log('A carregar dados...');
-    
+
+    // Cache-busting: cada load usa um timestamp único para contornar
+    // qualquer cache HTTP (browser, CDN, service worker). Isto garante que
+    // depois de o CMS publicar uma alteração no GitHub, o visitante vê a
+    // versão mais recente no próximo load.
+    const cacheBust = `?v=${Date.now()}`;
+
     const files = [
-      { key: 'data', url: `${BASE_URL}/data/homepage.json` },
-      { key: 'menu', url: `${BASE_URL}/data/menu.json` },
-      { key: 'footer', url: `${BASE_URL}/data/footer.json` },
-      { key: 'modais', url: `${BASE_URL}/data/modais.json` },
-      { key: 'config', url: `${BASE_URL}/data/config.json` }
+      { key: 'data',   url: `${BASE_URL}/data/homepage.json${cacheBust}` },
+      { key: 'menu',   url: `${BASE_URL}/data/menu.json${cacheBust}` },
+      { key: 'footer', url: `${BASE_URL}/data/footer.json${cacheBust}` },
+      { key: 'modais', url: `${BASE_URL}/data/modais.json${cacheBust}` },
+      { key: 'config', url: `${BASE_URL}/data/config.json${cacheBust}` }
     ];
-    
+
     const results = await Promise.allSettled(
-      files.map(f => fetch(f.url).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }))
+      files.map(f => fetch(f.url, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }))
     );
     
     results.forEach((result, idx) => {
