@@ -255,19 +255,18 @@ function renderHero(s) {
       <img class="hero-img" src="${s.imagem}" alt="Hero">
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div style="display:inline-block;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;padding:8px 24px;border-radius:999px;font-size:0.85rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">
-          <span data-pt="${s.bannerTexto || ''}" data-en="${s.bannerTextoEn || s.bannerTexto || ''}">${t(s.bannerTexto, s.bannerTextoEn)}</span>
-        </div>
-        <h1 class="font-playfair" style="font-size:clamp(2rem,5vw,3.5rem);font-weight:700;margin-bottom:16px;line-height:1.2">
-          <span data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</span><br>
-          <span style="color:#f97316" data-pt="${s.tituloDestaque}" data-en="${s.tituloDestaqueEn || s.tituloDestaque}">${t(s.tituloDestaque, s.tituloDestaqueEn)}</span>
+        <span class="section-tag" style="margin-bottom:24px" data-pt="${s.bannerTexto || ''}" data-en="${s.bannerTextoEn || s.bannerTexto || ''}">${t(s.bannerTexto, s.bannerTextoEn)}</span>
+        <h1>
+          <span data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</span>
+          <em data-pt="${s.tituloDestaque}" data-en="${s.tituloDestaqueEn || s.tituloDestaque}">${t(s.tituloDestaque, s.tituloDestaqueEn)}</em>
         </h1>
-        <p style="font-size:clamp(1rem,2.5vw,1.3rem);font-weight:600;margin-bottom:8px;color:#e2e8f0" data-pt="${s.subtitulo}" data-en="${s.subtituloEn || s.subtitulo}">${t(s.subtitulo, s.subtituloEn)}</p>
-        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:28px">
+        <p data-pt="${s.subtitulo}" data-en="${s.subtituloEn || s.subtitulo}">${t(s.subtitulo, s.subtituloEn)}</p>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px">
           <button class="btn-primary" onclick="openModal('modal-hero')" data-pt="${s.botoes?.primario || 'Saber Mais'}" data-en="${s.botoes?.primarioEn || 'Learn More'}">${t(s.botoes?.primario || 'Saber Mais', s.botoes?.primarioEn || 'Learn More')}</button>
           <button class="btn-outline" onclick="openModal('modal-reserva')" data-pt="${s.botoes?.secundario || 'Reservar Agora'}" data-en="${s.botoes?.secundarioEn || 'Book Now'}">${t(s.botoes?.secundario || 'Reservar Agora', s.botoes?.secundarioEn || 'Book Now')}</button>
         </div>
       </div>
+      <div class="hero-scroll-cue" data-pt="Explorar" data-en="Explore">${SITE.lang === 'en' ? 'Explore' : 'Explorar'}</div>
     </section>
   `;
 }
@@ -297,46 +296,52 @@ function renderBanner(s) {
 
 function renderTours(s) {
   // Tours agora vêm da fonte única: data/tours.json (SITE.tours)
-  // Se SITE.tours não estiver carregado (fallback), usa s.excursoes (compatibilidade)
   const toursSource = (SITE.tours && SITE.tours.tours) ? SITE.tours.tours : (s.excursoes || []);
   const tours = toursSource
     .filter(e => e.ativo !== false)
     .sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
-  
-  const toursHTML = tours.map(tour => `
-    <div class="card exc-card">
-      <img src="${tour.imagem}" alt="${tour.nome}" class="tour-card-img">
-      <div class="exc-card-body">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-          <div class="exc-badge" style="background:${tour.corBadge === 'verde' ? 'linear-gradient(135deg,#2d7a3a,#1e5e28)' : 'linear-gradient(135deg,#f97316,#ea580c)'}">
-            <div style="font-size:1.1rem;font-weight:700;line-height:1">${tour.data?.dia || ''}</div>
-            <div style="font-size:0.65rem;font-weight:600">${tour.data?.mes || ''}</div>
-          </div>
-          <div style="text-align:left">
-            <h3 style="font-weight:700;font-size:1rem" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${t(tour.nome, tour.nomeEn)}</h3>
-            <p style="color:var(--muted);font-size:0.78rem">🕐 <span data-pt="${tour.duracao}" data-en="${tour.duracaoEn || tour.duracao}">${t(tour.duracao, tour.duracaoEn)}</span></p>
-          </div>
+
+  const toursHTML = tours.map(tour => {
+    const nome = t(tour.nome, tour.nomeEn);
+    const duracao = t(tour.duracao, tour.duracaoEn);
+    const descricao = t(tour.descricao, tour.descricaoEn);
+    const badgeBg = tour.corBadge === 'verde'
+      ? 'linear-gradient(135deg,#008030,#006028)'
+      : 'linear-gradient(135deg,#e07000,#c2410c)';
+
+    return `
+    <div class="card exc-card reveal-stagger">
+      <div style="position:relative;overflow:hidden">
+        <img src="${tour.imagem}" alt="${nome}" class="tour-card-img">
+        <div class="exc-badge" style="position:absolute;top:16px;left:16px;background:${badgeBg};box-shadow:0 4px 12px rgba(0,0,0,0.25)">
+          <div style="font-size:1rem;font-weight:700;line-height:1">${tour.data?.dia || ''}</div>
+          <div style="font-size:0.6rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase">${tour.data?.mes || ''}</div>
         </div>
-        <p style="color:var(--muted);font-size:0.82rem" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${t(tour.descricao, tour.descricaoEn)}</p>
+      </div>
+      <div class="exc-card-body">
+        <p style="font-size:0.7rem;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin:0 0 4px">🕐 ${duracao}</p>
+        <h3 class="exc-card-title" data-pt="${tour.nome}" data-en="${tour.nomeEn || tour.nome}">${nome}</h3>
+        <p class="exc-card-desc" data-pt="${tour.descricao}" data-en="${tour.descricaoEn || tour.descricao}">${descricao}</p>
         <div class="exc-card-btn">
-          <span style="font-weight:700;color:#2d7a3a;font-size:1rem">${tour.preco}€ <span data-pt="p/pessoa" data-en="per person">/${ts('pessoa')}</span></span>
-          <button class="btn-primary" style="padding:8px 18px;font-size:0.82rem" onclick="openReservaModal('${tour.id}')" data-pt="Reservar" data-en="Book">${ts('Reservar')}</button>
+          <span class="exc-card-price">${tour.preco}€<small>/${ts('pessoa')}</small></span>
+          <button class="btn-primary" style="padding:10px 22px;font-size:0.78rem" onclick="openReservaModal('${tour.id}')" data-pt="Reservar" data-en="Book">${ts('Reservar')}</button>
         </div>
       </div>
     </div>
-  `).join('');
-  
+    `;
+  }).join('');
+
   return `
-    <section id="${s.id || 'excursoes'}" style="padding:60px 20px;background:var(--card)">
-      <div style="max-width:1200px;margin:0 auto;text-align:center">
+    <section id="${s.id || 'excursoes'}" style="background:var(--bg)">
+      <div style="text-align:center">
         <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
-        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.5rem);font-weight:700;margin-bottom:8px" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <p style="color:var(--muted);margin-bottom:12px;max-width:600px;margin-left:auto;margin-right:auto" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
-        <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:40px">
-          <h3 class="font-playfair" style="font-size:1.4rem;font-weight:700" data-pt="${s.subtitulo}" data-en="${s.subtituloEn || s.subtitulo}">${t(s.subtitulo, s.subtituloEn)}</h3>
-          <span class="section-tag red" style="font-size:0.7rem;padding:4px 12px">${s.ano || '2026'}</span>
+        <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+        <p class="section-subtitle" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
+        <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:60px">
+          <span style="font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--text-soft)" data-pt="${s.subtitulo}" data-en="${s.subtituloEn || s.subtitulo}">${t(s.subtitulo, s.subtituloEn)}</span>
+          <span style="font-size:0.7rem;color:var(--accent-2);letter-spacing:0.2em;font-weight:700">${s.ano || '2026'}</span>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;align-items:stretch">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;align-items:stretch">
           ${toursHTML}
         </div>
       </div>
@@ -1209,6 +1214,41 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
+// SCROLL REVEAL (IntersectionObserver)
+// ============================================
+// Adiciona fade-in staggered a todas as secções e cards quando entram
+// no viewport. Subtle pro — não distrai, parece premium.
+function setupScrollReveal() {
+  // Marca todos os <section> e cards com .reveal/.reveal-stagger
+  const targets = document.querySelectorAll('main > section, .reveal, .reveal-stagger');
+  targets.forEach(el => {
+    if (!el.classList.contains('reveal') && !el.classList.contains('reveal-stagger')) {
+      el.classList.add('reveal');
+    }
+  });
+
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: mostra tudo
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => el.classList.add('visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target); // só anima uma vez
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+}
+
+// ============================================
 // INICIALIZAÇÃO
 // ============================================
 // Robusto contra race condition: se o DOM já tiver sido parsed quando
@@ -1218,6 +1258,7 @@ async function bootstrap() {
   const loaded = await loadAllData();
   if (loaded) {
     renderPage();
+    setupScrollReveal();
   }
 }
 
