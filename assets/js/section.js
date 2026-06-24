@@ -1204,10 +1204,8 @@ function toggleTheme() {
 
 function applyTheme(theme) {
   document.body.classList.toggle('dark', theme === 'dark');
-  const toggle = document.getElementById('theme-toggle');
-  if (toggle) toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
-  const toggleM = document.getElementById('theme-toggle-m');
-  if (toggleM) toggleM.textContent = theme === 'dark' ? '☀️' : '🌙';
+  // Não mexer no innerHTML — o CSS mostra/esconde os spans .theme-icon__sun e __moon
+  // automaticamente conforme body.dark
   localStorage.setItem('theme', theme);
 }
 
