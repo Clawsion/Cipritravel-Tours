@@ -574,17 +574,23 @@ function renderFeatures(s) {
 
 function renderCTA(s) {
   const emailPlaceholder = ts('O seu email...');
+  const titulo = t(s.titulo, s.tituloEn);
+  const descricao = t(s.descricao, s.descricaoEn);
+  const textoBotao = t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe');
+  const isEn = SITE.lang === 'en';
+  const tagText = isEn ? 'Newsletter' : 'Newsletter';
 
   return `
-    <section style="padding:80px 24px;background:var(--bg-soft);position:relative;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-      <div style="max-width:700px;margin:0 auto;text-align:center;color:var(--text);position:relative;z-index:1">
-        <h2 class="font-playfair" style="font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:16px;color:var(--text)" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <p style="opacity:0.85;margin-bottom:32px;font-size:1.05rem;font-weight:300;max-width:480px;margin-left:auto;margin-right:auto;color:var(--text-soft)" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:500px;margin:0 auto">
-          <input type="email" id="newsletter-email" class="translatable-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}" style="flex:1;min-width:200px;padding:13px 22px;border-radius:2px;border:1px solid var(--border);font-size:0.92rem;outline:none;background:var(--card);color:var(--text);transition:border-color .25s" onfocus="this.style.borderColor='var(--accent-2)'" onblur="this.style.borderColor='var(--border)'">
-          <button class="btn-primary" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe')}</button>
+    <section class="newsletter-cinematic reveal" style="background-image:url('/assets/images/uploads/newsletter-bg.jpg')">
+      <div class="newsletter-cinematic__inner">
+        <span class="newsletter-cinematic__tag">${tagText}</span>
+        <h2 class="newsletter-cinematic__title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${titulo}</h2>
+        <p class="newsletter-cinematic__desc" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${descricao}</p>
+        <div class="newsletter-cinematic__form">
+          <input type="email" id="newsletter-email" class="translatable-input newsletter-cinematic__input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}">
+          <button class="btn-outline" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${textoBotao}</button>
         </div>
-        <p id="newsletter-msg" style="margin-top:16px;opacity:0;transition:opacity .3s;font-weight:600;font-family:var(--serif);color:var(--accent)"></p>
+        <p id="newsletter-msg" class="newsletter-cinematic__msg"></p>
       </div>
     </section>
   `;

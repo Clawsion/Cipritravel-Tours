@@ -708,8 +708,8 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .about-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 70vh;
-  min-height: 70dvh;
+  min-height: 50vh;
+  min-height: 50dvh;
   width: 100%;
   overflow: hidden;
   padding: 0;
@@ -751,7 +751,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .about-split__panel {
   background: #161310;
   color: #fff;
-  padding: 60px 56px;
+  padding: 50px 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -811,6 +811,130 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   .about-split__title { font-size: 1.6rem; }
   .about-split__quote { font-size: 1rem; }
   .about-split__text { font-size: 0.88rem; }
+}
+
+/* ============================================================
+   NEWSLETTER — Cinematográfico com parallax (Alternativa C)
+   Background fixo + texto em camadas
+   ============================================================ */
+.newsletter-cinematic {
+  position: relative;
+  min-height: 60vh;
+  min-height: 60dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 80px 24px;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.newsletter-cinematic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(15,10,5,0.75) 0%, rgba(15,10,5,0.55) 40%, rgba(15,10,5,0.8) 100%),
+    linear-gradient(135deg, rgba(0,40,15,0.3) 0%, rgba(224,112,0,0.2) 100%);
+}
+.newsletter-cinematic__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+.newsletter-cinematic__tag {
+  display: inline-block;
+  color: #fb923c;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-left: 30px;
+  position: relative;
+}
+.newsletter-cinematic__tag::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 20px;
+  height: 1px;
+  background: #fb923c;
+}
+.newsletter-cinematic__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.newsletter-cinematic__desc {
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.newsletter-cinematic__form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.newsletter-cinematic__input {
+  flex: 1;
+  min-width: 220px;
+  padding: 13px 22px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 0;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.92rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .25s, background .25s;
+}
+.newsletter-cinematic__input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+.newsletter-cinematic__input:focus {
+  border-color: #fb923c;
+  background: rgba(255,255,255,0.15);
+}
+.newsletter-cinematic__msg {
+  margin-top: 18px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: #fb923c;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+@media (max-width: 768px) {
+  .newsletter-cinematic {
+    background-attachment: scroll;
+    min-height: auto;
+    padding: 60px 20px;
+  }
+  .newsletter-cinematic__title { font-size: 1.6rem; }
+  .newsletter-cinematic__form { flex-direction: column; }
+  .newsletter-cinematic__input { min-width: 100%; }
 }
 
 /* ===== Section spacing ===== */
