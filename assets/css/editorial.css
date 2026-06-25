@@ -1243,15 +1243,16 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
   .contacts-section { padding: 50px 16px 40px !important; }
   .contacts-info h2 { font-size: 1.5rem; }
   .contacts-info > p { font-size: 0.82rem; margin-bottom: 18px; }
-  .contact-link { gap: 10px; padding: 9px 0; }
-  .contact-link__label { flex: 0 0 65px; font-size: 0.58rem; }
-  .contact-link__value { font-size: 0.85rem; }
-  .contact-link__arrow { font-size: 1rem; }
+  .contact-link { gap: 8px; padding: 9px 0; flex-wrap: wrap; }
+  .contact-link__label { flex: 0 0 100%; font-size: 0.58rem; margin-bottom: 2px; }
+  .contact-link__value { font-size: 0.82rem; word-break: break-word; overflow-wrap: break-word; min-width: 0; flex: 1; }
+  .contact-link__arrow { font-size: 1rem; flex-shrink: 0; }
   .contacts-hours-row { font-size: 0.72rem; max-width: 100%; }
   .contacts-map-wrap iframe { height: 180px; }
   .contacts-form-card { padding: 16px 16px 14px; }
   .contacts-input { padding: 10px 12px; font-size: 0.85rem; }
   textarea.contacts-input { min-height: 60px; }
+  .contacts-form-grid { gap: 8px; }
 }
 
 /* ============================================================
