@@ -3745,14 +3745,13 @@ main > section {
   transition: color .25s;
 }
 .site-footer__privacy:hover { color: #fb923c; }
-.site-footer__selo {
-  height: 50px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.9;
-  transition: opacity .25s;
+.site-footer__credit {
+  color: #94897a;
+  font-size: 0.76rem;
+  text-decoration: none;
+  transition: color .25s;
 }
-.site-footer__selo:hover { opacity: 1; }
+.site-footer__credit:hover { color: #fb923c; }
 
 @media (max-width: 900px) {
   .site-footer__grid {
