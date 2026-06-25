@@ -497,9 +497,32 @@ function renderTextoImagem(s) {
   const textoBotao = t(s.textoBotao, s.textoBotaoEn);
   const imgFirst = s.posicaoImagem === 'esquerda';
 
+  // 5 imagens de diferentes partes de Portugal
+  const slides = [
+    { img: '/assets/images/uploads/about-1-douro.jpg',  label: 'Douro Vinhateiro' },
+    { img: '/assets/images/uploads/about-2-algarve.jpg', label: 'Algarve' },
+    { img: '/assets/images/uploads/about-3-sintra.jpg',  label: 'Sintra' },
+    { img: '/assets/images/uploads/about-4-serra.jpg',   label: 'Serra da Estrela' },
+    { img: '/assets/images/uploads/about-5-lisbon.jpg',  label: 'Lisboa' },
+  ];
+
+  const slidesHTML = slides.map((slide, idx) => `
+    <img src="${slide.img}" alt="${slide.label}" class="about-split__slide ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+  `).join('');
+
+  const labelsHTML = slides.map((slide, idx) => `
+    <span class="about-split__slide-label ${idx === 0 ? 'active' : ''}" data-index="${idx}">${slide.label}</span>
+  `).join('');
+
+  const dotsHTML = slides.map((slide, idx) => `
+    <span class="about-split__slide-dot ${idx === 0 ? 'active' : ''}" data-index="${idx}"></span>
+  `).join('');
+
   const visualBlock = `
     <div class="about-split__visual">
-      <img src="${s.imagem}" alt="${escapeHtml(titulo)}">
+      <div class="about-split__slider">${slidesHTML}</div>
+      ${labelsHTML}
+      <div class="about-split__slide-counter">${dotsHTML}</div>
       <span class="about-split__tag-overlay" data-pt="${escapeHtml(s.tag)}" data-en="${escapeHtml(s.tagEn || s.tag)}">${tag}</span>
     </div>
   `;
@@ -1842,6 +1865,37 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
+// ABOUT SLIDER — troca fotos a cada 5s com crossfade
+// ============================================
+function setupAboutSlider() {
+  const sliders = document.querySelectorAll('.about-split__slider');
+  if (!sliders.length) return;
+
+  sliders.forEach(slider => {
+    const slides = slider.querySelectorAll('.about-split__slide');
+    const labels = slider.parentElement.querySelectorAll('.about-split__slide-label');
+    const dots = slider.parentElement.querySelectorAll('.about-split__slide-dot');
+    if (slides.length <= 1) return;
+
+    let current = 0;
+    setInterval(() => {
+      // Remover active de todos
+      slides.forEach(s => s.classList.remove('active'));
+      labels.forEach(l => l.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+
+      // Avançar
+      current = (current + 1) % slides.length;
+
+      // Adicionar active ao próximo
+      slides[current].classList.add('active');
+      if (labels[current]) labels[current].classList.add('active');
+      if (dots[current]) dots[current].classList.add('active');
+    }, 5000);
+  });
+}
+
+// ============================================
 // SCROLL REVEAL (IntersectionObserver)
 // ============================================
 // IMPORTANTE: só aplica reveal a elementos com .reveal-stagger (cards dentro de secções).
@@ -1938,6 +1992,7 @@ async function bootstrap() {
     renderPage();
     setupScrollReveal();
     setupParallax();
+    setupAboutSlider();
   }
 }
 
