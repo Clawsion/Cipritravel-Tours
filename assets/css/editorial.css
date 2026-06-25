@@ -483,6 +483,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   z-index: 0;
   transform: scale(1.05);
   animation: heroZoom 20s ease-out forwards;
@@ -1234,9 +1235,23 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
 }
 
 @media (max-width: 900px) {
-  .contacts-grid { grid-template-columns: 1fr; gap: 32px; }
-  .contacts-map-wrap iframe { height: 240px; }
+  .contacts-grid { grid-template-columns: 1fr; gap: 28px; }
+  .contacts-map-wrap iframe { height: 220px; }
   .contacts-form-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .contacts-section { padding: 50px 16px 40px !important; }
+  .contacts-info h2 { font-size: 1.5rem; }
+  .contacts-info > p { font-size: 0.82rem; margin-bottom: 18px; }
+  .contact-link { gap: 10px; padding: 9px 0; }
+  .contact-link__label { flex: 0 0 65px; font-size: 0.58rem; }
+  .contact-link__value { font-size: 0.85rem; }
+  .contact-link__arrow { font-size: 1rem; }
+  .contacts-hours-row { font-size: 0.72rem; max-width: 100%; }
+  .contacts-map-wrap iframe { height: 180px; }
+  .contacts-form-card { padding: 16px 16px 14px; }
+  .contacts-input { padding: 10px 12px; font-size: 0.85rem; }
+  textarea.contacts-input { min-height: 60px; }
 }
 
 /* ============================================================
@@ -3798,6 +3813,8 @@ main > section {
   .hero-content { padding: 16px; }
   .hero-content h1 { font-size: clamp(2rem, 9vw, 3rem) !important; }
   .hero-content p { font-size: clamp(0.9rem, 3.5vw, 1rem) !important; }
+  .hero-section { min-height: 500px; }
+  .hero-img, .hero-video { object-position: center 30%; }
   .tour-card-img { height: 220px; }
   .blog-img { height: 180px; }
   .exc-card-body { padding: 18px; }
