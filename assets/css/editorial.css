@@ -1107,22 +1107,6 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   box-shadow: 0 6px 24px rgba(20,15,5,0.08), 0 1px 0 rgba(255,255,255,0.04) inset;
   position: relative;
 }
-/* Pequena etiqueta decorativa no canto superior direito - a "marca" */
-.contacts-info-left::before {
-  content: 'INFO';
-  position: absolute;
-  top: -1px;
-  right: 18px;
-  background: var(--accent-2);
-  color: #fff;
-  font-family: var(--sans);
-  font-size: 0.55rem;
-  letter-spacing: 0.22em;
-  font-weight: 700;
-  padding: 3px 9px 4px;
-  border-radius: 0 0 3px 3px;
-  line-height: 1;
-}
 .contacts-hours-bottom {
   margin-top: 20px;
   padding: 22px 26px 18px;
@@ -1132,21 +1116,6 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   border-radius: 4px;
   box-shadow: 0 6px 24px rgba(20,15,5,0.08);
   position: relative;
-}
-.contacts-hours-bottom::before {
-  content: 'HORÁRIO';
-  position: absolute;
-  top: -1px;
-  right: 18px;
-  background: var(--accent);
-  color: #fff;
-  font-family: var(--sans);
-  font-size: 0.55rem;
-  letter-spacing: 0.22em;
-  font-weight: 700;
-  padding: 3px 9px 4px;
-  border-radius: 0 0 3px 3px;
-  line-height: 1;
 }
 .contacts-hours-bottom h4 {
   font-family: var(--serif);
@@ -1340,7 +1309,6 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
   .contacts-form-card { padding: 22px 16px 16px; margin-top: 24px; }
   .contacts-info-left { padding: 22px 16px 16px; }
   .contacts-hours-bottom { padding: 18px 16px 14px; margin-top: 16px; }
-  .contacts-info-left::before, .contacts-form-card::before, .contacts-hours-bottom::before { right: 10px; font-size: 0.5rem; padding: 2px 7px 3px; }
   .contacts-input { padding: 10px 12px; font-size: 0.85rem; }
   textarea.contacts-input { min-height: 60px; }
   .contacts-form-grid { gap: 8px; }
@@ -1939,21 +1907,6 @@ section > div:first-child {
   box-shadow: 0 6px 24px rgba(20,15,5,0.08);
   position: relative;
   margin-top: 32px;
-}
-.contacts-form-card::before {
-  content: 'FORM';
-  position: absolute;
-  top: -1px;
-  right: 18px;
-  background: var(--accent-2);
-  color: #fff;
-  font-family: var(--sans);
-  font-size: 0.55rem;
-  letter-spacing: 0.22em;
-  font-weight: 700;
-  padding: 3px 9px 4px;
-  border-radius: 0 0 3px 3px;
-  line-height: 1;
 }
 .contacts-form-card h3 {
   font-family: var(--serif);
