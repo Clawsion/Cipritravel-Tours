@@ -1,5 +1,5 @@
 /* ============================================================
-   Cipritravel Tours — Editorial Travel Theme
+   Cipritravel Tours - Editorial Travel Theme
    Modernização estética mantendo estrutura + conteúdo CMS
    Paleta: verde #008030 + laranja #e07000 + creme + carvão
    ============================================================ */
@@ -289,7 +289,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: rotate(15deg);
 }
 
-/* ===== Buttons — Minimalistas: outline laranja, transparente, texto laranja ===== */
+/* ===== Buttons - Minimalistas: outline laranja, transparente, texto laranja ===== */
 .btn-primary {
   background: transparent;
   color: var(--accent-2);
@@ -357,7 +357,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 }
 .btn-outline:hover::after { transform: translateX(4px); }
 
-/* Botão de submit de formulários — mantém retangular slido */
+/* Botão de submit de formulários - mantém retangular slido */
 .btn-submit {
   background: var(--accent);
   color: #fff;
@@ -445,6 +445,8 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   align-items: center;
   justify-content: center;
   padding: 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .modal-overlay.active { display: flex; animation: fade .3s ease; }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
@@ -705,7 +707,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 }
 
 /* ============================================================
-   SOBRE NÓS — Split Cinematográfico (50% foto + 50% painel escuro)
+   SOBRE NÓS - Split Cinematográfico (50% foto + 50% painel escuro)
    ============================================================ */
 .about-split {
   display: grid;
@@ -857,7 +859,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 }
 
 /* ============================================================
-   NEWSLETTER — Minimalista sobre parallax
+   NEWSLETTER - Minimalista sobre parallax
    ============================================================ */
 .newsletter-cinematic {
   position: relative;
@@ -975,11 +977,33 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 }
 
 /* ============================================================
-   CONTACTOS — Minimalista com mapa integrado
+   CONTACTOS - Minimalista com mapa integrado
    ============================================================ */
 .contacts-section {
   background: var(--bg) !important;
   padding: 70px 24px 60px !important;
+  position: relative;
+  overflow: hidden;
+}
+.contacts-section::before {
+  content: 'CONTACTOS';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif);
+  font-size: clamp(8rem, 20vw, 16rem);
+  font-weight: 700;
+  color: var(--text);
+  opacity: 0.03;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+}
+.contacts-section > * {
+  position: relative;
+  z-index: 1;
 }
 .contacts-grid {
   display: grid;
@@ -1057,6 +1081,11 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .contacts-info-left {
   display: flex;
   flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 20px rgba(20,15,5,0.06);
 }
 .contacts-hours-bottom {
   margin-top: 16px;
@@ -1246,6 +1275,7 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
   .contact-link { gap: 8px; padding: 9px 0; flex-wrap: wrap; }
   .contact-link__label { flex: 0 0 100%; font-size: 0.58rem; margin-bottom: 2px; }
   .contact-link__value { font-size: 0.82rem; word-break: break-word; overflow-wrap: break-word; min-width: 0; flex: 1; }
+  .contact-link__value[href^="mailto"] { font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .contact-link__arrow { font-size: 1rem; flex-shrink: 0; }
   .contacts-hours-row { font-size: 0.72rem; max-width: 100%; }
   .contacts-map-wrap iframe { height: 180px; }
@@ -1256,7 +1286,7 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
 }
 
 /* ============================================================
-   PORQUÊ NÓS — Valores minimalistas com números serif
+   PORQUÊ NÓS - Valores minimalistas com números serif
    ============================================================ */
 .why-minimal {
   display: grid;
@@ -1367,12 +1397,12 @@ section > div:first-child {
 }
 
 /* ============================================================
-   PARALLAX SHOWCASE — full-width aos cantos, altura curta
+   PARALLAX SHOWCASE - full-width aos cantos, altura curta
    Imagem full-size 4K que sobe de baixo para cima com o scroll
    ============================================================ */
 .parallax-showcase {
   position: relative;
-  /* Parallax centralizado — não toca nos cantos, fica com margens laterais
+  /* Parallax centralizado - não toca nos cantos, fica com margens laterais
      iguais às outras secções do site */
   width: calc(100% - 48px);
   max-width: 1400px;
@@ -1724,7 +1754,7 @@ section > div:first-child {
 }
 
 /* ============================================================
-   CONTACTOS — design direto e visual (editorial)
+   CONTACTOS - design direto e visual (editorial)
    ============================================================ */
 .contacts-section {
   background: var(--bg-soft) !important;
@@ -1890,7 +1920,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   BLOG CARD — layout horizontal diferente das excursões
+   BLOG CARD - layout horizontal diferente das excursões
    Foto à esquerda + conteúdo à direita, estilo article preview
    ============================================================ */
 .blog-card {
@@ -2017,7 +2047,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   MAGAZINE EDITORIAL PREMIUM — cards estilo Condé Nast / AFAR
+   MAGAZINE EDITORIAL PREMIUM - cards estilo Condé Nast / AFAR
    Foto domina (60% do card), título sobreposto, preço serif gigante
    ============================================================ */
 .magazine-card {
@@ -2177,7 +2207,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   MODAL BLOG — layout compacto: cabe em 1 ecrã
+   MODAL BLOG - layout compacto: cabe em 1 ecrã
    Para artigos de blog (diferente dos tours)
    ============================================================ */
 .modal-blog-article {
@@ -2284,7 +2314,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   display: flex;
   flex-direction: column;
 }
-/* Intro — primeiro parágrafo destacado (estilo revista) */
+/* Intro - primeiro parágrafo destacado (estilo revista) */
 .modal-blog-article__intro {
   font-family: var(--serif);
   font-size: 1rem;
@@ -2308,7 +2338,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   opacity: 0.5;
   line-height: 1;
 }
-/* Body — conteúdo principal */
+/* Body - conteúdo principal */
 .modal-blog-article__body {
   color: var(--text-soft);
   font-size: 0.85rem;
@@ -2384,7 +2414,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   color: var(--text-soft);
 }
 .modal-blog-article__body ul li::before {
-  content: '—';
+  content: '-';
   position: absolute;
   left: 0;
   color: var(--accent);
@@ -2410,7 +2440,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   color: var(--accent-2);
   font-style: italic;
 }
-/* Callout box — para secções tipo "Quando Visitar" / "Dica" */
+/* Callout box - para secções tipo "Quando Visitar" / "Dica" */
 .modal-blog-article__callout {
   background: var(--bg-soft);
   border-left: 3px solid var(--accent);
@@ -2495,7 +2525,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   MODAL IMERSIVO — foto banner no topo + conteúdo em baixo
+   MODAL IMERSIVO - foto banner no topo + conteúdo em baixo
    Compacto: cabe em 1 ecrã sem scroll
    ============================================================ */
 .modal-immersive {
@@ -2641,7 +2671,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   line-height: 1.4;
 }
 .modal-immersive__notes-list li::before {
-  content: '—';
+  content: '-';
   color: var(--accent);
   font-weight: 700;
   flex-shrink: 0;
@@ -2703,16 +2733,16 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 .modal-immersive__cta:hover .arrow { transform: translateX(4px); }
 
 @media (max-width: 700px) {
+  .modal-overlay { align-items: flex-start; padding: 16px 12px; }
   .modal-immersive {
     grid-template-columns: 1fr;
-    max-height: 92vh;
-    max-height: 92dvh;
+    max-height: none;
   }
-  .modal-immersive__banner { min-height: 200px; height: 200px; }
-  .modal-immersive__content { padding: 22px 20px 18px; }
+  .modal-immersive__banner { min-height: 180px; height: 180px; }
+  .modal-immersive__content { padding: 20px 18px 16px; max-height: none; overflow: visible; }
   .modal-immersive__banner-title { font-size: 1.3rem !important; }
   .modal-immersive__notes-list { grid-template-columns: 1fr; }
-  .modal-immersive__body-text { -webkit-line-clamp: 4; }
+  .modal-immersive__body-text { -webkit-line-clamp: none; }
   .modal-immersive__footer {
     flex-direction: column;
     align-items: stretch;
@@ -2722,7 +2752,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   MODAL CONTRATO — Popup de Reserva Premium estilo contrato
+   MODAL CONTRATO - Popup de Reserva Premium estilo contrato
    Formal, bonito, com cabeçalho, secções, CTA verde em baixo
    ============================================================ */
 .modal-contract {
@@ -3093,7 +3123,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 
 /* ============================================================
-   POPUPS — PÁGINA DE LIVRO (split com notas laterais)
+   POPUPS - PÁGINA DE LIVRO (split com notas laterais)
    ============================================================ */
 .modal-book {
   max-width: 920px !important;
@@ -3251,7 +3281,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
   line-height: 1.5;
 }
 .modal-book__notes-list li::before {
-  content: '—';
+  content: '-';
   color: var(--accent);
   font-weight: 700;
   flex-shrink: 0;
@@ -3311,7 +3341,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 }
 .modal-book__cta:hover .arrow { transform: translateX(4px); }
 
-/* Hint para fechar (clica fora) — discreto, no canto */
+/* Hint para fechar (clica fora) - discreto, no canto */
 .modal-book__close-hint {
   position: absolute;
   top: 14px;
@@ -3439,7 +3469,7 @@ textarea.contacts-input { margin-bottom: 16px; resize: vertical; min-height: 100
 .editorial-card__cta:hover .arrow { transform: translateX(4px); }
 
 /* ============================================================
-   WHY US — cards em 1 linha, fotos temáticas, overlay número
+   WHY US - cards em 1 linha, fotos temáticas, overlay número
    ============================================================ */
 .why-card {
   position: relative;
@@ -3647,7 +3677,7 @@ main > section {
   .grid-2col { grid-template-columns: 1fr; gap: 24px; }
 }
 
-/* ===== Footer — 4 colunas, carvão escuro sempre, compacto ===== */
+/* ===== Footer - 4 colunas, carvão escuro sempre, compacto ===== */
 .site-footer {
   background: #161310;
   color: #d8cfb8;
@@ -3860,7 +3890,7 @@ main > section {
 .modal-box .font-playfair {
   font-family: var(--serif);
 }
-/* h3 dentro de modais — sem !important para permitir overrides */
+/* h3 dentro de modais - sem !important para permitir overrides */
 .modal-box h3 {
   font-family: var(--serif);
   font-weight: 400;

@@ -233,7 +233,7 @@ function renderSection(section) {
 }
 
 // ============================================
-// PARALLAX SHOWCASE — excursion em destaque
+// PARALLAX SHOWCASE - excursion em destaque
 // ============================================
 function renderParallaxShowcase(s) {
   // Procura a excursão marcada como destaque em tours.json (pode estar ativo=false)
@@ -624,13 +624,13 @@ function renderFormulario(s) {
     fullName: 'Your Name', message: 'Message', send: 'Send Message',
     monFri: 'Mon – Fri', sat: 'Saturday', sun: 'Sunday', closed: 'Closed',
     directContact: 'Direct Contact', quickMessage: 'Quick Message',
-    subtitle: 'We respond within 24 hours. Bookings, questions, custom tours — just reach out.'
+    subtitle: 'We respond within 24 hours. Bookings, questions, custom tours - just reach out.'
   } : {
     phone: 'Ligue-nos', address: 'Encontre-nos', hours: 'Horário',
     fullName: 'O seu Nome', message: 'Mensagem', send: 'Enviar Mensagem',
     monFri: 'Seg – Sex', sat: 'Sábado', sun: 'Domingo', closed: 'Fechado',
     directContact: 'Contacto Direto', quickMessage: 'Mensagem Rápida',
-    subtitle: 'Respondemos em até 24 horas. Reservas, dúvidas, tours personalizados — fale connosco.'
+    subtitle: 'Respondemos em até 24 horas. Reservas, dúvidas, tours personalizados - fale connosco.'
   };
 
   return `
@@ -682,11 +682,11 @@ function renderFormulario(s) {
             <h4>${L.hours}</h4>
             <div class="contacts-hours-row">
               <span class="day">${L.monFri}</span>
-              <span class="hours">9h00 — 19h00</span>
+              <span class="hours">9h00 - 19h00</span>
             </div>
             <div class="contacts-hours-row">
               <span class="day">${L.sat}</span>
-              <span class="hours">10h00 — 17h00</span>
+              <span class="hours">10h00 - 17h00</span>
             </div>
             <div class="contacts-hours-row">
               <span class="day">${L.sun}</span>
@@ -951,7 +951,7 @@ function renderModalEditorial(m) {
     <li><span data-pt="${item}" data-en="${incluidosEn[idx] || item}">${t(item, incluidosEn[idx] || item)}</span></li>
   `).join('');
 
-  // Modais com tourId (excursões) — Foto banner no topo + conteúdo em baixo
+  // Modais com tourId (excursões) - Foto banner no topo + conteúdo em baixo
   if (m.tourId && m.imagem) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
@@ -987,7 +987,7 @@ function renderModalEditorial(m) {
     `;
   }
 
-  // Modais de blog — Layout artigo rico (intro + body + callout)
+  // Modais de blog - Layout artigo rico (intro + body + callout)
   if (m.id && m.id.startsWith('modal-blog-') && m.imagem) {
     const isEn = SITE.lang === 'en';
     // Procurar categoria correspondente no homepage.json
@@ -1033,7 +1033,7 @@ function renderModalEditorial(m) {
     `;
   }
 
-  // Modais de sustentabilidade (com imagem, sem tourId, não-blog) — Foto banner + conteúdo
+  // Modais de sustentabilidade (com imagem, sem tourId, não-blog) - Foto banner + conteúdo
   if (m.imagem && !m.botoes) {
     return `
       <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
@@ -1068,11 +1068,11 @@ function renderModalEditorial(m) {
     `;
   }
 
-  // Fallback para modais genéricos (hero, privacidade, etc.) — sem layout split
+  // Fallback para modais genéricos (hero, privacidade, etc.) - sem layout split
   return renderModalGenerico(m);
 }
 
-// Parser para conteúdo de blog — separa intro, body (organizado em cards) e callout
+// Parser para conteúdo de blog - separa intro, body (organizado em cards) e callout
 function parseBlogContent(text) {
   if (!text) return { intro: '', body: '', callout: '', calloutTitle: '' };
 
@@ -1182,11 +1182,11 @@ function renderBlogBodyHTML(text) {
 
   for (const section of sections) {
     if (section.startsWith('<h3>')) {
-      // Esta secção começa com h3 — é um card
+      // Esta secção começa com h3 - é um card
       hasCards = true;
       cardsBuffer.push(`<div class="blog-card-section">${section}</div>`);
     } else {
-      // Conteúdo antes/depois dos cards — texto normal
+      // Conteúdo antes/depois dos cards - texto normal
       if (cardsBuffer.length > 0) {
         result += `<div class="blog-card-grid">${cardsBuffer.join('')}</div>`;
         cardsBuffer.length = 0;
@@ -1209,7 +1209,7 @@ function parseInlineMd(text) {
     .replace(/\*(.*?)\*/g, '<em>$1</em>');
 }
 
-// Renderiza modal genérico (hero, privacidade, etc.) — visual antigo mas ainda funciona
+// Renderiza modal genérico (hero, privacidade, etc.) - visual antigo mas ainda funciona
 function renderModalGenerico(m) {
   const incluidosRaw = m.incluidos || [];
   const incluidosEnRaw = m.incluidosEn || [];
@@ -1269,7 +1269,7 @@ function renderModalFormulario(m) {
     tourOptions = fallbackTours
       .map(e => {
         const nome = t(e.nome, e.nomeEn);
-        return `<option value="${e.id}" data-preco="${e.preco}" data-duracao="${t(e.duracao, e.duracaoEn)}" data-data="${e.data?.dia || ''} ${e.data?.mes || ''}">${nome} — ${e.preco}€/${ts('pessoa')}</option>`;
+        return `<option value="${e.id}" data-preco="${e.preco}" data-duracao="${t(e.duracao, e.duracaoEn)}" data-data="${e.data?.dia || ''} ${e.data?.mes || ''}">${nome} - ${e.preco}€/${ts('pessoa')}</option>`;
       })
       .join('');
   }
@@ -1277,7 +1277,7 @@ function renderModalFormulario(m) {
   const titulo = t(m.titulo, m.tituloEn);
   const textoBotao = t(m.textoBotao, m.textoBotaoEn);
 
-  // === MODAL DE RESERVA — Layout Contrato Premium (sem sidebar) ===
+  // === MODAL DE RESERVA - Layout Contrato Premium (sem sidebar) ===
   if (m.id === 'modal-reserva') {
     const isEn = SITE.lang === 'en';
     const L = isEn ? {
@@ -1343,7 +1343,7 @@ function renderModalFormulario(m) {
               <div class="modal-contract__field">
                 <label class="modal-contract__field-label">${L.tourLabel}</label>
                 <select id="reserva-tour" class="modal-contract__field-select">
-                  <option value="">${isEn ? '— Select —' : '— Selecionar —'}</option>
+                  <option value="">${isEn ? '- Select -' : '- Selecionar -'}</option>
                   ${tourOptions}
                 </select>
               </div>
@@ -1396,7 +1396,7 @@ function renderModalFormulario(m) {
     `;
   }
 
-  // === OUTROS FORMULÁRIOS (contactos, etc.) — Manter layout antigo ===
+  // === OUTROS FORMULÁRIOS (contactos, etc.) - Manter layout antigo ===
   const camposHTML = m.campos?.map(c => {
     const label = t(c.label, c.labelEn);
     const placeholder = c.placeholder ? t(c.placeholder, c.placeholderEn) : '';
@@ -1436,7 +1436,7 @@ function renderModalFormulario(m) {
 function submitReservation(modalId, successIcon, successTitle, successText) {
   const tourSel = document.getElementById('reserva-tour');
   const tour = tourSel?.value || '';
-  const tourName = tourSel?.selectedOptions?.[0]?.text?.split(' — ')[0] || tour;
+  const tourName = tourSel?.selectedOptions?.[0]?.text?.split(' - ')[0] || tour;
   const pax = document.getElementById('reserva-pax')?.value || '1';
   const nome = document.getElementById('reserva-nome')?.value || '';
   const email = document.getElementById('reserva-email')?.value || '';
@@ -1612,7 +1612,7 @@ function toggleTheme() {
 
 function applyTheme(theme) {
   document.body.classList.toggle('dark', theme === 'dark');
-  // Não mexer no innerHTML — o CSS mostra/esconde os spans .theme-icon__sun e __moon
+  // Não mexer no innerHTML - o CSS mostra/esconde os spans .theme-icon__sun e __moon
   // automaticamente conforme body.dark
   localStorage.setItem('theme', theme);
 }
@@ -1854,7 +1854,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// ABOUT SLIDER — troca fotos a cada 5s com crossfade
+// ABOUT SLIDER - troca fotos a cada 5s com crossfade
 // ============================================
 function setupAboutSlider() {
   const sliders = document.querySelectorAll('.about-split__slider');
@@ -1888,7 +1888,7 @@ function setupAboutSlider() {
 // SCROLL REVEAL (IntersectionObserver)
 // ============================================
 // IMPORTANTE: só aplica reveal a elementos com .reveal-stagger (cards dentro de secções).
-// NÃO aplica reveal a <section> — senão secções inteiras ficam invisíveis se o observer falhar.
+// NÃO aplica reveal a <section> - senão secções inteiras ficam invisíveis se o observer falhar.
 function setupScrollReveal() {
   // Garante que todas as secções estão sempre visíveis
   document.querySelectorAll('main > section').forEach(el => {
@@ -1919,7 +1919,7 @@ function setupScrollReveal() {
 }
 
 // ============================================
-// PARALLAX EFFECT — reverse (imagem sobe de baixo para cima com scroll)
+// PARALLAX EFFECT - reverse (imagem sobe de baixo para cima com scroll)
 // Imagem tem 130% da altura do container, move 30% (15% → -15%)
 // Sempre cobre o container (sem cortes nas bordas visíveis)
 // ============================================
@@ -1943,8 +1943,8 @@ function setupParallax() {
         ));
 
         // Imagem 130% do container, top: -15%
-        // Começa translateY(15%) — imagem em baixo (parte inferior visível)
-        // Termina translateY(-15%) — imagem subiu (parte superior visível)
+        // Começa translateY(15%) - imagem em baixo (parte inferior visível)
+        // Termina translateY(-15%) - imagem subiu (parte superior visível)
         // Durante todo o movimento, a imagem cobre o container (sem cortes)
         const startOffset = 15;
         const endOffset = -15;
@@ -1986,9 +1986,9 @@ async function bootstrap() {
 }
 
 if (document.readyState === 'loading') {
-  // Ainda a fazer parse do HTML — DOMContentLoaded ainda vai disparar
+  // Ainda a fazer parse do HTML - DOMContentLoaded ainda vai disparar
   document.addEventListener('DOMContentLoaded', bootstrap);
 } else {
-  // DOM já está pronto ('interactive' ou 'complete') — executar já
+  // DOM já está pronto ('interactive' ou 'complete') - executar já
   bootstrap();
 }
