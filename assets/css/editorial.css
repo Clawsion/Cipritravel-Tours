@@ -1053,22 +1053,16 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: translateX(6px);
   color: var(--accent-2);
 }
-.contacts-info-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 24px;
-  align-items: start;
-}
 .contacts-info-left {
   display: flex;
   flex-direction: column;
 }
-.contacts-hours-side {
-  padding-left: 20px;
-  border-left: 1px solid var(--border);
-  min-width: 160px;
+.contacts-hours-bottom {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
 }
-.contacts-hours-side h4 {
+.contacts-hours-bottom h4 {
   font-family: var(--serif);
   font-size: 0.95rem;
   font-weight: 500;
@@ -1081,15 +1075,11 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   padding: 4px 0;
   font-size: 0.78rem;
   gap: 12px;
+  max-width: 280px;
 }
 .contacts-hours-row .day { color: var(--text-soft); white-space: nowrap; }
 .contacts-hours-row .hours { color: var(--accent); font-weight: 600; font-family: var(--serif); white-space: nowrap; }
 .contacts-aside { display: flex; flex-direction: column; gap: 16px; }
-
-@media (max-width: 600px) {
-  .contacts-info-grid { grid-template-columns: 1fr; gap: 16px; }
-  .contacts-hours-side { padding-left: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 12px; }
-}
 .contacts-map-wrap {
   border-radius: 2px;
   overflow: hidden;
@@ -1099,7 +1089,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 }
 .contacts-map-wrap iframe {
   width: 100%;
-  height: 300px;
+  height: 280px;
   border: 0;
   display: block;
   filter: grayscale(40%) contrast(1.05) sepia(15%) hue-rotate(-10deg);
@@ -1122,7 +1112,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 2px;
-  padding: 22px 22px 20px;
+  padding: 20px 22px 18px;
   box-shadow: var(--shadow);
 }
 .contacts-form-card h3 {

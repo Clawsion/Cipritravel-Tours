@@ -645,55 +645,53 @@ function renderFormulario(s) {
 
           <h3 class="contacts-block-title">${L.directContact}</h3>
 
-          <div class="contacts-info-grid">
-            <div class="contacts-info-left">
-              ${tel ? `
-                <a class="contact-link" href="tel:${tel.replace(/\s/g,'')}">
-                  <span class="contact-link__label">${L.phone}</span>
-                  <span class="contact-link__value">${tel}</span>
-                  <span class="contact-link__arrow">→</span>
-                </a>
-              ` : ''}
+          <div class="contacts-info-left">
+            ${tel ? `
+              <a class="contact-link" href="tel:${tel.replace(/\s/g,'')}">
+                <span class="contact-link__label">${L.phone}</span>
+                <span class="contact-link__value">${tel}</span>
+                <span class="contact-link__arrow">→</span>
+              </a>
+            ` : ''}
 
-              ${email ? `
-                <a class="contact-link" href="mailto:${email}">
-                  <span class="contact-link__label">Email</span>
-                  <span class="contact-link__value">${email}</span>
-                  <span class="contact-link__arrow">→</span>
-                </a>
-              ` : ''}
+            ${email ? `
+              <a class="contact-link" href="mailto:${email}">
+                <span class="contact-link__label">Email</span>
+                <span class="contact-link__value">${email}</span>
+                <span class="contact-link__arrow">→</span>
+              </a>
+            ` : ''}
 
-              ${whatsapp ? `
-                <a class="contact-link" href="https://wa.me/${whatsapp}" target="_blank" rel="noopener">
-                  <span class="contact-link__label">WhatsApp</span>
-                  <span class="contact-link__value">+${whatsapp}</span>
-                  <span class="contact-link__arrow">→</span>
-                </a>
-              ` : ''}
+            ${whatsapp ? `
+              <a class="contact-link" href="https://wa.me/${whatsapp}" target="_blank" rel="noopener">
+                <span class="contact-link__label">WhatsApp</span>
+                <span class="contact-link__value">+${whatsapp}</span>
+                <span class="contact-link__arrow">→</span>
+              </a>
+            ` : ''}
 
-              ${morada ? `
-                <a class="contact-link" href="https://maps.google.com/?q=${encodeURIComponent(morada)}" target="_blank" rel="noopener">
-                  <span class="contact-link__label">${L.address}</span>
-                  <span class="contact-link__value" style="font-size:0.92rem;line-height:1.4">${morada}</span>
-                  <span class="contact-link__arrow">→</span>
-                </a>
-              ` : ''}
+            ${morada ? `
+              <a class="contact-link" href="https://maps.google.com/?q=${encodeURIComponent(morada)}" target="_blank" rel="noopener">
+                <span class="contact-link__label">${L.address}</span>
+                <span class="contact-link__value" style="font-size:0.92rem;line-height:1.4">${morada}</span>
+                <span class="contact-link__arrow">→</span>
+              </a>
+            ` : ''}
+          </div>
+
+          <div class="contacts-hours-bottom">
+            <h4>${L.hours}</h4>
+            <div class="contacts-hours-row">
+              <span class="day">${L.monFri}</span>
+              <span class="hours">9h00 — 19h00</span>
             </div>
-
-            <div class="contacts-hours-side">
-              <h4>${L.hours}</h4>
-              <div class="contacts-hours-row">
-                <span class="day">${L.monFri}</span>
-                <span class="hours">9h00 — 19h00</span>
-              </div>
-              <div class="contacts-hours-row">
-                <span class="day">${L.sat}</span>
-                <span class="hours">10h00 — 17h00</span>
-              </div>
-              <div class="contacts-hours-row">
-                <span class="day">${L.sun}</span>
-                <span class="hours" style="color:var(--muted)">${L.closed}</span>
-              </div>
+            <div class="contacts-hours-row">
+              <span class="day">${L.sat}</span>
+              <span class="hours">10h00 — 17h00</span>
+            </div>
+            <div class="contacts-hours-row">
+              <span class="day">${L.sun}</span>
+              <span class="hours" style="color:var(--muted)">${L.closed}</span>
             </div>
           </div>
         </div>
@@ -701,7 +699,7 @@ function renderFormulario(s) {
         <!-- Lado direito: Mapa + Mensagem Rápida em baixo -->
         <div class="contacts-aside reveal">
           <div class="contacts-map-wrap">
-            <iframe src="${mapEmbed}" width="100%" height="300" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="${mapEmbed}" width="100%" height="280" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
 
           <div class="contacts-form-card">
