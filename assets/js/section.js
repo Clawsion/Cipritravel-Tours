@@ -497,12 +497,13 @@ function renderTextoImagem(s) {
   const imgFirst = s.posicaoImagem === 'esquerda';
 
   // 5 imagens de diferentes partes de Portugal
+  // ?v=2 force cache-bust (Cloudflare/browser) para garantir versao atual em desktop e mobile
   const slides = [
-    { img: '/assets/images/uploads/about-1-douro.jpg',  label: 'Douro Vinhateiro' },
-    { img: '/assets/images/uploads/about-2-algarve.jpg', label: 'Algarve' },
-    { img: '/assets/images/uploads/about-3-sintra.jpg',  label: 'Sintra' },
-    { img: '/assets/images/uploads/about-4-serra.jpg',   label: 'Serra da Estrela' },
-    { img: '/assets/images/uploads/about-5-lisbon.jpg',  label: 'Lisboa' },
+    { img: '/assets/images/uploads/about-1-douro.jpg?v=2',  label: 'Douro Vinhateiro' },
+    { img: '/assets/images/uploads/about-2-algarve.jpg?v=2', label: 'Algarve' },
+    { img: '/assets/images/uploads/about-3-sintra.jpg?v=2',  label: 'Sintra' },
+    { img: '/assets/images/uploads/about-4-serra.jpg?v=2',   label: 'Serra da Estrela' },
+    { img: '/assets/images/uploads/about-5-lisbon.jpg?v=2',  label: 'Lisboa' },
   ];
 
   const slidesHTML = slides.map((slide, idx) => `

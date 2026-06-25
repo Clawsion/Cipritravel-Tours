@@ -1337,7 +1337,7 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
   .contact-link__arrow { font-size: 1rem; flex-shrink: 0; }
   .contacts-hours-row { font-size: 0.72rem; max-width: 100%; }
   .contacts-map-wrap iframe { height: 180px; }
-  .contacts-form-card { padding: 22px 16px 16px; }
+  .contacts-form-card { padding: 22px 16px 16px; margin-top: 24px; }
   .contacts-info-left { padding: 22px 16px 16px; }
   .contacts-hours-bottom { padding: 18px 16px 14px; margin-top: 16px; }
   .contacts-info-left::before, .contacts-form-card::before, .contacts-hours-bottom::before { right: 10px; font-size: 0.5rem; padding: 2px 7px 3px; }
@@ -1938,6 +1938,7 @@ section > div:first-child {
   padding: 32px 28px 26px;
   box-shadow: 0 6px 24px rgba(20,15,5,0.08);
   position: relative;
+  margin-top: 32px;
 }
 .contacts-form-card::before {
   content: 'FORM';
