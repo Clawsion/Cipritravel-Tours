@@ -3849,11 +3849,22 @@ main > section {
   .hero-content { padding: 16px; }
   .hero-content h1 { font-size: clamp(2rem, 9vw, 3rem) !important; }
   .hero-content p { font-size: clamp(0.9rem, 3.5vw, 1rem) !important; }
-  .hero-section { min-height: 500px; }
+  .hero-section {
+    min-height: auto;
+    height: 75vh;
+    height: 75dvh;
+    background: #1a1410;
+  }
   .hero-img, .hero-video {
-    object-position: center 25%;
-    transform: scale(1.0) !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
     animation: none !important;
+    filter: saturate(0.85) contrast(1.06) brightness(0.9);
+    background: #1a1410;
+  }
+  .hero-overlay {
+    background: linear-gradient(180deg, rgba(15,10,5,0.35) 0%, rgba(15,10,5,0.15) 50%, rgba(15,10,5,0.55) 100%);
   }
   .tour-card-img { height: 220px; }
   .blog-img { height: 180px; }
