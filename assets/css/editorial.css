@@ -3851,20 +3851,20 @@ main > section {
   .hero-content p { font-size: clamp(0.85rem, 3vw, 1rem) !important; margin: 0 auto 18px !important; }
   .hero-content .section-tag { margin-bottom: 12px !important; }
   .hero-content .btn-primary, .hero-content .btn-outline { padding: 9px 18px; font-size: 0.72rem; }
-  /* Hero mobile: aspect-ratio igual ao da imagem (1536x1024 = 3:2)
-     - Em qualquer mobile, a seccao fica proporcional a imagem
-     - object-fit: cover preenche sem cortes (ratios iguais = sem cropping)
-     - Autocarro 100% visivel, sem espacos vazios */
+  /* Hero mobile: aspect-ratio 4/3 (mais alto que 3:2 da imagem) para secção mais larga em altura.
+     - object-fit: contain (mostra imagem completa, sem cortes)
+     - transform: scale(1.05) (zoom suave, a imagem cresce 5% mas o overflow:hidden limita a apresentação)
+     - Background #1a1410 (carvão quente) para as pequenas barras laterais ficarem discretas */
   .hero-section {
     min-height: auto !important;
     height: auto !important;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 4 / 3;
     background: #1a1410;
   }
   .hero-img, .hero-video {
-    object-fit: cover !important;
+    object-fit: contain !important;
     object-position: center center !important;
-    transform: none !important;
+    transform: scale(1.05) !important;
     animation: none !important;
   }
   .hero-overlay {
