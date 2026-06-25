@@ -694,29 +694,24 @@ function renderFormulario(s) {
           </div>
         </div>
 
-        <!-- Lado direito: Mapa -->
+        <!-- Lado direito: Mapa + Mensagem Rápida em baixo -->
         <div class="contacts-aside reveal">
           <div class="contacts-map-wrap">
             <iframe src="${mapEmbed}" width="100%" height="340" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
-        </div>
-      </div>
 
-      <!-- Mensagem Rápida — full-width integrada no fundo da secção -->
-      <div class="contacts-quick-msg reveal">
-        <div class="contacts-quick-msg__inner">
-          <div class="contacts-quick-msg__header">
-            <div class="contacts-quick-msg__eyebrow">${isEn ? 'Quick Message' : 'Mensagem Rápida'}</div>
-            <h3 class="contacts-quick-msg__title" data-pt="Tem alguma dúvida?" data-en="Have a question?">${isEn ? 'Have a question?' : 'Tem alguma dúvida?'}</h3>
-            <p class="contacts-quick-msg__desc" data-pt="Envie-nos uma mensagem. Respondemos em até 24 horas." data-en="Send us a message. We reply within 24 hours.">${isEn ? 'Send us a message. We reply within 24 hours.' : 'Envie-nos uma mensagem. Respondemos em até 24 horas.'}</p>
-          </div>
-          <div class="contacts-quick-msg__form">
-            <div class="contacts-quick-msg__row">
+          <div class="contacts-form-card">
+            <div style="margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)">
+              <span style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;font-weight:700;color:var(--accent-2)">${isEn ? 'Quick Message' : 'Mensagem Rápida'}</span>
+            </div>
+            <h3 style="font-family:var(--serif);font-size:1.2rem;font-weight:500;margin-bottom:6px;color:var(--text)" data-pt="Tem alguma dúvida?" data-en="Have a question?">${isEn ? 'Have a question?' : 'Tem alguma dúvida?'}</h3>
+            <p style="font-size:0.82rem;color:var(--muted);margin-bottom:16px" data-pt="Respondemos em até 24 horas." data-en="We reply within 24 hours.">${isEn ? 'We reply within 24 hours.' : 'Respondemos em até 24 horas.'}</p>
+            <div class="contacts-form-grid">
               <input type="text" id="contact-name" class="translatable-input contacts-input" data-placeholder-pt="O seu nome..." data-placeholder-en="Your name..." placeholder="${namePlaceholder}">
               <input type="email" id="contact-email" class="translatable-input contacts-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}">
             </div>
             <textarea id="contact-msg" rows="3" class="translatable-input contacts-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}"></textarea>
-            <button class="contacts-quick-msg__btn" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${L.send}</button>
+            <button class="contacts-quick-msg__btn" style="width:100%" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${L.send}</button>
             <p id="contact-success" style="margin-top:10px;color:var(--accent);font-weight:600;display:none;text-align:center;font-family:var(--serif)"></p>
           </div>
         </div>
