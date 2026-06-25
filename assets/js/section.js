@@ -603,9 +603,10 @@ function renderCTA(s) {
 }
 
 function renderFormulario(s) {
-  const namePlaceholder = SITE.lang === 'en' ? 'Your name...' : 'O seu nome...';
-  const emailPlaceholder = SITE.lang === 'en' ? 'Your email...' : 'O seu email...';
-  const msgPlaceholder = SITE.lang === 'en' ? 'Your message...' : 'A sua mensagem...';
+  const isEn = SITE.lang === 'en';
+  const namePlaceholder = isEn ? 'Your name...' : 'O seu nome...';
+  const emailPlaceholder = isEn ? 'Your email...' : 'O seu email...';
+  const msgPlaceholder = isEn ? 'Your message...' : 'A sua mensagem...';
 
   // Contactos do config.json como fallback
   const cfg = SITE.config?.contactos || {};
