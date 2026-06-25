@@ -1771,10 +1771,6 @@ section > div:first-child {
 /* ============================================================
    CONTACTOS - design direto e visual (editorial)
    ============================================================ */
-.contacts-section {
-  background: var(--bg-soft) !important;
-  padding: 120px 24px !important;
-}
 .contacts-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
