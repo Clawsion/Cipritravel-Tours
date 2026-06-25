@@ -289,38 +289,36 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: rotate(15deg);
 }
 
-/* ===== Buttons — Minimalistas: outline fino, hover preenche ===== */
+/* ===== Buttons — Minimalistas: laranja repouso, verde hover ===== */
 .btn-primary {
-  background: transparent;
-  color: var(--accent);
-  padding: 11px 26px;
-  border-radius: 0;
-  font-weight: 600;
-  font-size: 0.72rem;
+  background: var(--accent-2);
+  color: #fff;
+  padding: 13px 28px;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 0.74rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
-  border: 1px solid var(--accent);
-  transition: all .35s cubic-bezier(.22,.61,.36,1);
+  border: none;
+  transition: all .3s cubic-bezier(.22,.61,.36,1);
   display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  box-shadow: none;
+  box-shadow: 0 4px 14px rgba(224,112,0,0.25);
 }
 .btn-primary::after {
   content: '→';
   font-family: var(--serif);
   font-size: 0.95rem;
-  font-weight: 400;
+  font-weight: 500;
   transition: transform .3s;
 }
 .btn-primary:hover {
   background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-  transform: none;
-  box-shadow: none;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,128,48,0.3);
   gap: 14px;
 }
 .btn-primary:hover::after { transform: translateX(4px); }
@@ -1052,14 +1050,24 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: translateX(6px);
   color: var(--accent-2);
 }
-.contacts-hours-mini {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
+.contacts-info-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
 }
-.contacts-hours-mini h4 {
+.contacts-info-left {
+  display: flex;
+  flex-direction: column;
+}
+.contacts-hours-side {
+  padding-left: 20px;
+  border-left: 1px solid var(--border);
+  min-width: 160px;
+}
+.contacts-hours-side h4 {
   font-family: var(--serif);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   margin-bottom: 8px;
   color: var(--text);
@@ -1067,12 +1075,18 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .contacts-hours-row {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0;
-  font-size: 0.82rem;
+  padding: 4px 0;
+  font-size: 0.78rem;
+  gap: 12px;
 }
-.contacts-hours-row .day { color: var(--text-soft); }
-.contacts-hours-row .hours { color: var(--accent); font-weight: 600; font-family: var(--serif); }
+.contacts-hours-row .day { color: var(--text-soft); white-space: nowrap; }
+.contacts-hours-row .hours { color: var(--accent); font-weight: 600; font-family: var(--serif); white-space: nowrap; }
 .contacts-aside { display: flex; flex-direction: column; gap: 16px; }
+
+@media (max-width: 600px) {
+  .contacts-info-grid { grid-template-columns: 1fr; gap: 16px; }
+  .contacts-hours-side { padding-left: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 12px; }
+}
 .contacts-map-wrap {
   border-radius: 2px;
   overflow: hidden;
@@ -3646,7 +3660,7 @@ main > section {
   gap: 8px;
 }
 .site-footer__logo {
-  height: 70px;
+  height: 130px;
   width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1);
