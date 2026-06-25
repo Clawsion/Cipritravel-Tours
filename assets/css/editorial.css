@@ -733,12 +733,9 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   object-fit: cover;
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
-  transform: scale(1.02);
 }
 .about-split__slide.active {
   opacity: 1;
-  transform: scale(1.06);
-  transition: opacity 1.5s ease-in-out, transform 6s ease-out;
 }
 .about-split__slide-counter {
   position: absolute;
