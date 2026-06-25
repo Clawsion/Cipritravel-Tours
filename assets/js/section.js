@@ -550,44 +550,30 @@ function renderTextoImagem(s) {
 
 function renderFeatures(s) {
   const itens = (s.itens || []).filter(i => i.ativo !== false);
-  const bgClass = s.corFundo === 'cinza' ? 'var(--bg)' : 'var(--card)';
 
-  // Itens com foto: cards verticais estilo magazine com hover overlay
-  // Grid sempre 1 linha no desktop (até 6 cards), responsivo para 2/1
   const itensHTML = itens.map((i, idx) => {
     const titulo = t(i.titulo, i.tituloEn);
     const descricao = t(i.descricao, i.descricaoEn);
-    const initial = (titulo || '?').charAt(0).toUpperCase();
-
-    const visual = i.imagem
-      ? `<img class="why-card__img" src="${i.imagem}" alt="${titulo}" loading="lazy">`
-      : `<div class="why-card__img" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:4.5rem;font-weight:700;font-style:italic">${initial}</div>`;
+    const num = String(idx + 1).padStart(2, '0');
 
     return `
-      <div class="why-card reveal-stagger">
-        <div class="why-card__visual">
-          ${visual}
-          <div class="why-card__overlay-num">${String(idx+1).padStart(2,'0')}</div>
-        </div>
-        <div class="why-card__body">
-          <h3 class="why-card__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${titulo}</h3>
-          <p class="why-card__desc" data-pt="${i.descricao}" data-en="${i.descricaoEn || i.descricao}">${descricao}</p>
-        </div>
+      <div class="why-minimal__item">
+        <div class="why-minimal__num">${num}</div>
+        <h3 class="why-minimal__title" data-pt="${i.titulo}" data-en="${i.tituloEn || i.titulo}">${titulo}</h3>
+        <p class="why-minimal__desc" data-pt="${i.descricao}" data-en="${i.descricaoEn || i.descricao}">${descricao}</p>
       </div>
     `;
   }).join('');
 
-  // Grid dinâmico: 1 linha no desktop, 2 cols tablet, 1 col mobile
-  const itemCount = itens.length;
-  const gridCols = itemCount <= 4 ? `repeat(${itemCount}, 1fr)` : `repeat(5, 1fr)`;
-
   return `
-    <section id="${s.id || 'features'}" style="background:${bgClass}">
-      <div style="text-align:center">
-        <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
-        <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
-        <p class="section-subtitle" data-pt="${s.descricao || ''}" data-en="${s.descricaoEn || s.descricao || ''}">${t(s.descricao || '', s.descricaoEn || s.descricao || '')}</p>
-        <div class="why-grid" style="display:grid;grid-template-columns:${gridCols};gap:24px;margin-top:64px">
+    <section id="${s.id || 'features'}" style="background:var(--bg)">
+      <div style="max-width:1400px;margin:0 auto">
+        <div style="text-align:center;margin-bottom:50px">
+          <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
+          <h2 class="section-title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${t(s.titulo, s.tituloEn)}</h2>
+          <p class="section-subtitle" data-pt="${s.descricao || ''}" data-en="${s.descricaoEn || s.descricao || ''}">${t(s.descricao || '', s.descricaoEn || s.descricao || '')}</p>
+        </div>
+        <div class="why-minimal reveal-stagger">
           ${itensHTML}
         </div>
       </div>
@@ -600,18 +586,15 @@ function renderCTA(s) {
   const titulo = t(s.titulo, s.tituloEn);
   const descricao = t(s.descricao, s.descricaoEn);
   const textoBotao = t(s.textoBotao || 'Subscrever', s.textoBotaoEn || 'Subscribe');
-  const isEn = SITE.lang === 'en';
-  const tagText = isEn ? 'Newsletter' : 'Newsletter';
 
   return `
     <section class="newsletter-cinematic reveal" style="background-image:url('/assets/images/uploads/newsletter-bg.jpg')">
       <div class="newsletter-cinematic__inner">
-        <span class="newsletter-cinematic__tag">${tagText}</span>
         <h2 class="newsletter-cinematic__title" data-pt="${s.titulo}" data-en="${s.tituloEn || s.titulo}">${titulo}</h2>
         <p class="newsletter-cinematic__desc" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${descricao}</p>
         <div class="newsletter-cinematic__form">
           <input type="email" id="newsletter-email" class="translatable-input newsletter-cinematic__input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}">
-          <button class="btn-outline" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${textoBotao}</button>
+          <button class="newsletter-cinematic__submit" onclick="subscribeNewsletter()" data-pt="${s.textoBotao || 'Subscrever'}" data-en="${s.textoBotaoEn || 'Subscribe'}">${textoBotao}</button>
         </div>
         <p id="newsletter-msg" class="newsletter-cinematic__msg"></p>
       </div>
@@ -714,6 +697,7 @@ function renderFormulario(s) {
         <div class="contacts-aside reveal">
           <div class="contacts-map-wrap">
             <iframe src="${mapEmbed}" width="100%" height="320" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="contacts-map-address">${morada}</div>
           </div>
 
           <div class="contacts-form-card">
