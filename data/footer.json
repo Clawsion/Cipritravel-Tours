@@ -35,9 +35,24 @@
   "copyright": "© {ano} Cipritravel Tours. Todos os direitos reservados.",
   "descricao": "Experiências únicas e memoráveis em cada viagem.",
   "redesSociais": [
-    { "nome": "Facebook", "url": "https://facebook.com/cipritraveltours", "icone": "f", "ativo": true },
-    { "nome": "Instagram", "url": "https://instagram.com/cipritraveltours", "icone": "📷", "ativo": true },
-    { "nome": "LinkedIn", "url": "https://linkedin.com/company/cipritraveltours", "icone": "in", "ativo": true }
+    {
+      "nome": "Facebook",
+      "url": "https://www.facebook.com/cipriviagens/",
+      "icone": "f",
+      "ativo": true
+    },
+    {
+      "nome": "Instagram",
+      "url": "https://www.instagram.com/cipritravelpt/",
+      "icone": "📷",
+      "ativo": true
+    },
+    {
+      "nome": "LinkedIn",
+      "url": "https://linkedin.com/company/cipritraveltours",
+      "icone": "in",
+      "ativo": false
+    }
   ],
   "logo": "assets/images/logo.png",
   "copyrightEn": "© {ano} Cipritravel Tours. All rights reserved.",
