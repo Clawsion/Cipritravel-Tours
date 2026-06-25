@@ -858,6 +858,7 @@ function renderFooter() {
       </div>
       <div class="site-footer__bottom">
         <p class="site-footer__copyright" data-pt="${f.copyright}" data-en="${f.copyrightEn || f.copyright}">${t(f.copyright, f.copyrightEn).replace('{ano}', new Date().getFullYear())}</p>
+        <img src="/assets/images/uploads/selo-agencia.png" alt="Selo da Agência" class="site-footer__selo">
         <button onclick="openModal('modal-privacidade')" class="site-footer__privacy" data-pt="Política de Privacidade" data-en="Privacy Policy">${ts('Política de Privacidade')}</button>
       </div>
     </footer>
