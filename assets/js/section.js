@@ -697,7 +697,7 @@ function renderFormulario(s) {
         <!-- Lado direito: Mapa + Mensagem Rápida em baixo -->
         <div class="contacts-aside reveal">
           <div class="contacts-map-wrap">
-            <iframe src="${mapEmbed}" width="100%" height="340" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="${mapEmbed}" width="100%" height="300" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
 
           <div class="contacts-form-card">

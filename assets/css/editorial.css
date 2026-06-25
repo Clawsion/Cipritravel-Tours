@@ -977,12 +977,12 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
    ============================================================ */
 .contacts-section {
   background: var(--bg) !important;
-  padding: 100px 24px !important;
+  padding: 70px 24px 60px !important;
 }
 .contacts-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
   align-items: start;
@@ -990,52 +990,52 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .contacts-info h2 {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
-  margin: 14px 0 16px;
+  margin: 10px 0 12px;
 }
 .contacts-info > p {
   color: var(--text-soft);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 36px;
-  max-width: 420px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  max-width: 400px;
 }
 .contacts-block-title {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--accent-2);
-  margin-bottom: 18px;
-  padding-bottom: 14px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border);
 }
 .contact-link {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 16px 0;
+  gap: 16px;
+  padding: 11px 0;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: inherit;
   transition: padding-left .35s cubic-bezier(.22,.61,.36,1);
 }
 .contact-link:hover {
-  padding-left: 12px;
+  padding-left: 10px;
 }
 .contact-link__label {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--muted);
   font-weight: 600;
-  flex: 0 0 90px;
+  flex: 0 0 80px;
 }
 .contact-link__value {
   font-family: var(--serif);
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   font-weight: 500;
   color: var(--text);
   flex: 1;
@@ -1044,7 +1044,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .contact-link:hover .contact-link__value { color: var(--accent-2); }
 .contact-link__arrow {
   font-family: var(--serif);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--muted);
   transition: transform .35s, color .25s;
 }
@@ -1052,7 +1052,27 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: translateX(6px);
   color: var(--accent-2);
 }
-.contacts-aside { display: flex; flex-direction: column; gap: 20px; }
+.contacts-hours-mini {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.contacts-hours-mini h4 {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.contacts-hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 0.82rem;
+}
+.contacts-hours-row .day { color: var(--text-soft); }
+.contacts-hours-row .hours { color: var(--accent); font-weight: 600; font-family: var(--serif); }
+.contacts-aside { display: flex; flex-direction: column; gap: 16px; }
 .contacts-map-wrap {
   border-radius: 2px;
   overflow: hidden;
@@ -1062,7 +1082,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 }
 .contacts-map-wrap iframe {
   width: 100%;
-  height: 340px;
+  height: 300px;
   border: 0;
   display: block;
   filter: grayscale(40%) contrast(1.05) sepia(15%) hue-rotate(-10deg);
@@ -1085,7 +1105,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 2px;
-  padding: 24px 24px 22px;
+  padding: 22px 22px 20px;
   box-shadow: var(--shadow);
 }
 .contacts-form-card h3 {
@@ -1207,8 +1227,8 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
 }
 
 @media (max-width: 900px) {
-  .contacts-grid { grid-template-columns: 1fr; gap: 40px; }
-  .contacts-map-wrap iframe { height: 260px; }
+  .contacts-grid { grid-template-columns: 1fr; gap: 32px; }
+  .contacts-map-wrap iframe { height: 240px; }
   .contacts-form-grid { grid-template-columns: 1fr; }
 }
 
