@@ -828,20 +828,32 @@ function renderFooter() {
 
   const footerHTML = `
     <footer class="site-footer">
-      <div class="site-footer__inner">
-        <div class="site-footer__brand">
+      <div class="site-footer__grid">
+        <div class="site-footer__col">
           <img src="${f.logo}" alt="Cipritravel Tours" class="site-footer__logo">
-          <p class="site-footer__copyright" data-pt="${f.copyright}" data-en="${f.copyrightEn || f.copyright}">${t(f.copyright, f.copyrightEn).replace('{ano}', new Date().getFullYear())}</p>
+          <p class="site-footer__desc" data-pt="${f.descricao}" data-en="${f.descricaoEn || f.descricao}">${t(f.descricao, f.descricaoEn)}</p>
         </div>
-        <nav class="site-footer__links">
-          ${linksHTML}
-        </nav>
-        <div class="site-footer__social">
-          ${redesHTML}
+        <div class="site-footer__col">
+          <h4 class="site-footer__heading" data-pt="Links Rápidos" data-en="Quick Links">${ts('Links Rápidos')}</h4>
+          <div class="site-footer__links">${linksHTML}</div>
         </div>
+        <div class="site-footer__col">
+          <h4 class="site-footer__heading" data-pt="Contactos" data-en="Contacts">${ts('Contactos')}</h4>
+          <div class="site-footer__contact-list">
+            <p>${f.contactos?.telefone || ''}</p>
+            <p>${f.contactos?.email || ''}</p>
+            <p>${f.contactos?.morada || ''}</p>
+          </div>
+        </div>
+        ${redesHTML ? `
+        <div class="site-footer__col">
+          <h4 class="site-footer__heading" data-pt="Redes Sociais" data-en="Social Media">${ts('Redes Sociais')}</h4>
+          <div class="site-footer__social">${redesHTML}</div>
+        </div>
+        ` : ''}
       </div>
       <div class="site-footer__bottom">
-        <p style="font-size:0.72rem;color:var(--muted)" data-pt="© ${new Date().getFullYear()} Cipritravel Tours. Todos os direitos reservados." data-en="© ${new Date().getFullYear()} Cipritravel Tours. All rights reserved.">© ${new Date().getFullYear()} Cipritravel Tours. ${isEn ? 'All rights reserved.' : 'Todos os direitos reservados.'}</p>
+        <p class="site-footer__copyright" data-pt="${f.copyright}" data-en="${f.copyrightEn || f.copyright}">${t(f.copyright, f.copyrightEn).replace('{ano}', new Date().getFullYear())}</p>
         <button onclick="openModal('modal-privacidade')" class="site-footer__privacy" data-pt="Política de Privacidade" data-en="Privacy Policy">${ts('Política de Privacidade')}</button>
       </div>
     </footer>
