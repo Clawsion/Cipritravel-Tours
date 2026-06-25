@@ -3746,7 +3746,7 @@ main > section {
 }
 .site-footer__privacy:hover { color: #fb923c; }
 .site-footer__selo {
-  height: 42px;
+  height: 50px;
   width: auto;
   object-fit: contain;
   opacity: 0.9;
