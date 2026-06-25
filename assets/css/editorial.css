@@ -1099,7 +1099,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .contacts-info-left {
   display: flex;
   flex-direction: column;
-  background: var(--bg-soft);
+  background: transparent;
   border: 1px solid var(--border);
   border-top: 3px solid var(--accent-2);
   border-radius: 4px;
@@ -1126,7 +1126,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
 .contacts-hours-bottom {
   margin-top: 20px;
   padding: 22px 26px 18px;
-  background: var(--bg-soft);
+  background: transparent;
   border: 1px solid var(--border);
   border-top: 3px solid var(--accent);
   border-radius: 4px;
@@ -1928,7 +1928,7 @@ section > div:first-child {
 .contacts-map-wrap:hover iframe { filter: grayscale(0%) contrast(1); }
 
 .contacts-form-card {
-  background: var(--bg-soft);
+  background: transparent;
   border: 1px solid var(--border);
   border-top: 3px solid var(--accent-2);
   border-radius: 4px;
