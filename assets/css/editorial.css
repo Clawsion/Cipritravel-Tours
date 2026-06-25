@@ -3872,6 +3872,7 @@ main > section {
   .hero-overlay {
     background: linear-gradient(180deg, rgba(15,10,5,0.45) 0%, rgba(15,10,5,0.15) 45%, rgba(15,10,5,0.65) 100%);
   }
+  .hero-scroll-cue { display: none !important; }
   .tour-card-img { height: 220px; }
   .blog-img { height: 180px; }
   .exc-card-body { padding: 18px; }
