@@ -1002,26 +1002,19 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
    CONTACTOS - Minimalista com mapa integrado
    ============================================================ */
 .contacts-section {
-  background: var(--bg) !important;
+  background: var(--bg) url('/assets/images/uploads/contactos-watermark.png') center center / cover no-repeat !important;
   padding: 70px 24px 60px !important;
   position: relative;
   overflow: hidden;
 }
 .contacts-section::before {
-  content: 'CONTACTOS';
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--serif);
-  font-size: clamp(8rem, 20vw, 16rem);
-  font-weight: 700;
-  color: var(--text);
-  opacity: 0.03;
-  letter-spacing: 0.1em;
-  pointer-events: none;
+  inset: 0;
+  background: var(--bg);
+  opacity: 0.88;
   z-index: 0;
-  white-space: nowrap;
+  pointer-events: none;
 }
 .contacts-section > * {
   position: relative;
@@ -1296,8 +1289,8 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
   .contacts-info > p { font-size: 0.82rem; margin-bottom: 18px; }
   .contact-link { gap: 8px; padding: 9px 0; flex-wrap: wrap; }
   .contact-link__label { flex: 0 0 100%; font-size: 0.58rem; margin-bottom: 2px; }
-  .contact-link__value { font-size: 0.82rem; word-break: break-word; overflow-wrap: break-word; min-width: 0; flex: 1; }
-  .contact-link[href^="mailto"] .contact-link__value { font-size: 0.7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .contact-link__value { font-size: 0.88rem; word-break: break-word; overflow-wrap: break-word; min-width: 0; flex: 1; }
+  .contact-link[href^="mailto:"] .contact-link__value { font-size: 0.88rem; white-space: normal; word-break: break-after; }
   .contact-link__arrow { font-size: 1rem; flex-shrink: 0; }
   .contacts-hours-row { font-size: 0.72rem; max-width: 100%; }
   .contacts-map-wrap iframe { height: 180px; }
