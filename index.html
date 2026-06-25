@@ -16,15 +16,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/editorial.css?v=60">
+<link rel="stylesheet" href="assets/css/editorial.css?v=61">
 </head>
 <body>
-
-<div class="loading-screen" id="loading-screen">
-  <div class="spinner"></div>
-  <h2 class="font-playfair" style="margin-top:20px;font-size:1.5rem">Cipritravel Tours</h2>
-  <p style="color:var(--muted);margin-top:8px">A carregar...</p>
-</div>
 
 <nav style="position:sticky;top:0;z-index:100">
   <div class="nav-inner">
@@ -99,11 +93,6 @@
     document.getElementById('mobile-menu').classList.remove('open');
     document.getElementById('hamburger').classList.remove('open');
   }
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      document.getElementById("loading-screen").classList.add("hidden");
-    }, 500);
-  });
 </script>
 
 </body>
