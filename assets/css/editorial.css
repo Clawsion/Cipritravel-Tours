@@ -511,6 +511,8 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   z-index: 0;
   transform: scale(1.05);
   animation: heroZoom 20s ease-out forwards;
+  /* Tinte quente editorial: tons de terra/verde/laranja alinhados com a paleta do site */
+  filter: saturate(0.85) contrast(1.06) sepia(0.18) hue-rotate(-12deg) brightness(0.95);
 }
 @keyframes heroZoom {
   from { transform: scale(1.15); }
@@ -1012,7 +1014,7 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   position: absolute;
   inset: 0;
   background: var(--bg);
-  opacity: 0.88;
+  opacity: 0.86;
   z-index: 0;
   pointer-events: none;
 }
@@ -1093,19 +1095,58 @@ body.dark .theme-icon__moon { opacity: 0; transform: scale(0.6) rotate(-90deg); 
   transform: translateX(6px);
   color: var(--accent-2);
 }
+/* ---- "Marca em volta" - cards destacados sobre a marca de agua ---- */
 .contacts-info-left {
   display: flex;
   flex-direction: column;
   background: var(--bg-soft);
   border: 1px solid var(--border);
+  border-top: 3px solid var(--accent-2);
   border-radius: 4px;
-  padding: 20px 24px;
-  box-shadow: 0 2px 12px rgba(20,15,5,0.04);
+  padding: 24px 26px 20px;
+  box-shadow: 0 6px 24px rgba(20,15,5,0.08), 0 1px 0 rgba(255,255,255,0.04) inset;
+  position: relative;
+}
+/* Pequena etiqueta decorativa no canto superior direito - a "marca" */
+.contacts-info-left::before {
+  content: 'INFO';
+  position: absolute;
+  top: -1px;
+  right: 18px;
+  background: var(--accent-2);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  padding: 3px 9px 4px;
+  border-radius: 0 0 3px 3px;
+  line-height: 1;
 }
 .contacts-hours-bottom {
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
+  margin-top: 20px;
+  padding: 22px 26px 18px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 4px;
+  box-shadow: 0 6px 24px rgba(20,15,5,0.08);
+  position: relative;
+}
+.contacts-hours-bottom::before {
+  content: 'HORÁRIO';
+  position: absolute;
+  top: -1px;
+  right: 18px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  padding: 3px 9px 4px;
+  border-radius: 0 0 3px 3px;
+  line-height: 1;
 }
 .contacts-hours-bottom h4 {
   font-family: var(--serif);
@@ -1294,7 +1335,10 @@ textarea.contacts-input { margin-bottom: 14px; resize: vertical; min-height: 80p
   .contact-link__arrow { font-size: 1rem; flex-shrink: 0; }
   .contacts-hours-row { font-size: 0.72rem; max-width: 100%; }
   .contacts-map-wrap iframe { height: 180px; }
-  .contacts-form-card { padding: 16px 16px 14px; }
+  .contacts-form-card { padding: 22px 16px 16px; }
+  .contacts-info-left { padding: 22px 16px 16px; }
+  .contacts-hours-bottom { padding: 18px 16px 14px; margin-top: 16px; }
+  .contacts-info-left::before, .contacts-form-card::before, .contacts-hours-bottom::before { right: 10px; font-size: 0.5rem; padding: 2px 7px 3px; }
   .contacts-input { padding: 10px 12px; font-size: 0.85rem; }
   textarea.contacts-input { min-height: 60px; }
   .contacts-form-grid { gap: 8px; }
@@ -1884,11 +1928,28 @@ section > div:first-child {
 .contacts-map-wrap:hover iframe { filter: grayscale(0%) contrast(1); }
 
 .contacts-form-card {
-  background: var(--card);
+  background: var(--bg-soft);
   border: 1px solid var(--border);
+  border-top: 3px solid var(--accent-2);
   border-radius: 4px;
-  padding: 32px 28px;
-  box-shadow: var(--shadow);
+  padding: 32px 28px 26px;
+  box-shadow: 0 6px 24px rgba(20,15,5,0.08);
+  position: relative;
+}
+.contacts-form-card::before {
+  content: 'FORM';
+  position: absolute;
+  top: -1px;
+  right: 18px;
+  background: var(--accent-2);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  padding: 3px 9px 4px;
+  border-radius: 0 0 3px 3px;
+  line-height: 1;
 }
 .contacts-form-card h3 {
   font-family: var(--serif);
@@ -3856,7 +3917,11 @@ main > section {
   .hero-content h1 { font-size: clamp(2rem, 9vw, 3rem) !important; }
   .hero-content p { font-size: clamp(0.9rem, 3.5vw, 1rem) !important; }
   .hero-section { min-height: 500px; }
-  .hero-img, .hero-video { object-position: center 30%; }
+  .hero-img, .hero-video {
+    object-position: center 25%;
+    transform: scale(1.0) !important;
+    animation: none !important;
+  }
   .tour-card-img { height: 220px; }
   .blog-img { height: 180px; }
   .exc-card-body { padding: 18px; }
