@@ -696,18 +696,19 @@ function renderFormulario(s) {
         <!-- Lado direito: Mapa em cima, formulário em baixo -->
         <div class="contacts-aside reveal">
           <div class="contacts-map-wrap">
-            <iframe src="${mapEmbed}" width="100%" height="320" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <div class="contacts-map-address">${morada}</div>
+            <iframe src="${mapEmbed}" width="100%" height="340" style="border:0;display:block" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
 
           <div class="contacts-form-card">
-            <h3>${L.quickMessage}</h3>
+            <div style="margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+              <span style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;font-weight:700;color:var(--accent-2)">${isEn ? 'Quick Message' : 'Mensagem Rápida'}</span>
+            </div>
             <div class="contacts-form-grid">
               <input type="text" id="contact-name" class="translatable-input contacts-input" data-placeholder-pt="O seu nome..." data-placeholder-en="Your name..." placeholder="${namePlaceholder}">
               <input type="email" id="contact-email" class="translatable-input contacts-input" data-placeholder-pt="O seu email..." data-placeholder-en="Your email..." placeholder="${emailPlaceholder}">
             </div>
-            <textarea id="contact-msg" rows="4" class="translatable-input contacts-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}"></textarea>
-            <button class="btn-submit contacts-submit" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${L.send}</button>
+            <textarea id="contact-msg" rows="3" class="translatable-input contacts-input" data-placeholder-pt="A sua mensagem..." data-placeholder-en="Your message..." placeholder="${msgPlaceholder}"></textarea>
+            <button class="btn-submit" style="width:100%" onclick="sendMessage()" id="btn-send-msg" data-pt="Enviar Mensagem" data-en="Send Message">${L.send}</button>
             <p id="contact-success" style="margin-top:14px;color:var(--accent);font-weight:600;display:none;text-align:center;font-family:var(--serif)"></p>
           </div>
         </div>
@@ -809,59 +810,46 @@ function getSocialIcon(nome) {
 function renderFooter() {
   const f = SITE.footer;
   if (!f) return;
-  
+
   const linksHTML = f.linksRapidos?.map(l => `
-    <a href="${l.ancora}" style="color:#94a3b8;text-decoration:none;font-size:0.88rem;transition:color .2s" onmouseover="this.style.color='#f97316'" onmouseout="this.style.color='#94a3b8'" data-pt="${l.texto}" data-en="${l.textoEn || l.texto}">${t(l.texto, l.textoEn)}</a>
+    <a href="${l.ancora}" class="site-footer__link" data-pt="${l.texto}" data-en="${l.textoEn || l.texto}">${t(l.texto, l.textoEn)}</a>
   `).join('') || '';
-  
+
   const redesAtivas = f.redesSociais?.filter(r => r.ativo !== false) || [];
-  const redesHTML = redesAtivas.length > 0 ? redesAtivas.map(r => `
-    <a href="${r.url}" target="_blank" rel="noopener" style="width:40px;height:40px;background:#1e293b;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#94a3b8;text-decoration:none;transition:all .2s;font-size:1.1rem" onmouseover="this.style.background='#f97316';this.style.color='#fff'" onmouseout="this.style.background='#1e293b';this.style.color='#94a3b8'" title="${r.nome}">${getSocialIcon(r.nome)}</a>
-  `).join('') : '';
-  
+  const redesHTML = redesAtivas.map(r => `
+    <a href="${r.url}" target="_blank" rel="noopener" class="site-footer__social-link" title="${r.nome}">${getSocialIcon(r.nome)}</a>
+  `).join('');
+
   const whatsappMsg = t(f.whatsappMensagem, f.whatsappMensagemEn);
-  
+  const isEn = SITE.lang === 'en';
+
   const footerHTML = `
-    <footer style="background:#0f172a;color:#94a3b8;padding:48px 20px 24px">
-      <div style="max-width:1200px;margin:0 auto">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:32px;margin-bottom:40px">
-          <div>
-            <img src="${f.logo}" alt="Cipritravel Tours" style="height:150px;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:12px">
-            <p style="font-size:0.85rem;line-height:1.7" data-pt="${f.descricao}" data-en="${f.descricaoEn || f.descricao}">${t(f.descricao, f.descricaoEn)}</p>
-          </div>
-          <div>
-            <h4 style="color:#fff;font-weight:700;margin-bottom:16px" data-pt="Links Rápidos" data-en="Quick Links">${ts('Links Rápidos')}</h4>
-            <div style="display:flex;flex-direction:column;gap:8px">${linksHTML}</div>
-          </div>
-          <div>
-            <h4 style="color:#fff;font-weight:700;margin-bottom:16px" data-pt="Contactos" data-en="Contacts">${ts('Contactos')}</h4>
-            <div style="display:flex;flex-direction:column;gap:8px;font-size:0.88rem">
-              <p>📞 ${f.contactos?.telefone}</p>
-              <p>✉️ ${f.contactos?.email}</p>
-              <p>📍 ${f.contactos?.morada}</p>
-            </div>
-          </div>
-          ${redesHTML ? `
-          <div>
-            <h4 style="color:#fff;font-weight:700;margin-bottom:16px" data-pt="Redes Sociais" data-en="Social Media">${ts('Redes Sociais')}</h4>
-            <div style="display:flex;gap:12px">${redesHTML}</div>
-          </div>
-          ` : ''}
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img src="${f.logo}" alt="Cipritravel Tours" class="site-footer__logo">
+          <p class="site-footer__copyright" data-pt="${f.copyright}" data-en="${f.copyrightEn || f.copyright}">${t(f.copyright, f.copyrightEn).replace('{ano}', new Date().getFullYear())}</p>
         </div>
-        <div style="border-top:1px solid #1e293b;padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-          <p style="font-size:0.82rem" data-pt="${f.copyright}" data-en="${f.copyrightEn || f.copyright}">${t(f.copyright, f.copyrightEn).replace('{ano}', new Date().getFullYear())}</p>
-          <button onclick="openModal('modal-privacidade')" style="background:none;border:none;color:#94a3b8;cursor:pointer;font-size:0.82rem;text-decoration:underline" data-pt="Política de Privacidade" data-en="Privacy Policy">${ts('Política de Privacidade')}</button>
+        <nav class="site-footer__links">
+          ${linksHTML}
+        </nav>
+        <div class="site-footer__social">
+          ${redesHTML}
         </div>
       </div>
+      <div class="site-footer__bottom">
+        <p style="font-size:0.72rem;color:var(--muted)" data-pt="© ${new Date().getFullYear()} Cipritravel Tours. Todos os direitos reservados." data-en="© ${new Date().getFullYear()} Cipritravel Tours. All rights reserved.">© ${new Date().getFullYear()} Cipritravel Tours. ${isEn ? 'All rights reserved.' : 'Todos os direitos reservados.'}</p>
+        <button onclick="openModal('modal-privacidade')" class="site-footer__privacy" data-pt="Política de Privacidade" data-en="Privacy Policy">${ts('Política de Privacidade')}</button>
+      </div>
     </footer>
-    
+
     <a href="https://wa.me/${f.whatsapp}?text=${encodeURIComponent(whatsappMsg)}" target="_blank" class="whatsapp-btn" title="${ts('Fale connosco no WhatsApp')}">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
-    
+
     <div class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
   `;
-  
+
   const footerEl = document.querySelector('footer');
   if (footerEl) {
     footerEl.outerHTML = footerHTML;
