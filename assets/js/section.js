@@ -397,7 +397,6 @@ function renderTours(s) {
         <p class="section-subtitle" data-pt="${s.descricao}" data-en="${s.descricaoEn || s.descricao}">${t(s.descricao, s.descricaoEn)}</p>
         <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:60px">
           <span style="font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--text-soft)" data-pt="${s.subtitulo}" data-en="${s.subtituloEn || s.subtitulo}">${t(s.subtitulo, s.subtituloEn)}</span>
-          <span style="font-size:0.7rem;color:var(--accent-2);letter-spacing:0.2em;font-weight:700">${s.ano || '2026'}</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;align-items:stretch;text-align:left">
           ${toursHTML}
