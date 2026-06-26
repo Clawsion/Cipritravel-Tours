@@ -2,6 +2,39 @@
   "_comentario": "Fonte única de verdade para excursões. Editar apenas aqui via CMS. Os cards da home page e os modais são gerados automaticamente a partir deste ficheiro.",
   "tours": [
     {
+      "destaque": true,
+      "nomeEn": "Sun & Beach Route: Alentejo and Algarve in One Day!",
+      "modalConteudoEn": "**Alentejo and Algarve in One Day!**\n\n**Morning:** São Torpes Beach (Alentejo) - Enjoy the famous warm waters of the Alentejo coast, unique in Portugal.\n\n**Afternoon:** Praia da Rocha (Algarve) - Golden sands and the vibrant atmosphere of Portimão. A perfect day of sun and sea.",
+      "incluidos": [
+        "Autocarro de Turismo com AC",
+        "Guia Acompanhante",
+        "Seguro de Viagem"
+      ],
+      "descricao": "Manhã na Praia de São Torpes (Alentejo) com as suas famosas águas aquecidas. Tarde na Praia da Rocha (Algarve) com arraias douradas e o ambiente vibrante de Portimão.",
+      "ordem": 2,
+      "data": {
+        "dia": "17",
+        "mes": "Jul"
+      },
+      "incluidosEn": [
+        "Tourist Coach with AC",
+        "Accompanying Guide",
+        "Travel Insurance"
+      ],
+      "preco": 58,
+      "ativo": true,
+      "duracao": "1 Dia",
+      "descricaoEn": "Morning at São Torpes Beach (Alentejo) with its famous warm waters. Afternoon at Praia da Rocha (Algarve) with golden sands and the vibrant atmosphere of Portimão.",
+      "imagem": "/assets/images/uploads/parallax-costeiro-4k.jpg",
+      "textoBotao": "Reservar Agora",
+      "nome": "Rota do Sol e Praia",
+      "modalConteudo": "**Alentejo e Algarve num só Dia!**\n\n**Manhã:** Praia de São Torpes (Alentejo) - Desfrute das famosas águas aquecidas do litoral alentejano, únicas em Portugal.\n\n**Tarde:** Praia da Rocha (Algarve) - Arraias douradas e o ambiente vibrante de Portimão. Um dia perfeito de sol e mar.",
+      "duracaoEn": "1 Day",
+      "id": "rota-sol-praia",
+      "textoBotaoEn": "Book Now",
+      "corBadge": "laranja"
+    },
+    {
       "nomeEn": "Buddha Eden",
       "modalConteudoEn": "Visit to the largest oriental garden in Europe, with 35 hectares of pure harmony. Discover the replicas of the Terracotta Warriors, serene lakes, imperial art and oriental sculptures. A true oasis of peace and culture.\n\nGroup 1 - 25th July\nGroup 2 - 26th July\n\n**Park entrance included.**",
       "incluidos": [
@@ -34,39 +67,6 @@
       "id": "buddha-eden",
       "textoBotaoEn": "Book Now",
       "corBadge": "verde"
-    },
-    {
-      "destaque": true,
-      "nomeEn": "Sun & Beach Route: Alentejo and Algarve in One Day!",
-      "modalConteudoEn": "**Alentejo and Algarve in One Day!**\n\n**Morning:** São Torpes Beach (Alentejo) - Enjoy the famous warm waters of the Alentejo coast, unique in Portugal.\n\n**Afternoon:** Praia da Rocha (Algarve) - Golden sands and the vibrant atmosphere of Portimão. A perfect day of sun and sea.",
-      "incluidos": [
-        "Autocarro de Turismo com AC",
-        "Guia Acompanhante",
-        "Seguro de Viagem"
-      ],
-      "descricao": "Manhã na Praia de São Torpes (Alentejo) com as suas famosas águas aquecidas. Tarde na Praia da Rocha (Algarve) com arraias douradas e o ambiente vibrante de Portimão.",
-      "ordem": 2,
-      "data": {
-        "dia": "17",
-        "mes": "Jul"
-      },
-      "incluidosEn": [
-        "Tourist Coach with AC",
-        "Accompanying Guide",
-        "Travel Insurance"
-      ],
-      "preco": 58,
-      "ativo": true,
-      "duracao": "1 Dia",
-      "descricaoEn": "Morning at São Torpes Beach (Alentejo) with its famous warm waters. Afternoon at Praia da Rocha (Algarve) with golden sands and the vibrant atmosphere of Portimão.",
-      "imagem": "/assets/images/uploads/parallax-costeiro-4k.jpg",
-      "textoBotao": "Reservar Agora",
-      "nome": "Rota do Sol e Praia",
-      "modalConteudo": "**Alentejo e Algarve num só Dia!**\n\n**Manhã:** Praia de São Torpes (Alentejo) - Desfrute das famosas águas aquecidas do litoral alentejano, únicas em Portugal.\n\n**Tarde:** Praia da Rocha (Algarve) - Arraias douradas e o ambiente vibrante de Portimão. Um dia perfeito de sol e mar.",
-      "duracaoEn": "1 Day",
-      "id": "rota-sol-praia",
-      "textoBotaoEn": "Book Now",
-      "corBadge": "laranja"
     },
     {
       "nomeEn": "Santiago de Compostela, Galicia and Its Charms!",
