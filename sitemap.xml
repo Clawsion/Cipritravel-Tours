@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.cipritraveltours.com/</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.cipritraveltours.com/assets/images/logo.png</image:loc>
+      <image:title>Cipritravel Tours</image:title>
+      <image:caption>Excursões e passeios em Portugal</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cipritraveltours.com/#excursoes</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.cipritraveltours.com/#rota-sol-praia</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cipritraveltours.com/assets/images/uploads/parallax-costeiro-4k.jpg</image:loc>
+      <image:title>Rota do Sol e Praia — Alentejo e Algarve</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cipritraveltours.com/#buddha-eden</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cipritraveltours.com/assets/images/uploads/buddha-eden-new.jpg</image:loc>
+      <image:title>Buddha Eden — Maior jardim oriental da Europa</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cipritraveltours.com/#serra-estrela-cascatas</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.cipritraveltours.com/assets/images/uploads/serra-estrela-cascatas.jpg</image:loc>
+      <image:title>Serra da Estrela — Cascatas e Loriga</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cipritraveltours.com/#blog</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.cipritraveltours.com/#sobre</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.cipritraveltours.com/#contactos</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
