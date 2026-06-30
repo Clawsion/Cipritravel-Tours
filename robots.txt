@@ -1,0 +1,8 @@
+# robots.txt — Cipritravel Tours
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /functions/
+
+# Sitemap
+Sitemap: https://www.cipritraveltours.com/sitemap.xml
