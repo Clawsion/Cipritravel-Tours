@@ -254,7 +254,7 @@ function renderParallaxShowcase(s) {
   return `
     <section class="parallax-showcase" id="destaque">
       <div class="parallax-showcase__bg-wrap" data-parallax-reverse>
-        <img class="parallax-showcase__bg" src="${tour.imagem}" alt="${nome}">
+        <img class="parallax-showcase__bg" src="${tour.imagem}" alt="${nome}" loading="lazy" decoding="async">
       </div>
       <div class="parallax-showcase__overlay"></div>
       <div class="parallax-showcase__inner">
@@ -310,7 +310,7 @@ function ts(key) {
 function renderHero(s) {
   return `
     <section class="hero-section" id="${s.id || 'home'}">
-      <img class="hero-img" src="${s.imagem}" alt="Hero">
+      <img class="hero-img" src="${s.imagem}" alt="Hero" decoding="async" fetchpriority="high">
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <span class="section-tag" style="margin-bottom:24px" data-pt="${s.bannerTexto || ''}" data-en="${s.bannerTextoEn || s.bannerTexto || ''}">${t(s.bannerTexto, s.bannerTextoEn)}</span>
@@ -334,7 +334,7 @@ function renderBanner(s) {
     <section style="padding:60px 20px;background:var(--bg)">
       <div style="max-width:1000px;margin:0 auto">
         <div style="position:relative;border-radius:20px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.15)">
-          <img src="${s.imagem}" alt="${s.titulo}" style="width:100%;height:420px;object-fit:cover">
+          <img src="${s.imagem}" alt="${s.titulo}" style="width:100%;height:420px;object-fit:cover" loading="lazy" decoding="async" width="800" height="420">
           <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.1) 60%)"></div>
           <div style="position:absolute;top:20px;left:20px">
             <span class="section-tag" data-pt="${s.tag}" data-en="${s.tagEn || s.tag}">${t(s.tag, s.tagEn)}</span>
@@ -832,7 +832,7 @@ function renderFooter() {
     <footer class="site-footer">
       <div class="site-footer__grid">
         <div class="site-footer__col">
-          <img src="${f.logo}" alt="Cipritravel Tours" class="site-footer__logo">
+          <img src="${f.logo}" alt="Cipritravel Tours" class="site-footer__logo" loading="lazy" decoding="async" width="200" height="280">
           <p class="site-footer__desc" data-pt="${f.descricao}" data-en="${f.descricaoEn || f.descricao}">${t(f.descricao, f.descricaoEn)}</p>
         </div>
         <div class="site-footer__col">
@@ -1233,7 +1233,7 @@ function renderModalGenerico(m) {
     <div class="modal-overlay" id="${m.id}" onclick="closeModalOutside(event,'${m.id}')">
       <div class="modal-box ${m.imagem ? 'wide' : ''}" style="${!m.imagem ? 'padding:40px' : ''}">
         <button class="modal-close-btn" onclick="closeModal('${m.id}')" aria-label="Fechar" style="position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--card);border:1px solid var(--border);cursor:pointer;font-size:1.1rem;color:var(--text);z-index:10;transition:all .2s">✕</button>
-        ${m.imagem ? `<img src="${m.imagem}" alt="${titulo}" style="width:100%;height:280px;object-fit:cover">` : ''}
+        ${m.imagem ? `<img src="${m.imagem}" alt="${titulo}" style="width:100%;height:280px;object-fit:cover" loading="lazy" decoding="async" width="800" height="280">` : ''}
         <div style="${m.imagem ? 'padding:36px' : ''}">
           <div style="margin-bottom:20px">
             <h3 class="font-playfair" style="font-size:2rem;font-weight:500;letter-spacing:-0.01em;line-height:1.15" data-pt="${m.titulo}" data-en="${m.tituloEn || m.titulo}">${titulo}</h3>
