@@ -2,30 +2,239 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<!-- ═══ FAVICON / ICONS ═══ -->
 <link rel="icon" type="image/png" href="assets/images/favicon.png">
-<meta name="description" content="Descubra os melhores tours e excursões em Portugal com a Cipritravel Tours.">
-<meta name="keywords" content="tours, portugal, excursões, viagens, cipritravel, gerês, fátima, douro">
-<meta property="og:title" content="Cipritravel Tours - Experiências Inesquecíveis">
-<meta property="og:description" content="Descubra os melhores tours e excursões em Portugal com a Cipritravel Tours.">
+<link rel="apple-touch-icon" href="assets/images/favicon.png">
+<meta name="theme-color" content="#1a1410" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+<meta name="msapplication-TileColor" content="#faf7f2">
+
+<!-- ═══ SEO PRIMÁRIO ═══ -->
+<title>Cipritravel Tours — Excursões e Passeios em Portugal 2026</title>
+<meta name="description" content="Descubra os melhores tours e excursões em Portugal com a Cipritravel Tours. Rota do Sol e Praia, Buddha Eden, Serra da Estrela e muito mais. Reserve já a sua próxima viagem!">
+<meta name="keywords" content="tours Portugal, excursões Portugal, viagens Portugal, cipritravel, gerês, fátima, douro, serra da estrela, buddha eden, praia da rocha, tours Lisboa, passeios Portugal">
+<meta name="author" content="Cipritravel Tours">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<link rel="canonical" href="https://www.cipritraveltours.com/">
+
+<!-- ═══ OPEN GRAPH (Facebook) ═══ -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.cipritraveltours.com">
+<meta property="og:url" content="https://www.cipritraveltours.com/">
+<meta property="og:title" content="Cipritravel Tours — Excursões e Passeios em Portugal">
+<meta property="og:description" content="Descubra os melhores tours e excursões em Portugal. Rota do Sol e Praia, Buddha Eden, Serra da Estrela e muito mais.">
 <meta property="og:image" content="https://www.cipritraveltours.com/assets/images/logo.png">
+<meta property="og:image:alt" content="Cipritravel Tours — Excursões em Portugal">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:site_name" content="Cipritravel Tours">
+
+<!-- ═══ TWITTER CARDS ═══ -->
 <meta name="twitter:card" content="summary_large_image">
-<title>Cipritravel Tours - Excursões e Passeios em Portugal</title>
+<meta name="twitter:title" content="Cipritravel Tours — Excursões em Portugal">
+<meta name="twitter:description" content="Descubra os melhores tours e excursões em Portugal. Reserve já a sua próxima viagem!">
+<meta name="twitter:image" content="https://www.cipritraveltours.com/assets/images/logo.png">
+<meta name="twitter:image:alt" content="Cipritravel Tours">
+
+<!-- ═══ GEO SEO (importante para turismo local) ═══ -->
+<meta name="geo.region" content="PT">
+<meta name="geo.placename" content="Baixa da Banheira, Portugal">
+<meta name="geo.position" content="38.6657;-9.0389">
+<meta name="ICBM" content="38.6657, -9.0389">
+
+<!-- ═══ PERFORMANCE: preconnect / dns-prefetch / preload ═══ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="preload" as="style" href="assets/css/editorial.css?v=68">
+<link rel="preload" as="image" href="assets/images/logo.png">
+
+<!-- ═══ FONTS (com preload para evitar FOIT) ═══ -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/editorial.css?v=67">
+<link rel="stylesheet" href="assets/css/editorial.css?v=68">
+
+<!-- ═══ SCHEMA.ORG JSON-LD — TouristOperator + Tours (SEO rico no Google) ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "Cipritravel Tours",
+  "description": "Agência de viagens especializada em excursões e passeios em Portugal. Tours à medida com guias acompanhantes, transporte com AC e seguro de viagem.",
+  "url": "https://www.cipritraveltours.com",
+  "logo": "https://www.cipritraveltours.com/assets/images/logo.png",
+  "image": "https://www.cipritraveltours.com/assets/images/logo.png",
+  "telephone": "+351 218 271 105",
+  "email": "agencia@cipritraveltours.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "R. Francisco Miguel 64",
+    "addressLocality": "Baixa da Banheira",
+    "postalCode": "2835-123",
+    "addressRegion": "Setúbal",
+    "addressCountry": "PT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.6657,
+    "longitude": -9.0389
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Portugal"
+  },
+  "sameAs": [
+    "https://www.facebook.com/cipritraveltours",
+    "https://www.instagram.com/cipritraveltours"
+  ],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "19:00"
+  },{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "Saturday",
+    "opens": "10:00",
+    "closes": "13:00"
+  }],
+  "priceRange": "€€"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Cipritravel Tours",
+  "url": "https://www.cipritraveltours.com",
+  "inLanguage": ["pt-PT", "en-US"],
+  "publisher": {
+    "@type": "TravelAgency",
+    "name": "Cipritravel Tours"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.cipritraveltours.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Excursões disponíveis — Cipritravel Tours",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "TouristTrip",
+        "name": "Rota do Sol e Praia",
+        "description": "Manhã na Praia de São Torpes (Alentejo) com as suas famosas águas aquecidas. Tarde na Praia da Rocha (Algarve) com arraias douradas e o ambiente vibrante de Portimão.",
+        "image": "https://www.cipritraveltours.com/assets/images/uploads/parallax-costeiro-4k.jpg",
+        "offers": {
+          "@type": "Offer",
+          "price": "58",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.cipritraveltours.com/#rota-sol-praia"
+        },
+        "itinerary": {
+          "@type": "ItemList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Praia de São Torpes (Alentejo)" },
+            { "@type": "ListItem", "position": 2, "name": "Praia da Rocha (Algarve)" }
+          ]
+        },
+        "touristDestination": [
+          { "@type": "TouristDestination", "name": "São Torpes Beach" },
+          { "@type": "TouristDestination", "name": "Praia da Rocha" }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "TouristTrip",
+        "name": "Buddha Eden",
+        "description": "Visita ao maior jardim oriental da Europa com 35 hectares de pura harmonia. Réplicas dos Guerreiros de Xian, lagos, arte imperial e entrada no parque incluída.",
+        "image": "https://www.cipritraveltours.com/assets/images/uploads/buddha-eden-new.jpg",
+        "offers": {
+          "@type": "Offer",
+          "price": "55",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.cipritraveltours.com/#buddha-eden"
+        },
+        "touristDestination": {
+          "@type": "TouristDestination",
+          "name": "Buddha Eden — Bombarral"
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "TouristTrip",
+        "name": "Serra da Estrela: Cascatas e Loriga",
+        "description": "O coração da Serra da Estrela num Roteiro Único! Praia Fluvial de Loriga, Poço da Broca, Lapa dos Dinheiros e Cascatas da Caniça.",
+        "image": "https://www.cipritraveltours.com/assets/images/uploads/serra-estrela-cascatas.jpg",
+        "offers": {
+          "@type": "Offer",
+          "price": "49",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.cipritraveltours.com/#serra-estrela-cascatas"
+        },
+        "touristDestination": {
+          "@type": "TouristDestination",
+          "name": "Serra da Estrela"
+        }
+      }
+    }
+  ]
+}
+</script>
+
+<!-- ═══ BreadcrumbList Schema ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.cipritraveltours.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Excursões",
+      "item": "https://www.cipritraveltours.com/#excursoes"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-<nav style="position:sticky;top:0;z-index:100">
+<!-- ═══ Skip to content (acessibilidade) ═══ -->
+<a href="#main-content" class="skip-link">Saltar para o conteúdo</a>
+
+<nav style="position:sticky;top:0;z-index:100" role="navigation" aria-label="Navegação principal">
   <div class="nav-inner">
 
     <!-- Logo -->
     <img src="assets/images/logo.png"
-         alt="Cipritravel Tours" class="nav-logo" onclick="scrollToSection('home')">
+         alt="Cipritravel Tours — Logótipo" class="nav-logo" onclick="scrollToSection('home')" role="button" tabindex="0">
 
     <!-- Menu desktop -->
     <div id="menu-container" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
@@ -37,10 +246,10 @@
       <a href="#porque" class="nav-pill" id="pill-porque"><span>PORQUÊ NÓS?</span></a>
       <a href="#contactos" class="nav-pill" id="pill-contactos"><span>CONTACTOS</span></a>
       <div style="display:flex;align-items:center;gap:6px;margin-left:8px;border-left:1px solid var(--border);padding-left:12px">
-        <button class="lang-link" id="lang-pt" onclick="setLang('pt')">PT</button>
+        <button class="lang-link" id="lang-pt" onclick="setLang('pt')" aria-label="Mudar idioma para Português">PT</button>
         <span class="lang-sep">/</span>
-        <button class="lang-link" id="lang-en" onclick="setLang('en')">EN</button>
-        <button class="theme-icon" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <button class="lang-link" id="lang-en" onclick="setLang('en')" aria-label="Change language to English">EN</button>
+        <button class="theme-icon" id="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema claro/escuro">
           <span class="theme-icon__sun">☀</span>
           <span class="theme-icon__moon">☾</span>
         </button>
@@ -49,15 +258,15 @@
 
     <!-- Direita: hamburger + idioma (mobile/tablet) -->
     <div style="display:none;align-items:center;gap:6px;flex-shrink:0" id="mobile-right">
-      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Abrir menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
-      <button class="lang-link" id="lang-pt-m" onclick="setLang('pt')">PT</button>
+      <button class="lang-link" id="lang-pt-m" onclick="setLang('pt')" aria-label="Português">PT</button>
       <span class="lang-sep">/</span>
-      <button class="lang-link" id="lang-en-m" onclick="setLang('en')">EN</button>
-      <button class="theme-icon theme-icon--sm" id="theme-toggle-m" onclick="toggleTheme()" aria-label="Toggle theme">
+      <button class="lang-link" id="lang-en-m" onclick="setLang('en')" aria-label="English">EN</button>
+      <button class="theme-icon theme-icon--sm" id="theme-toggle-m" onclick="toggleTheme()" aria-label="Alternar tema">
         <span class="theme-icon__sun">☀</span>
         <span class="theme-icon__moon">☾</span>
       </button>
@@ -66,33 +275,45 @@
   </div>
 
   <!-- Menu mobile dropdown -->
-  <div id="mobile-menu">
-    <a href="#home" class="nav-pill" onclick="closeMenu()">HOME</a>
-    <a href="#excursoes" class="nav-pill" onclick="closeMenu()">EXCURSÕES</a>
-    <a href="#blog" class="nav-pill" onclick="closeMenu()">BLOG</a>
-    <a href="#sustentabilidade" class="nav-pill" onclick="closeMenu()">SUSTENTABILIDADE</a>
-    <a href="#sobre" class="nav-pill" onclick="closeMenu()">SOBRE NÓS</a>
-    <a href="#porque" class="nav-pill" onclick="closeMenu()">PORQUÊ NÓS?</a>
-    <a href="#contactos" class="nav-pill" onclick="closeMenu()">CONTACTOS</a>
+  <div id="mobile-menu" role="menu" aria-label="Menu mobile">
+    <a href="#home" class="nav-pill" onclick="closeMenu()" role="menuitem">HOME</a>
+    <a href="#excursoes" class="nav-pill" onclick="closeMenu()" role="menuitem">EXCURSÕES</a>
+    <a href="#blog" class="nav-pill" onclick="closeMenu()" role="menuitem">BLOG</a>
+    <a href="#sustentabilidade" class="nav-pill" onclick="closeMenu()" role="menuitem">SUSTENTABILIDADE</a>
+    <a href="#sobre" class="nav-pill" onclick="closeMenu()" role="menuitem">SOBRE NÓS</a>
+    <a href="#porque" class="nav-pill" onclick="closeMenu()" role="menuitem">PORQUÊ NÓS?</a>
+    <a href="#contactos" class="nav-pill" onclick="closeMenu()" role="menuitem">CONTACTOS</a>
   </div>
 </nav>
 
-<main id="main-content"></main>
-<footer></footer>
-<div id="modais-container"></div>
+<main id="main-content" role="main"></main>
+<footer role="contentinfo"></footer>
+<div id="modais-container" aria-live="polite" aria-atomic="true"></div>
 
 <!-- Section.js com versão hard-coded para cache-busting.
      IMPORTANTE: quando editares assets/js/section.js, aumenta este número (ex: v=2 -> v=3) -->
-<script src="assets/js/section.js?v=44"></script>
+<script src="assets/js/section.js?v=45" defer></script>
 <script>
   function toggleMenu(){
-    document.getElementById('mobile-menu').classList.toggle('open');
-    document.getElementById('hamburger').classList.toggle('open');
+    const menu = document.getElementById('mobile-menu');
+    const hamburger = document.getElementById('hamburger');
+    const isOpen = menu.classList.toggle('open');
+    hamburger.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
   }
   function closeMenu(){
     document.getElementById('mobile-menu').classList.remove('open');
     document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('hamburger').setAttribute('aria-expanded', 'false');
   }
+
+  // Keyboard accessibility para o logo
+  document.querySelector('.nav-logo').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      scrollToSection('home');
+    }
+  });
 </script>
 
 </body>
